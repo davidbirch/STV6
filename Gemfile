@@ -26,6 +26,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Testing Framework
+group :test do
+  gem "shoulda-matchers"
+  gem 'capybara'
+end
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
 # Use Twitter Bootstrap
 gem "therubyracer"
 gem "less-rails"
