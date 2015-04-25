@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+<h3>Showing Raw Program</h3>
+<div class="form-group">
+   <div class="col-sm-2"><strong>ID:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.id %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>Title:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.title %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>Subtitle:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.subtitle %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>Category:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.category %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>Description:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.description %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>Start Date/Time:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.start_datetime %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>End Date/Time:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.end_datetime %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>Region Name:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.region_name %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2"><strong>XMLTV ID:</strong></div>
+   <div class="col-sm-10"><%= @raw_program.channel_xmltv_id %>&nbsp;</div>
+</div>
+<div class="form-group">
+   <div class="col-sm-2">
+      <%= link_to 'Edit', edit_raw_program_path(@raw_program), :class => 'btn btn-xs btn-default' %>
+      <%= link_to 'Back', raw_programs_path , :class => 'btn btn-xs btn-default'%>
+   </div>
+   <div class="col-sm-10"></div>
+</div>

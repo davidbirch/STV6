@@ -41,6 +41,13 @@ gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
 
+# Use will_paginate
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+
+# Use Formtastic
+gem 'formtastic-bootstrap'
+
 # Use request-log-analyzer
 gem 'request-log-analyzer'
 
