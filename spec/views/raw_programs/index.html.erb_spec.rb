@@ -23,6 +23,7 @@ RSpec.describe "raw_programs/index", type: :view do
   end
 
   it "renders a list of raw_programs" do
+    allow(view).to receive_messages(:will_paginate => nil)
     render
     assert_select "tr>td", :text => "Title".to_s, :count => 2
     assert_select "tr>td", :text => "Subtitle".to_s, :count => 2

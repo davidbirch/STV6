@@ -15,6 +15,7 @@ RSpec.describe "raw_channels/index", type: :view do
   end
 
   it "renders a list of raw_channels" do
+    allow(view).to receive_messages(:will_paginate => nil)
     render
     assert_select "tr>td", :text => "Xmltv".to_s, :count => 2
     assert_select "tr>td", :text => "Channel Name".to_s, :count => 2
