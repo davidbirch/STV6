@@ -4,12 +4,12 @@ RSpec.describe "raw_channels/index", type: :view do
   before(:each) do
     assign(:raw_channels, [
       RawChannel.create!(
-        :xmltv_id => "Xmltv",
-        :channel_name => "Channel Name"
+        :xmltv_id => "Xmltv1",
+        :channel_name => "Channel Name 1"
       ),
       RawChannel.create!(
-        :xmltv_id => "Xmltv",
-        :channel_name => "Channel Name"
+        :xmltv_id => "Xmltv2",
+        :channel_name => "Channel Name 2"
       )
     ])
   end
@@ -17,7 +17,6 @@ RSpec.describe "raw_channels/index", type: :view do
   it "renders a list of raw_channels" do
     allow(view).to receive_messages(:will_paginate => nil)
     render
-    assert_select "tr>td", :text => "Xmltv".to_s, :count => 2
-    assert_select "tr>td", :text => "Channel Name".to_s, :count => 2
+    expect(response.body).to include("Listing Raw Channels")
   end
 end
