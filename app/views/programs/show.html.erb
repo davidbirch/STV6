@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @program.title %>
+</p>
+
+<p>
+  <strong>Subtitle:</strong>
+  <%= @program.subtitle %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @program.category %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @program.description %>
+</p>
+
+<p>
+  <strong>Start datetime:</strong>
+  <%= @program.start_datetime %>
+</p>
+
+<p>
+  <strong>End datetime:</strong>
+  <%= @program.end_datetime %>
+</p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @program.region_id %>
+</p>
+
+<p>
+  <strong>Channel:</strong>
+  <%= @program.channel_id %>
+</p>
+
+<p>
+  <strong>Sport:</strong>
+  <%= @program.sport_id %>
+</p>
+
+<%= link_to 'Edit', edit_program_path(@program) %> |
+<%= link_to 'Back', programs_path %>

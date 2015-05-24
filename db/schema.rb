@@ -11,7 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422131550) do
+ActiveRecord::Schema.define(version: 20150524115151) do
+
+  create_table "channels", force: :cascade do |t|
+    t.string   "xmltv_id",    limit: 255
+    t.string   "free_or_pay", limit: 255
+    t.string   "name",        limit: 255
+    t.string   "short_name",  limit: 255
+    t.boolean  "black_flag",  limit: 1
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  create_table "programs", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.string   "subtitle",       limit: 255
+    t.string   "category",       limit: 255
+    t.string   "description",    limit: 255
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
+    t.integer  "region_id",      limit: 4
+    t.integer  "channel_id",     limit: 4
+    t.integer  "sport_id",       limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "programs", ["channel_id"], name: "index_programs_on_channel_id", using: :btree
+  add_index "programs", ["region_id"], name: "index_programs_on_region_id", using: :btree
+  add_index "programs", ["sport_id"], name: "index_programs_on_sport_id", using: :btree
 
   create_table "raw_channels", force: :cascade do |t|
     t.string   "xmltv_id",     limit: 255
@@ -31,6 +59,19 @@ ActiveRecord::Schema.define(version: 20150422131550) do
     t.string   "channel_xmltv_id", limit: 255
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string   "name",                limit: 255
+    t.integer  "timezone_adjustment", limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  create_table "sports", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
 end
