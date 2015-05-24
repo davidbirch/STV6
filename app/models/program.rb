@@ -17,4 +17,18 @@
 #
 
 class Program < ActiveRecord::Base
+  
+  belongs_to :channel
+  belongs_to :region
+  belongs_to :sport
+  
+  validates_presence_of :title
+  validates_presence_of :start_datetime
+  validates_presence_of :end_datetime
+  validates_presence_of :region_id
+  validates_presence_of :sport_id
+  validates_presence_of :channel_id
+  
+  validates_uniqueness_of :channel_id , :scope => [:region_id, :title, :sport_id, :start_datetime, :end_datetime]
+  
 end

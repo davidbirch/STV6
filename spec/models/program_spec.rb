@@ -19,5 +19,105 @@
 require 'rails_helper'
 
 RSpec.describe Program, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  
+  it "has a valid factory" do
+    expect(FactoryGirl.create(:program)).to be_valid
+  end
+  
+  it "is invalid without a title" do
+    expect(FactoryGirl.build(:program, title: nil)).to validate_presence_of(:title)
+  end
+    
+  it "is invalid without a start date/time" do
+    expect(FactoryGirl.build(:program, start_datetime: nil)).to validate_presence_of(:start_datetime)
+  end
+  
+  it "is invalid without an end date/time" do
+    expect(FactoryGirl.build(:program, end_datetime: nil)).to validate_presence_of(:end_datetime)
+  end
+  
+  it "is invalid without a region_id" do
+    expect(FactoryGirl.build(:program, region_id: nil)).to validate_presence_of(:region_id)
+  end
+  
+  it "is invalid without a sport_id" do
+    expect(FactoryGirl.build(:program, sport_id: nil)).to validate_presence_of(:sport_id)
+  end
+  
+  it "is invalid without a channel_id" do
+    expect(FactoryGirl.build(:program, channel_id: nil)).to validate_presence_of(:channel_id)
+  end
+    
+  it "should belong to a region" do
+    expect(FactoryGirl.build(:program)).to belong_to(:region)
+  end  
+  
+  it "should belong to a channel" do
+    expect(FactoryGirl.build(:program)).to belong_to(:channel)
+  end
+  
+  it "should belong to a sport" do
+    expect(FactoryGirl.build(:program)).to belong_to(:sport)
+  end
+  
+  it "is invalid without a unique channel/region/sport/start/end" do
+    expect(FactoryGirl.build(:program)).to validate_uniqueness_of(:channel_id).scoped_to(:region_id, :title, :sport_id, :start_datetime, :end_datetime)
+  end
+  
+  describe "should validate the uniqueness of channel for a specified region, title, sport, start_datetime, and end_datetime" do
+    
+    before :each do
+      @sport_cricket = FactoryGirl.create(:cricket_sport)
+      @sport_tennis = FactoryGirl.create(:tennis_sport)
+      @channel_nine = FactoryGirl.create(:channel_nine)
+      @channel_seven = FactoryGirl.create(:channel_seven)
+      @region_melbourne = FactoryGirl.create(:region_melbourne)
+      @region_brisbane = FactoryGirl.create(:region_brisbane)
+      
+      @program_1 = FactoryGirl.create(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id)
+    end
+    
+    context "where they all match" do
+      it "does not create a duplicate program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id).valid?).to be false
+      end
+    end
+    
+    context "where the channel is different" do
+      it "creates a program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_seven.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id).valid?).to be true
+      end
+    end
+    
+    context "where the sport is different" do
+      it "creates a program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_tennis.id).valid?).to be true
+      end
+    end
+        
+    context "where the region is different" do
+      it "creates a program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_brisbane.id, sport_id: @sport_cricket.id).valid?).to be true
+      end
+    end
+    
+   context "where the title is different" do
+      it "creates a program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, title: "Some other title").valid?).to be true
+      end
+    end
+   
+    context "where the start_datetime is different" do
+      it "creates a program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, start_datetime: TEN_PM_YESTERDAY_PROG).valid?).to be true
+      end
+    end
+   
+    context "where the end_datetime is different" do
+      it "creates a program" do
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, end_datetime: ELEVEN_PM_YESTERDAY_PROG).valid?).to be true  
+      end
+    end  
+  end  
+  
 end
