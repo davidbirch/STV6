@@ -13,4 +13,14 @@
 #
 
 class Channel < ActiveRecord::Base
+  
+  has_many :programs
+  
+  validates_presence_of :name
+  validates_presence_of :short_name
+  validates_presence_of :xmltv_id
+  
+  validates_uniqueness_of :name
+  validates_uniqueness_of :xmltv_id
+  
 end
