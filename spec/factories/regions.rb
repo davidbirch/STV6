@@ -10,9 +10,29 @@
 #
 
 FactoryGirl.define do
-  factory :region do
-    name "MyString"
-timezone_adjustment 1
+  factory :region do 
+    name "Test Region"
+    timezone_adjustment 0
   end
+  
+  factory :invalid_region, parent: :region do |f|
+    f.name ""
+    timezone_adjustment 0
+  end
+  
+  factory :region_brisbane, parent: :region do |f|
+    f.name "Brisbane"
+    timezone_adjustment 0
+  end
+ 
+  factory :region_melbourne, parent: :region do |f|
+    f.name "Melbourne"
+    timezone_adjustment 0
+  end 
+
+  factory :region_perth, parent: :region do |f|
+    f.name "Perth"
+    timezone_adjustment -180
+  end 
 
 end
