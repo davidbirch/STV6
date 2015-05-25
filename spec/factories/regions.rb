@@ -17,22 +17,22 @@ FactoryGirl.define do
   
   factory :invalid_region, parent: :region do |f|
     f.name ""
-    timezone_adjustment 0
+    f.timezone_adjustment 0
   end
   
   factory :region_brisbane, parent: :region do |f|
     f.name "Brisbane"
-    timezone_adjustment 0
+    f.timezone_adjustment 0
   end
  
   factory :region_melbourne, parent: :region do |f|
     f.name "Melbourne"
-    timezone_adjustment 0
+    f.timezone_adjustment 0
   end 
 
-  factory :region_perth, parent: :region do |f|
+  factory :region_perth_with_adjustment, parent: :region do |f|
     f.name "Perth"
-    timezone_adjustment -180
+    f.timezone_adjustment -180
   end 
 
 end
