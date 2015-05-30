@@ -19,16 +19,21 @@ class RawGuideData
   
     def self.convert_raw_channels
       @raw_channel_count = RawChannel.count
-      #@starting_channel_count = Channel.count
-      @starting_channel_count = 0
+      @starting_channel_count = Channel.count
       @channels_created = 0
       @channels_skipped = 0
       
-      # ** code here **
+      RawChannel.find_each do |raw_channel|
+        channel = Channel.create_from_raw_channel(raw_channel)
+        if channel.new_record?
+          @channels_skipped = @channels_skipped + 1
+        else
+          @channels_created = @channels_created + 1
+        end
+      end
       
-      #@final_channel_count = Channel.count
-      @final_channel_count = 0
-      #RawChannel.delete_all
+      @final_channel_count = Channel.count
+      RawChannel.delete_all
       @final_raw_channel_count = RawChannel.count
     end
     
