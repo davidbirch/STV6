@@ -44,4 +44,26 @@ RSpec.describe Channel, type: :model do
     expect(FactoryGirl.build(:channel)).to have_many(:programs)
   end
   
+  describe "can create a channel based on a raw channel" do
+    
+    before :each do
+      @channel_nine = FactoryGirl.create(:channel_nine)
+    end
+    
+    context "where the channel already exists" do
+      it "does not create a duplicate channel" do
+        raw_channel_nine = FactoryGirl.create(:raw_channel_nine)
+        expect(Channel.create_from_raw_channel(raw_channel_nine).new_record?).to be true
+      end
+    end
+        
+    context "where the channel does not exist" do
+      it "creates a new channel" do
+        raw_channel_seven = FactoryGirl.create(:raw_channel_seven)
+        expect(Channel.create_from_raw_channel(raw_channel_seven).new_record?).to be false
+      end 
+    end
+    
+  end
+  
 end
