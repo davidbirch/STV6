@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524115151) do
+ActiveRecord::Schema.define(version: 20150531091529) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "xmltv_id",    limit: 255
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(version: 20150524115151) do
     t.boolean  "black_flag",  limit: 1
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "conversion_summaries", force: :cascade do |t|
+    t.integer  "raw_channel_count",       limit: 4
+    t.integer  "final_raw_channel_count", limit: 4
+    t.integer  "starting_channel_count",  limit: 4
+    t.integer  "channels_created",        limit: 4
+    t.integer  "channels_skipped",        limit: 4
+    t.integer  "final_channel_count",     limit: 4
+    t.integer  "raw_program_count",       limit: 4
+    t.integer  "final_raw_program_count", limit: 4
+    t.integer  "starting_program_count",  limit: 4
+    t.integer  "programs_created",        limit: 4
+    t.integer  "programs_skipped",        limit: 4
+    t.integer  "final_program_count",     limit: 4
+    t.boolean  "conversion_completed",    limit: 1
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "programs", force: :cascade do |t|

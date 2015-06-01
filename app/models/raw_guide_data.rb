@@ -6,7 +6,7 @@ class RawGuideData
       @log.info("raw_guide_coonversion started...")
       convert_raw_channels
       convert_raw_programs
-      #create_conversion_summary
+      create_conversion_summary
       write_conversion_summary_to_log
       @log.info("raw_guide_conversion completed.")
     rescue => e
@@ -23,7 +23,9 @@ class RawGuideData
       @channels_created = 0
       @channels_skipped = 0
       
-      RawChannel.find_each do |raw_channel|
+      # temporarily limit to 100
+      #RawChannel.find_each do |raw_channel|
+      RawChannel.limit(100).each do |raw_channel|
         channel = Channel.create_from_raw_channel(raw_channel)
         if channel.new_record?
           @channels_skipped = @channels_skipped + 1
@@ -33,7 +35,7 @@ class RawGuideData
       end
       
       @final_channel_count = Channel.count
-      RawChannel.delete_all
+      #RawChannel.delete_all
       @final_raw_channel_count = RawChannel.count
     end
     
@@ -49,7 +51,9 @@ class RawGuideData
       @programs_created = 0
       @programs_skipped = 0
       
-      RawProgram.find_each do |raw_program|
+      # temporarily limit to 100
+      #RawProgram.find_each do |raw_program|
+      RawProgram.limit(100).each do |raw_program|  
         program = Program.create_from_raw_program(raw_program)
         if program.new_record?
           @programs_skipped = @programs_skipped + 1
@@ -59,7 +63,7 @@ class RawGuideData
       end
       
       @final_program_count = Program.count
-      RawProgram.delete_all
+      #RawProgram.delete_all
       @final_raw_program_count = RawProgram.count
     end
     
