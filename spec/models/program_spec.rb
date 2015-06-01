@@ -101,7 +101,7 @@ RSpec.describe Program, type: :model do
       end
     end
     
-   context "where the title is different" do
+    context "where the title is different" do
       it "creates a program" do
         expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, title: "Some other title").valid?).to be true
       end
@@ -118,6 +118,36 @@ RSpec.describe Program, type: :model do
         expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, end_datetime: ELEVEN_PM_YESTERDAY_PROG).valid?).to be true  
       end
     end  
-  end  
+  end
+  
+    describe "can create a program based on a raw program" do
+    
+    before :each do
+      @sport_cricket = FactoryGirl.create(:cricket_sport)
+      @sport_tennis = FactoryGirl.create(:tennis_sport)
+      @channel_seven = FactoryGirl.create(:channel_seven)
+      @channel_nine = FactoryGirl.create(:channel_nine)
+      @region_brisbane = FactoryGirl.create(:region_brisbane)
+      @region_melbourne = FactoryGirl.create(:region_melbourne)
+      #@sport_keyword_cricket = FactoryGirl.create(:cricket_sport_keyword, sport_id: @sport_cricket.id)
+      #@sport_keyword_tennis = FactoryGirl.create(:tennis_sport_keyword, sport_id: @sport_tennis.id)
+    end
+    
+    context "where the program already exists" do
+      it "does not create a duplicate program" do
+        raw_program_cricket = FactoryGirl.create(:cricket_raw_program)
+        program_1 = Program.create_from_raw_program(raw_program_cricket)
+        expect(Program.create_from_raw_program(raw_program_cricket).new_record?).to be true
+      end
+    end
+        
+    context "where the program does not exist" do
+      it "creates a new program" do
+        raw_program_tennis = FactoryGirl.create(:cricket_raw_program, region_name: "Melbourne", channel_xmltv_id: "nine.free.au", category: "Tennis")
+        expect(Program.create_from_raw_program(raw_program_tennis).new_record?).to be false
+      end 
+    end
+    
+  end
   
 end
