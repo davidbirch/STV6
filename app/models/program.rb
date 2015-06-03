@@ -35,8 +35,7 @@ class Program < ActiveRecord::Base
     
     def create_from_raw_program(raw_program)
       
-      #sport = Sport.find_for_raw_program(raw_program)
-      sport = Sport.first
+      sport = Sport.find_for_raw_program(raw_program)
       region = Region.find_by_name(raw_program.region_name)
       channel = Channel.find_by_xmltv_id(raw_program.channel_xmltv_id)
           

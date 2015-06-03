@@ -50,6 +50,10 @@ FactoryGirl.define do
     f.category "Cricket"  
   end
   
+  factory :rugby_league_raw_program, parent: :valid_raw_program do |f|
+    f.category "Rugby League"  
+  end
+  
   factory :other_sport_raw_program, parent: :valid_raw_program do |f|
     f.category "Sport"  
   end

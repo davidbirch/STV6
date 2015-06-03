@@ -123,12 +123,13 @@ RSpec.describe Program, type: :model do
     describe "can create a program based on a raw program" do
     
     before :each do
-      @sport_cricket = FactoryGirl.create(:cricket_sport)
-      @sport_tennis = FactoryGirl.create(:tennis_sport)
-      @channel_seven = FactoryGirl.create(:channel_seven)
-      @channel_nine = FactoryGirl.create(:channel_nine)
-      @region_brisbane = FactoryGirl.create(:region_brisbane)
-      @region_melbourne = FactoryGirl.create(:region_melbourne)
+      ["Cricket","Tennis","Rugby League","Soccer","Rugby Union"].each {|e|
+        FactoryGirl.create(:sport, name: e)
+        }
+      FactoryGirl.create(:channel_seven)
+      FactoryGirl.create(:channel_nine)
+      FactoryGirl.create(:region_brisbane)
+      FactoryGirl.create(:region_melbourne)
       #@sport_keyword_cricket = FactoryGirl.create(:cricket_sport_keyword, sport_id: @sport_cricket.id)
       #@sport_keyword_tennis = FactoryGirl.create(:tennis_sport_keyword, sport_id: @sport_tennis.id)
     end
@@ -148,6 +149,26 @@ RSpec.describe Program, type: :model do
       end 
     end
     
+    context "where the sport needs to match the ruleset" do
+      it "sets the sport to 'Cricket'" do
+        raw_program_cricket = FactoryGirl.create(:cricket_raw_program)
+        program = Program.create_from_raw_program(raw_program_cricket)
+        expect(program.sport.name).to eq("Cricket")
+      end
+
+      it "sets the sport to 'Rugby League'" do
+        raw_program_rugby_league = FactoryGirl.create(:rugby_league_raw_program)
+        program = Program.create_from_raw_program(raw_program_rugby_league)
+        expect(program.sport.name).to eq("Rugby League")
+      end
+      
+      it "sets the sport to 'Tennis'" do
+        raw_program_tennis = FactoryGirl.create(:tennis_raw_program)
+        program = Program.create_from_raw_program(raw_program_tennis)
+        expect(program.sport.name).to eq("Tennis")
+      end 
+    end
+      
   end
   
 end
