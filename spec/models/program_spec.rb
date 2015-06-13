@@ -123,7 +123,7 @@ RSpec.describe Program, type: :model do
     describe "can create a program based on a raw program" do
     
     before :each do
-      ["Cricket","Tennis","Rugby League","Soccer","Rugby Union"].each {|e|
+      ["Cricket","Tennis","Rugby League","Soccer","Rugby Union","Other Sport"].each {|e|
         FactoryGirl.create(:sport, name: e)
         }
       FactoryGirl.create(:channel_seven)
@@ -153,19 +153,37 @@ RSpec.describe Program, type: :model do
       it "sets the sport to 'Cricket'" do
         raw_program_cricket = FactoryGirl.create(:cricket_raw_program)
         program = Program.create_from_raw_program(raw_program_cricket)
-        expect(program.sport.name).to eq("Cricket")
+        expect(program.sport).to eq(Sport.find_by_name("Cricket"))
       end
 
       it "sets the sport to 'Rugby League'" do
         raw_program_rugby_league = FactoryGirl.create(:rugby_league_raw_program)
         program = Program.create_from_raw_program(raw_program_rugby_league)
-        expect(program.sport.name).to eq("Rugby League")
+        expect(program.sport).to eq(Sport.find_by_name("Rugby League"))
       end
       
       it "sets the sport to 'Tennis'" do
         raw_program_tennis = FactoryGirl.create(:tennis_raw_program)
         program = Program.create_from_raw_program(raw_program_tennis)
-        expect(program.sport.name).to eq("Tennis")
+        expect(program.sport).to eq(Sport.find_by_name("Tennis"))
+      end
+      
+      it "sets the sport to 'Other Sport'" do
+        other_sport_raw_program = FactoryGirl.create(:other_sport_raw_program)
+        program = Program.create_from_raw_program(other_sport_raw_program)
+        expect(program.sport).to eq(Sport.find_by_name("Other Sport"))
+      end
+      
+      it "doesn't create a program because it is a Sport/News program" do
+        news_raw_program = FactoryGirl.create(:news_raw_program)
+        program = Program.create_from_raw_program(news_raw_program)
+        expect(program).not_to be_valid
+      end
+      
+      it "doesn't create a program because it is a non-sport program" do
+        non_sport_raw_program = FactoryGirl.create(:non_sport_raw_program)
+        program = Program.create_from_raw_program(non_sport_raw_program)
+        expect(program).not_to be_valid
       end 
     end
       

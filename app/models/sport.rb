@@ -27,10 +27,7 @@ class Sport < ActiveRecord::Base
       # - if a black keyword is present return no sport
       # - else if there is a sport name match return the Sport
       # - else if there is a sport keyword match return the Sport
-      # - check for a generic 'sport' keyword match
-      #   - if there is a news or weather match return nothing
-      #   - else return the "Other Sport" Sport
-      # - else return no sport
+      # - else check for a generic 'sport' keyword match and return 'Other Sport' unless there is a news or weather match
       
       # check for a black keyword
       if black_keyword_match(raw_program)
@@ -94,7 +91,21 @@ class Sport < ActiveRecord::Base
     end
      
     def check_generic_sport_match(raw_program)
-      return Sport.first
+      raw_program_title = raw_program["title"].downcase
+      raw_program_subtitle = raw_program["subtitle"].downcase
+      raw_program_category = raw_program["category"].downcase
+      
+      if raw_program_title.include?("sport") || raw_program_subtitle.include?("sport") || raw_program_category.include?("sport")
+        if raw_program_category.include?("news") || raw_program_category.include?("weather")
+          return nil
+        else
+          return Sport.find_by_name("Other Sport")
+        end
+        
+        
+        
+      end
+      return nil
     end
    
   end
