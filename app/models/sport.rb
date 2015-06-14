@@ -101,9 +101,6 @@ class Sport < ActiveRecord::Base
         else
           return Sport.find_by_name("Other Sport")
         end
-        
-        
-        
       end
       return nil
     end
