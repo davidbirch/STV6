@@ -1,27 +1,31 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Sports</h1>
-
-<table>
+<h3>Sports</h3>
+<%= bootstrap_flash %>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th>Program Count</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @sports.each do |sport| %>
-      <tr>
-        <td><%= sport.name %></td>
-        <td><%= link_to 'Show', sport %></td>
-        <td><%= link_to 'Edit', edit_sport_path(sport) %></td>
-        <td><%= link_to 'Destroy', sport, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id="<%= sport.id %>">
+        <td><%= link_to sport.name, sport %></td>
+        <td><%= sport.programs.count %></td>
+        <td>
+          <%= link_to edit_sport_path(sport), :class => 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+          <%= link_to sport, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-trash"></i>
+          <% end %>
+        </td>   
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Sport', new_sport_path %>
+<p><%= link_to new_sport_path, :class => 'btn btn-mini btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i> New
+<% end %></p>
