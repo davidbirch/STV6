@@ -51,6 +51,9 @@ gem 'formtastic-bootstrap'
 # Use request-log-analyzer
 gem 'request-log-analyzer'
 
+# Use whenever gem
+gem 'whenever', :require => false
+  
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -63,5 +66,6 @@ group :development, :test do
   
   # Use annotate gem
   gem 'annotate'
+  
 end
 
