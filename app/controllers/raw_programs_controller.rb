@@ -1,9 +1,16 @@
 class RawProgramsController < ApplicationController
   before_action :set_raw_program, only: [:show, :edit, :update, :destroy]
 
-  # GET /raw_programs
   def index
-    @raw_programs = RawProgram.paginate(:page => params[:page])
+    if params[:layout] == "by_category"
+      # GET /raw_programs?layout=by_category
+      # GET /raw_programs_by_category
+      @raw_programs_by_category = RawProgram.group(:category).order("count_all DESC").count
+      render 'index_by_category' and return
+    else
+      # GET /raw_programs
+      @raw_programs = RawProgram.paginate(:page => params[:page])
+    end
   end
 
   # GET /raw_programs/1
