@@ -24,8 +24,9 @@ class RawGuideData
       @channels_skipped = 0
       
       # temporarily limit to 100
-      #RawChannel.find_each do |raw_channel|
-      RawChannel.limit(100).each do |raw_channel|
+      #RawChannel.limit(100).each do |raw_channel|
+      
+      RawChannel.find_each do |raw_channel|
         channel = Channel.create_from_raw_channel(raw_channel)
         if channel.new_record?
           @channels_skipped = @channels_skipped + 1
@@ -52,8 +53,9 @@ class RawGuideData
       @programs_skipped = 0
       
       # temporarily limit to 100
-      #RawProgram.find_each do |raw_program|
-      RawProgram.limit(100).each do |raw_program|  
+      #RawProgram.limit(100).each do |raw_program|  
+      
+      RawProgram.find_each do |raw_program|
         program = Program.create_from_raw_program(raw_program)
         if program.new_record?
           @programs_skipped = @programs_skipped + 1
