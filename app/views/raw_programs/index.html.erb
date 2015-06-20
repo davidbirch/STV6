@@ -1,21 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<h3>Listing Raw Programs</h3>
-
+<h3>Raw Programs
+<%= link_to new_raw_program_path, :class => 'btn btn-xs btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i> New
+<% end %>
+</h3>
+<%= bootstrap_flash %>
 <%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
-<table class="table table-striped table-condensed">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
       <th>Subtitle</th>
       <th>Category</th>
-      <th>Description</th>
       <th>Start Date/Time</th>
       <th>End Date/Time</th>
       <th>Region Name</th>
       <th>Channel XMLTVID</th>
-      <th>Actions</th>
-    </tr>
+      <th colspan="2"></th>
+    </tr>    
   </thead>
 
   <tbody>
@@ -24,21 +25,20 @@
         <td><%= link_to raw_program.title, raw_program %></td>
         <td><%= raw_program.subtitle %></td>
         <td><%= raw_program.category %></td>
-        <td><%= raw_program.description %></td>
         <td><%= raw_program.start_datetime %></td>
         <td><%= raw_program.end_datetime %></td>
         <td><%= raw_program.region_name %></td>
         <td><%= raw_program.channel_xmltv_id %></td>
         <td>
-          <%= link_to 'Edit', edit_raw_program_path(raw_program), :class => 'btn btn-info btn-xs' %>
-          <%= link_to 'Destroy', raw_program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' %>
+          <%= link_to edit_raw_program_path(raw_program), :class => 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+          <%= link_to raw_program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-trash"></i>
+          <% end %>
         </td>   
       </tr>
     <% end %>
   </tbody>
 </table>
 <%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
-
-<br>
-
-<%= link_to 'New Raw Program', new_raw_program_path %>
