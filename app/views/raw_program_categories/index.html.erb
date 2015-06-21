@@ -1,0 +1,41 @@
+<h3>Raw Programs
+<%= link_to new_raw_program_path, :class => 'btn btn-xs btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i> New
+<% end %>
+</h3>
+<%= bootstrap_flash %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Count</th>
+    </tr>    
+  </thead>
+
+  <tbody>
+    <% @raw_programs_by_category.each do |raw_program_by_category| %>
+      <tr>
+        <td><%= link_to raw_program_by_category[0] , ("/raw_program_categories/"+raw_program_by_category[0]).html_safe %></td>
+        <td><%= raw_program_by_category[1] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Count</th>
+    </tr>    
+  </thead>
+
+  <tbody>
+    <% @raw_programs_by_category.each do |raw_program_by_category| %>
+      <tr>
+        <td><%= link_to raw_program_by_category[0] , ("/raw_program_categories/"+raw_program_by_category[0]).html_safe %></td>
+        <td><%= raw_program_by_category[1] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

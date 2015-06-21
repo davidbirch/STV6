@@ -1,0 +1,35 @@
+<ol class="breadcrumb">
+  <li><%= link_to title, root_path %></li>
+  <li><%= link_to "Raw Programs", raw_programs_by_category_path %></li>
+  <li class="active">Category: <%= params[:category] %></li>
+</ol>
+<%= bootstrap_flash %>
+<h4>Category: <%= params[:category] %></h4>
+<h4>List of Raw Programs (Count: <%= @raw_programs.count %>)</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th colspan="2"></th>
+    </tr>    
+  </thead>
+
+  <tbody>
+    <% @raw_programs.each do |raw_program| %>
+      <tr id="<%= raw_program.id %>">
+        <td><%= link_to raw_program.title, raw_program %></td>
+        <td><%= raw_program.subtitle %></td>
+        <td>
+          <%= link_to edit_raw_program_path(raw_program), :class => 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+          <%= link_to raw_program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-trash"></i>
+          <% end %>
+        </td>   
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
