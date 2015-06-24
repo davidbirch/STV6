@@ -36,7 +36,7 @@ class RawGuideData
       end
       
       @final_channel_count = Channel.count
-      #RawChannel.delete_all
+      RawChannel.delete_all
       @final_raw_channel_count = RawChannel.count
     end
     
@@ -65,7 +65,7 @@ class RawGuideData
       end
       
       @final_program_count = Program.count
-      #RawProgram.delete_all
+      RawProgram.delete_all
       @final_raw_program_count = RawProgram.count
     end
     
