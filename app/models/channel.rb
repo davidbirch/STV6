@@ -23,6 +23,8 @@ class Channel < ActiveRecord::Base
   validates_uniqueness_of :name
   validates_uniqueness_of :xmltv_id
   
+  default_scope { order(:short_name) }
+  
   class << self
     
     def create_from_raw_channel(raw_channel)
