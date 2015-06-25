@@ -20,10 +20,10 @@
         <td><%= region.programs.count %></td>
         <td>
           <%= link_to edit_region_path(region), :class => 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-pencil"></i>
+            <i class="glyphicon glyphicon-pencil"></i> Edit
           <% end %>
           <%= link_to region, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-trash"></i>
+            <i class="glyphicon glyphicon-trash"></i> Delete
           <% end %>
         </td>   
       </tr>
