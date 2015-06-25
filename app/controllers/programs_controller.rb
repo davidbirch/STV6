@@ -3,7 +3,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs
   def index
-    @programs = Program.all
+    @programs = Program.paginate(:page => params[:page])
   end
 
   # GET /programs/1
