@@ -24,6 +24,8 @@
           <%= link_to edit_raw_program_path(raw_program), :class => 'btn btn-info btn-xs' do %>
             <i class="glyphicon glyphicon-pencil"></i>
           <% end %>
+        </td>
+        <td>
           <%= link_to raw_program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
             <i class="glyphicon glyphicon-trash"></i>
           <% end %>

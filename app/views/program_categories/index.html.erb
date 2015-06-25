@@ -1,0 +1,23 @@
+<h3>Programs
+<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i> New
+<% end %>
+</h3>
+<%= bootstrap_flash %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Count</th>
+    </tr>    
+  </thead>
+
+  <tbody>
+    <% @programs_by_category.each do |program_by_category| %>
+      <tr>
+        <td><%= link_to program_by_category[0] , ("/programs_by_category/"+program_by_category[0]).html_safe %></td>
+        <td><%= program_by_category[1] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

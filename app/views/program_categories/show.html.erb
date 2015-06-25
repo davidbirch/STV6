@@ -1,0 +1,45 @@
+<ol class="breadcrumb">
+  <li><%= link_to title, root_path %></li>
+  <li><%= link_to "Programs", programs_by_category_path %></li>
+  <li class="active">Category: <%= params[:category] %></li>
+</ol>
+<%= bootstrap_flash %>
+<h4>Category: <%= params[:category] %></h4>
+<h4>List of Programs (Count: <%= @programs.count %>)</h4>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th>Category</th>
+      <th>Sport</th>
+      <th>Region</th>
+      <th>Channel</th>
+      <th colspan=2></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @programs.each do |program| %>
+      <tr>
+        <td><%= link_to program.title, program %></td>
+        <td><%= program.subtitle %></td>
+        <td><%= program.category %></td>
+        <td><%= program.sport.name unless program.sport.nil? %></td>
+        <td><%= program.region.name unless program.region.nil? %></td>
+        <td><%= program.channel.name unless program.channel.nil?%></td>
+        <td>
+          <%= link_to edit_program_path(program), :class => 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-pencil"></i> Edit
+          <% end %>
+        </td>
+        <td>
+          <%= link_to program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-trash"></i> Delete
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>

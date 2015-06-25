@@ -13,7 +13,7 @@
       <th>Sport</th>
       <th>Region</th>
       <th>Channel</th>
-      <th></th>
+      <th colspan=2></th>
     </tr>
   </thead>
 
@@ -30,6 +30,8 @@
           <%= link_to edit_program_path(program), :class => 'btn btn-info btn-xs' do %>
             <i class="glyphicon glyphicon-pencil"></i> Edit
           <% end %>
+        </td>
+        <td>
           <%= link_to program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
             <i class="glyphicon glyphicon-trash"></i> Delete
           <% end %>
@@ -38,4 +40,4 @@
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
+<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>
