@@ -6,7 +6,7 @@ class RawProgramCategoriesController < ApplicationController
     @raw_programs_by_category = RawProgram.group(:category).order("count_all DESC").count
   end
 
-  # GET /raw_program_categories/:category
+  # GET /raw_programs_by_categories/:category
   def show
     @raw_programs = RawProgram.where(category: params[:category]).paginate(:page => params[:page])
   end

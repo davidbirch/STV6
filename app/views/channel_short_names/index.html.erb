@@ -8,17 +8,19 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Short name</th>
       <th></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @channels.each do |channel| %>
+    <% @channels.group_by(&:short_name).sort.each do |short_name, channels_by_short_name| %>
+      <tr>
+        <td colspan=2><strong><%= link_to short_name, ("/channels_by_short_name/"+short_name).html_safe %></strong></td>
+      </tr>
+      <% channels_by_short_name.each do |channel| %>
       <tr>
         <td><%= link_to channel.name, channel %></td>
-        <td><%= channel.short_name %></td>
-        <td>
+        <td class="align-right">
           <%= link_to edit_channel_path(channel), :class => 'btn btn-info btn-xs' do %>
             <i class="glyphicon glyphicon-pencil"></i> Edit
           <% end %>
@@ -27,6 +29,7 @@
           <% end %>
         </td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

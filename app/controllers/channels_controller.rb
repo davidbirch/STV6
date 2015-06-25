@@ -3,7 +3,7 @@ class ChannelsController < ApplicationController
 
   # GET /channels
   def index
-    @channels = Channel.paginate(:page => params[:page])
+    @channels = Channel.all
   end
 
   # GET /channels/1
