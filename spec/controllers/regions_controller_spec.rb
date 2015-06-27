@@ -96,6 +96,7 @@ RSpec.describe RegionsController, type: :controller do
       it "redirects to the region" do
         region = FactoryGirl.create(:region)
         put :update, {:id => region.to_param, :region => FactoryGirl.attributes_for(:region_melbourne)}
+        region.reload
         expect(response).to redirect_to(region)
       end
     end
