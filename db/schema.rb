@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531091529) do
+ActiveRecord::Schema.define(version: 20150627114948) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "xmltv_id",    limit: 255
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150531091529) do
     t.integer  "timezone_adjustment", limit: 4
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
+    t.string   "url_friendly_name",   limit: 255
   end
 
   create_table "sports", force: :cascade do |t|

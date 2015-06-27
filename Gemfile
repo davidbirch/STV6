@@ -53,6 +53,9 @@ gem 'request-log-analyzer'
 
 # Use whenever gem
 gem 'whenever', :require => false
+
+# Use frieldny_id
+gem 'friendly_id'
   
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

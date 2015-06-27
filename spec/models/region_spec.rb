@@ -7,6 +7,7 @@
 #  timezone_adjustment :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  url_friendly_name   :string(255)
 #
 
 require 'rails_helper'

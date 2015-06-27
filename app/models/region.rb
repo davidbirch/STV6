@@ -7,9 +7,14 @@
 #  timezone_adjustment :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  url_friendly_name   :string(255)
 #
 
 class Region < ActiveRecord::Base
+  
+  
+  extend FriendlyId
+  friendly_id :url_friendly_name
   
   has_many :programs
   
@@ -17,4 +22,11 @@ class Region < ActiveRecord::Base
   
   validates_uniqueness_of :name
   
+  before_save :set_url_friendly_name
+  
+    protected
+      def set_url_friendly_name
+       self.url_friendly_name = name.parameterize
+      end 
+    
 end
