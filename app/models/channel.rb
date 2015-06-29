@@ -14,6 +14,10 @@
 
 class Channel < ActiveRecord::Base
   
+  
+  extend FriendlyId
+  friendly_id :url_friendly_name
+  
   has_many :programs
   
   validates_presence_of :name
@@ -24,6 +28,8 @@ class Channel < ActiveRecord::Base
   validates_uniqueness_of :xmltv_id
   
   default_scope { order(:short_name) }
+  
+  before_save :set_url_friendly_name
   
   class << self
     
@@ -37,4 +43,8 @@ class Channel < ActiveRecord::Base
     
   end
   
+  protected
+    def set_url_friendly_name
+      self.url_friendly_name = name.parameterize
+    end 
 end
