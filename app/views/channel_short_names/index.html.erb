@@ -8,14 +8,14 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th colspan=2></th>
+      <th colspan=3></th>
     </tr>
   </thead>
 
   <tbody>
     <% @channels.group_by(&:short_name).sort.each do |short_name, channels_by_short_name| %>
       <tr>
-        <td colspan=2><strong><%= link_to short_name, ("/channels_by_short_name/"+short_name).html_safe %></strong></td>
+        <td colspan=3><strong><%= link_to short_name, ("/channels_by_short_name/"+short_name).html_safe %></strong></td>
       </tr>
       <% channels_by_short_name.each do |channel| %>
       <tr>
