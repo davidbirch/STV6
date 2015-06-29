@@ -1,9 +1,13 @@
+<ol class="breadcrumb">
+  <li><%= link_to title, root_path %></li>
+  <li class="active">Regions</li>
+</ol>
+<%= bootstrap_flash %>
 <h3>Regions
 <%= link_to new_region_path, :class => 'btn btn-xs btn-primary' do %>
     <i class="glyphicon glyphicon-plus"></i> New
 <% end %>
 </h3>
-<%= bootstrap_flash %>
 <table class="table table-striped">
   <thead>
     <tr>

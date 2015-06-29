@@ -8,6 +8,7 @@ class SportsController < ApplicationController
 
   # GET /sports/1
   def show
+    @programs = @sport.programs.paginate(:page => params[:page]) unless @sport.nil?
   end
 
   # GET /sports/new

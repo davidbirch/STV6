@@ -8,6 +8,7 @@ class ChannelsController < ApplicationController
 
   # GET /channels/1
   def show
+    @programs = @channel.programs.paginate(:page => params[:page]) unless @channel.nil?
   end
 
   # GET /channels/new
