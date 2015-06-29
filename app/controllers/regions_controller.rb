@@ -8,6 +8,7 @@ class RegionsController < ApplicationController
 
   # GET /regions/1
   def show
+    @programs = @region.programs.paginate(:page => params[:page])
   end
 
   # GET /regions/new
