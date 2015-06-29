@@ -10,6 +10,10 @@
 
 class Sport < ActiveRecord::Base
   
+  
+  extend FriendlyId
+  friendly_id :url_friendly_name
+  
   has_many :programs
   
   validates_presence_of :name
@@ -17,6 +21,8 @@ class Sport < ActiveRecord::Base
   validates_uniqueness_of :name
   
   default_scope { order(:name) }
+
+  before_save :set_url_friendly_name
   
   class << self
     
@@ -106,5 +112,10 @@ class Sport < ActiveRecord::Base
     end
    
   end
+  
+  protected
+    def set_url_friendly_name
+      self.url_friendly_name = name.parameterize
+    end 
 
 end

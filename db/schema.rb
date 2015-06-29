@@ -88,9 +88,10 @@ ActiveRecord::Schema.define(version: 20150627114948) do
   end
 
   create_table "sports", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",              limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "url_friendly_name", limit: 255
   end
 
 end
