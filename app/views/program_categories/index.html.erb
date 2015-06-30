@@ -15,7 +15,7 @@
   <tbody>
     <% @programs_by_category.each do |program_by_category| %>
       <tr>
-        <td><%= link_to program_by_category[0] , ("/programs_by_category/"+program_by_category[0]).html_safe %></td>
+        <td><%= link_to program_by_category[0] , ("/programs-by-category/"+program_by_category[0]).html_safe %></td>
         <td><%= program_by_category[1] %></td>
       </tr>
     <% end %>

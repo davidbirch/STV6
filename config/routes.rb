@@ -16,9 +16,15 @@ Rails.application.routes.draw do
   get 'channels-by-short-name', to: 'channel_short_names#index'
   get 'channels-by-short-name/:short_name', to: 'channel_short_names#show'
 
-# resources :raw_program_categories
+# resources :program_categories
   get 'programs-by-category', to: 'program_categories#index'
   get 'programs-by-category/:category', to: 'program_categories#show'
+  
+# resources :program_regions_sports
+  get 'programs-by-region-and-sport', to: 'program_regions_sports#index'
+
+# resources :program_regions_channels
+  get 'programs-by-region-and-channel', to: 'program_regions_channels#index'
 
   root "pages#home"
   get 'about', to: 'pages#about'

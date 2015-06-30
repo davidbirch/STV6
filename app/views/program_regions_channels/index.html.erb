@@ -1,0 +1,43 @@
+<h3>Programs
+<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i> New
+<% end %>
+</h3>
+<%= bootstrap_flash %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Channel</th>
+        <% @regions.each do |region| %>
+        <th><%= region.name %></th>
+        <% end %>
+        <th>Total</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr class="info">
+        <td>Total</td>
+        <% @regions.each do |region| %>
+        <td><%= Program.where(region_id: region.id).count %></td>
+        <% end %>
+        <td><%= Program.count %></td>
+    </tr>
+    <% @channels.each do |channel| %>
+    <tr>
+        <td><%= channel.name %></td>
+        <% @regions.each do |region| %>
+        <td><%= Program.where(region_id: region.id, channel_id: channel.id).count %></td>
+        <% end %>
+        <td><%= Program.where(channel_id: channel.id).count %></td>
+    </tr>
+    <% end %>
+    <tr class="info">
+        <td>Total</td>
+        <% @regions.each do |region| %>
+        <td><%= Program.where(region_id: region.id).count %></td>
+        <% end %>
+        <td><%= Program.count %></td>
+    </tr>
+  </tbody>
+</table>

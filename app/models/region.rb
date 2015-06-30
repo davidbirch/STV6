@@ -17,6 +17,7 @@ class Region < ActiveRecord::Base
   friendly_id :url_friendly_name
   
   has_many :programs
+  has_many :sports, through: :programs
   
   validates_presence_of :name
   
