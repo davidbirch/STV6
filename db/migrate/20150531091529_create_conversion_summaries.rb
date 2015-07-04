@@ -13,6 +13,8 @@ class CreateConversionSummaries < ActiveRecord::Migration
       t.integer :programs_created
       t.integer :programs_skipped
       t.integer :final_program_count
+      t.datetime :start_datetime
+      t.datetime :end_datetime
       t.boolean :conversion_completed
 
       t.timestamps null: false

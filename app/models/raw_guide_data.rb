@@ -4,8 +4,10 @@ class RawGuideData
   def self.convert #converts the program and channel data
     begin
       @log.info("raw_guide_coonversion started...")
+      @start_datetime = Time.now
       convert_raw_channels
       convert_raw_programs
+      @end_datetime = Time.now
       create_conversion_summary
       write_conversion_summary_to_log
       @log.info("raw_guide_conversion completed.")
@@ -83,6 +85,8 @@ class RawGuideData
         :programs_created => @programs_created,
         :programs_skipped => @programs_skipped,
         :final_program_count => @final_program_count,
+        :start_datetime => @start_datetime,
+        :end_datetime => @end_datetime,
         :conversion_completed => true
       )   
     end

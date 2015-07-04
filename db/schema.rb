@@ -37,23 +37,26 @@ ActiveRecord::Schema.define(version: 20150627114948) do
     t.integer  "programs_created",        limit: 4
     t.integer  "programs_skipped",        limit: 4
     t.integer  "final_program_count",     limit: 4
+    t.datetime "start_datetime"
+    t.datetime "end_datetime"
     t.boolean  "conversion_completed",    limit: 1
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
 
   create_table "programs", force: :cascade do |t|
-    t.string   "title",          limit: 255
-    t.string   "subtitle",       limit: 255
-    t.string   "category",       limit: 255
-    t.string   "description",    limit: 255
+    t.string   "title",                 limit: 255
+    t.string   "subtitle",              limit: 255
+    t.string   "category",              limit: 255
+    t.string   "description",           limit: 255
     t.datetime "start_datetime"
     t.datetime "end_datetime"
-    t.integer  "region_id",      limit: 4
-    t.integer  "channel_id",     limit: 4
-    t.integer  "sport_id",       limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "region_id",             limit: 4
+    t.integer  "channel_id",            limit: 4
+    t.integer  "sport_id",              limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "url_friendly_category", limit: 255
   end
 
   add_index "programs", ["channel_id"], name: "index_programs_on_channel_id", using: :btree

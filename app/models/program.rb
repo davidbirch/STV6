@@ -31,7 +31,9 @@ class Program < ActiveRecord::Base
   
   validates_uniqueness_of :channel_id , :scope => [:region_id, :title, :sport_id, :start_datetime, :end_datetime]
   
-   class << self
+  before_save :set_url_friendly_category
+  
+  class << self
     
     def create_from_raw_program(raw_program)
       
@@ -62,5 +64,10 @@ class Program < ActiveRecord::Base
     end
   
   end
-
+  
+  protected
+    def set_url_friendly_category
+      self.url_friendly_category = category.parameterize
+    end
+    
 end
