@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150627114948) do
     t.string   "category",              limit: 255
     t.string   "description",           limit: 255
     t.datetime "start_datetime"
-    t.datetime "start_date"
+    t.string   "start_date_display",    limit: 255
     t.datetime "end_datetime"
     t.integer  "region_id",             limit: 4
     t.integer  "channel_id",            limit: 4

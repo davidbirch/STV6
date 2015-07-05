@@ -68,12 +68,12 @@ class Program < ActiveRecord::Base
   protected
   
     def set_computed_columns
-        set_start_date
+        set_start_date_display
         set_url_friendly_category
     end
     
-    def set_start_date
-      self.start_date = start_datetime.to_date
+    def set_start_date_display
+      self.start_date_display = start_datetime.strftime("%F")
     end
     
     def set_url_friendly_category

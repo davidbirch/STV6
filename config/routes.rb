@@ -19,7 +19,12 @@ Rails.application.routes.draw do
 # resources :program_categories
   get 'programs-by-category', to: 'program_categories#index'
   get 'programs-by-category/:url_friendly_category', to: 'program_categories#show'
+ 
+# resources :program_days
+ get 'programs-by-day', to: 'program_days#index'
+ get 'programs-by-day/:day', to: 'program_days#show'
   
+ 
 # resources :program_regions_sports
   get 'programs-by-region-and-sport', to: 'program_regions_sports#index'
   

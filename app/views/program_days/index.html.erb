@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
   <li><%= link_to title, root_path %></li>
   <li><%= link_to "Programs", programs_path %></li>
-  <li class="active">By Category</li>
+  <li class="active">By Day</li>
 </ol>
 <%= bootstrap_flash %>
 <h3>Programs
@@ -13,7 +13,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Category</th>
+      <th>Day</th>
       <th>Count</th>
     </tr>    
   </thead>
@@ -23,10 +23,10 @@
         <td>Total</td>
         <td><%= Program.count %></td>
     </tr>
-    <% @programs_by_category.each do |program_by_category| %>
+    <% @programs_by_day.each do |program_by_day| %>
       <tr>
-        <td><%= link_to program_by_category[0] , ("/programs-by-category/"+program_by_category[0]).html_safe %></td>
-        <td><%= program_by_category[1] %></td>
+        <td><%= link_to Date.parse(program_by_day[0]).strftime("%a %d %b %Y") , ("/programs-by-day/"+program_by_day[0]).html_safe %></td>
+        <td><%= program_by_day[1] %></td>
       </tr>
     <% end %>
     <tr class="info">

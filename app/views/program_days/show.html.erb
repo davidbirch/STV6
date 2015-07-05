@@ -1,17 +1,17 @@
 <ol class="breadcrumb">
   <li><%= link_to title, root_path %></li>
-  <li><%= link_to "Programs By Category", programs_by_category_path %></li>
-  <li class="active">Category: <%= params[:category] %></li>
+  <li><%= link_to "Programs By Day", programs_by_day_path %></li>
+  <li class="active">Day: <%= params[:day] %></li>
 </ol>
 <%= bootstrap_flash %>
-<h4>Category: <%= params[:category] %></h4>
+<h4>Day: <%= params[:day] %></h4>
 <h4>List of Programs (Count: <%= @programs.count %>)</h4>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Title</th>
       <th>Subtitle</th>
-      <th>Category</th>
+      <th>Day</th>
       <th>Sport</th>
       <th>Region</th>
       <th>Channel</th>
@@ -24,7 +24,7 @@
       <tr>
         <td><%= link_to program.title, program %></td>
         <td><%= program.subtitle %></td>
-        <td><%= program.category %></td>
+        <td><%= Date.parse(program.start_date_display).strftime("%a %d %b %Y") %></td>
         <td><%= program.sport.name unless program.sport.nil? %></td>
         <td><%= program.region.name unless program.region.nil? %></td>
         <td><%= program.channel.name unless program.channel.nil?%></td>

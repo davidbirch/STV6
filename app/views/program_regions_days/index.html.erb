@@ -28,13 +28,13 @@
         <% end %>
         <td><%= Program.count %></td>
     </tr>
-    <% @program_days.each do |day| %>
+    <% @programs_by_day.each do |program_by_day| %>
     <tr>
-        <td><%= day.start_date.strftime("%a %d %b %Y") %></td>
+        <td><%= link_to Date.parse(program_by_day[0]).strftime("%a %d %b %Y") , ("/programs-by-day/"+program_by_day[0]).html_safe %></td>
         <% @regions.each do |region| %>
-        <td><%= Program.where(region_id: region.id, start_date: day.start_date).count %></td>
+        <td><%= Program.where(region_id: region.id, start_date_display: program_by_day[0]).count %></td>
         <% end %>
-        <td><%= Program.where(start_date: day.start_date).count %></td>
+        <td><%= Program.where(start_date_display: program_by_day[0]).count %></td>
     </tr>
     <% end %>
     <tr class="info">
