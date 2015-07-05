@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   
 # resources :program_regions_sports
   get 'programs-by-region-and-sport', to: 'program_regions_sports#index'
+  
+# resources :program_regions_days
+  get 'programs-by-region-and-day', to: 'program_regions_days#index'
 
 # resources :program_regions_channels
   get 'programs-by-region-and-channel', to: 'program_regions_channels#index'

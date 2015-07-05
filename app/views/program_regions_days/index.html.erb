@@ -1,0 +1,48 @@
+<ol class="breadcrumb">
+  <li><%= link_to title, root_path %></li>
+  <li><%= link_to "Programs", programs_path %></li>
+  <li class="active">By Region and Day</li>
+</ol>
+<%= bootstrap_flash %>
+<h3>Programs
+<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
+    <i class="glyphicon glyphicon-plus"></i> New
+<% end %>
+</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Days</th>
+        <% @regions.each do |region| %>
+        <th><%= region.name %></th>
+        <% end %>
+        <th>Total</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <tr class="info">
+        <td>Total</td>
+        <% @regions.each do |region| %>
+        <td><%= Program.where(region_id: region.id).count %></td>
+        <% end %>
+        <td><%= Program.count %></td>
+    </tr>
+    <% @program_days.each do |day| %>
+    <tr>
+        <td><%= day.start_date.strftime("%a %d %b %Y") %></td>
+        <% @regions.each do |region| %>
+        <td><%= Program.where(region_id: region.id, start_date: day.start_date).count %></td>
+        <% end %>
+        <td><%= Program.where(start_date: day.start_date).count %></td>
+    </tr>
+    <% end %>
+    <tr class="info">
+        <td>Total</td>
+        <% @regions.each do |region| %>
+        <td><%= Program.where(region_id: region.id).count %></td>
+        <% end %>
+        <td><%= Program.count %></td>
+    </tr>
+  </tbody>
+</table>
