@@ -1,9 +1,14 @@
+<ol class="breadcrumb">
+  <li><%= link_to title, root_path %></li>
+  <li><%= link_to "Programs", programs_path %></li>
+  <li class="active">By Region and Sport</li>
+</ol>
+<%= bootstrap_flash %>
 <h3>Programs
 <%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
     <i class="glyphicon glyphicon-plus"></i> New
 <% end %>
 </h3>
-<%= bootstrap_flash %>
 <table class="table table-striped">
   <thead>
     <tr>
