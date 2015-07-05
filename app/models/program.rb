@@ -31,7 +31,7 @@ class Program < ActiveRecord::Base
   
   validates_uniqueness_of :channel_id , :scope => [:region_id, :title, :sport_id, :start_datetime, :end_datetime]
   
-  before_save :set_url_friendly_category
+  before_save :set_computed_columns 
   
   class << self
     
@@ -66,6 +66,16 @@ class Program < ActiveRecord::Base
   end
   
   protected
+  
+    def set_computed_columns
+        set_start_date
+        set_url_friendly_category
+    end
+    
+    def set_start_date
+      self.start_date = start_datetime.to_date
+    end
+    
     def set_url_friendly_category
       self.url_friendly_category = category.parameterize
     end

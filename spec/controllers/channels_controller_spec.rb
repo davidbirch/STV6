@@ -96,6 +96,7 @@ RSpec.describe ChannelsController, type: :controller do
       it "redirects to the channel" do
         channel = FactoryGirl.create(:channel)
         put :update, {:id => channel.to_param, :channel => FactoryGirl.attributes_for(:channel_seven)}
+        channel.reload
         expect(response).to redirect_to(channel)
       end
     end

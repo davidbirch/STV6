@@ -6,6 +6,7 @@ class CreatePrograms < ActiveRecord::Migration
       t.string :category
       t.string :description
       t.datetime :start_datetime
+      t.datetime :start_date
       t.datetime :end_datetime
       t.integer :region_id
       t.integer :channel_id

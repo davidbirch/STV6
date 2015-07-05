@@ -96,6 +96,7 @@ RSpec.describe SportsController, type: :controller do
       it "redirects to the sport" do
         sport = FactoryGirl.create(:sport)
         put :update, {:id => sport.to_param, :sport => FactoryGirl.attributes_for(:cricket_sport)}
+        sport.reload
         expect(response).to redirect_to(sport)
       end
     end
