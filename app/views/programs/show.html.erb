@@ -1,49 +1,99 @@
-<p id="notice"><%= notice %></p>
+<ol class="breadcrumb">
+  <li><%= link_to title, root_path %></li>
+  <li><%= link_to "Programs", channels_path %></li>
+  <li class="active">Program: <%= @program.id %></li>
+</ol>
+<%= bootstrap_flash %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @program.title %>
-</p>
+<h3>
+  Program: <%= @program.title %>
+  <%= link_to edit_channel_path(@program), :class => 'btn btn-info btn-xs' do %>
+    <i class="glyphicon glyphicon-pencil"></i> Edit
+  <% end %>
+  <%= link_to @program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+    <i class="glyphicon glyphicon-trash"></i> Delete
+  <% end %>
+</h3>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @program.id %></td>
+    </tr>
+    <tr>
+      <td>Title</td>
+      <td><%= @program.title %></td>
+    </tr>
+    <tr>
+      <td>Subtitle</td>
+      <td><%= @program.subtitle %></td>
+    </tr>
+    <tr>
+      <td>Category</td>
+      <td><%= @program.category %></td>
+    </tr>
+    <tr>
+      <td>Start Date/Time</td>
+      <td><%= @program.start_datetime %></td>
+    </tr>
+    <tr>
+      <td>End Date/Time</td>
+      <td><%= @program.end_datetime %></td>
+    </tr>
+    <tr>
+      <td>Start Date Display</td>
+      <td><%= @program.start_date_display %></td>
+    </tr>
+    <tr>
+      <td>Region</td>
+      <td><%= @program.region.name unless @program.region.nil? %></td>
+    </tr>
+    <tr>
+      <td>Sport</td>
+      <td><%= @program.sport.name unless @program.sport.nil? %></td>
+    </tr>
+    <tr>
+      <td>Channel</td>
+      <td><%= @program.channel.name unless @program.channel.nil? %></td>  
+    </tr>
+  </tbody>
+</table>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Subtitle</th>
+      <th>Category</th>
+      <th>Sport</th>
+      <th>Region</th>
+      <th>Channel</th>
+      <th colspan=2></th>
+    </tr>
+  </thead>
 
-<p>
-  <strong>Subtitle:</strong>
-  <%= @program.subtitle %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @program.category %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @program.description %>
-</p>
-
-<p>
-  <strong>Start datetime:</strong>
-  <%= @program.start_datetime %>
-</p>
-
-<p>
-  <strong>End datetime:</strong>
-  <%= @program.end_datetime %>
-</p>
-
-<p>
-  <strong>Region:</strong>
-  <%= @program.region_id %>
-</p>
-
-<p>
-  <strong>Channel:</strong>
-  <%= @program.channel_id %>
-</p>
-
-<p>
-  <strong>Sport:</strong>
-  <%= @program.sport_id %>
-</p>
-
-<%= link_to 'Edit', edit_program_path(@program) %> |
-<%= link_to 'Back', programs_path %>
+  <tbody>
+    <% @programs.each do |program| %>
+      <tr>
+        <td><%= program.id %></td>
+        <td><%= link_to program.title, program %></td>
+        <td><%= program.subtitle %></td>
+        <td><%= program.category %></td>
+        <td><%= program.sport.name unless program.sport.nil? %></td>
+        <td><%= program.region.name unless program.region.nil? %></td>
+        <td><%= program.channel.name unless program.channel.nil?%></td>
+        <td>
+          <%= link_to edit_program_path(program), :class => 'btn btn-info btn-xs' do %>
+            <i class="glyphicon glyphicon-pencil"></i> Edit
+          <% end %>
+        </td>
+        <td>
+          <%= link_to program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+            <i class="glyphicon glyphicon-trash"></i> Delete
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>

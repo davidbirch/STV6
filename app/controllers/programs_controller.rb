@@ -8,6 +8,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1
   def show
+    @programs = Program.where(title: @program.title).paginate(:page => params[:page])
   end
 
   # GET /programs/new

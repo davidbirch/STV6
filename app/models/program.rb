@@ -31,7 +31,7 @@ class Program < ActiveRecord::Base
   
   validates_uniqueness_of :channel_id , :scope => [:region_id, :title, :sport_id, :start_datetime, :end_datetime]
   
-  before_save :set_computed_columns 
+  before_save :set_computed_columns
   
   class << self
     
