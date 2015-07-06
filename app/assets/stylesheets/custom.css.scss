@@ -3,3 +3,15 @@
 /*------------------------------------------------------------------------ 
   Bootstrap customisations and tweaks
   ------------------------------------------------------------------------*/
+
+/*change breadcrumb links color*/
+.breadcrumb a{
+    color:#c4edfe;
+}
+.breadcrumb{
+    margin-bottom: 0px;
+    border-radius: 0px;
+}
+ol{
+    margin-bottom: 0px;
+}
