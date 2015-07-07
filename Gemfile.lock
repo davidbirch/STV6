@@ -40,6 +40,10 @@ GEM
       activerecord (>= 3.2, <= 4.3)
       rake (~> 10.4)
     arel (6.0.0)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -52,6 +56,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     chronic (0.10.2)
+    coderay (1.1.0)
     columnize (0.9.0)
     commonjs (0.2.7)
     debug_inspector (0.0.2)
@@ -196,6 +201,8 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  better_errors
+  binding_of_caller
   byebug
   capybara
   factory_girl_rails

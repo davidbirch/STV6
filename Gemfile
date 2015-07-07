@@ -70,5 +70,9 @@ group :development, :test do
   # Use annotate gem
   gem 'annotate'
   
+  # Use better errors
+  gem "better_errors"
+  gem "binding_of_caller"
+  
 end
 
