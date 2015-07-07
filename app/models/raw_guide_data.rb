@@ -5,15 +5,19 @@ class RawGuideData
     begin
       @log.info("raw_guide_coonversion started...")
       @start_datetime = Time.now
+      create_conversion_summary
       convert_raw_channels
       convert_raw_programs
       @end_datetime = Time.now
-      create_conversion_summary
+      @conversion_summary.update(
+        :end_datetime => @end_datetime,
+        :conversion_completed => true
+      )
       write_conversion_summary_to_log
       @log.info("raw_guide_conversion completed.")
     rescue => e
       @log.error("#{e.message}")
-      @log.error("#{e.backtrace}")          
+      @log.error("#{e.backtrace}")
     end
   end
   
@@ -40,6 +44,15 @@ class RawGuideData
       @final_channel_count = Channel.count
       RawChannel.delete_all
       @final_raw_channel_count = RawChannel.count
+      
+      @conversion_summary.update(
+        :raw_channel_count       => @raw_channel_count,
+        :final_raw_channel_count => @final_raw_channel_count,
+        :starting_channel_count  => @starting_channel_count,
+        :channels_created => @channels_created,
+        :channels_skipped => @channels_skipped,
+        :final_channel_count => @final_channel_count,
+      )
     end
     
     def self.convert_raw_programs
@@ -69,25 +82,22 @@ class RawGuideData
       @final_program_count = Program.count
       RawProgram.delete_all
       @final_raw_program_count = RawProgram.count
-    end
-    
-    def self.create_conversion_summary
-      ConversionSummary.create(
-        :raw_channel_count       => @raw_channel_count,
-        :final_raw_channel_count => @final_raw_channel_count,
-        :starting_channel_count  => @starting_channel_count,
-        :channels_created => @channels_created,
-        :channels_skipped => @channels_skipped,
-        :final_channel_count => @final_channel_count,
+      
+      @conversion_summary.update(
         :raw_program_count => @raw_program_count,
         :final_raw_program_count => @final_raw_program_count,
         :starting_program_count  => @starting_program_count,
         :programs_created => @programs_created,
         :programs_skipped => @programs_skipped,
         :final_program_count => @final_program_count,
+      )
+ 
+    end
+    
+    def self.create_conversion_summary
+      @conversion_summary = ConversionSummary.create(
         :start_datetime => @start_datetime,
-        :end_datetime => @end_datetime,
-        :conversion_completed => true
+        :conversion_completed => false
       )   
     end
     
