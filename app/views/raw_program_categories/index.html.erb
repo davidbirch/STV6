@@ -1,23 +1,25 @@
-<h3>Raw Programs
-<%= link_to new_raw_program_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<%= bootstrap_flash %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Count</th>
-    </tr>    
-  </thead>
-
-  <tbody>
-    <% @raw_programs_by_category.each do |raw_program_by_category| %>
-      <tr>
-        <td><%= link_to raw_program_by_category[0] , ("/raw_programs_by_category/"+raw_program_by_category[0]).html_safe %></td>
-        <td><%= raw_program_by_category[1] %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Raw Programs By Category",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Raw Programs By Category"}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+  <%= render "shared/footer" %>
+</div> <!-- /container -->

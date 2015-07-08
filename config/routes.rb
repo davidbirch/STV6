@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   
 # resources :raw_program_categories
   get 'raw-programs-by-category', to: 'raw_program_categories#index'
-  get 'raw-programs-by-category/:category', to: 'raw_program_categories#show'
 
 # resources :channel_short_names
   get 'channels-by-short-name', to: 'channel_short_names#index'
