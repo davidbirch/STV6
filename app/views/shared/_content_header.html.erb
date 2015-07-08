@@ -1,3 +1,8 @@
 <% unless defined?(locals[:header]).nil? %>
-<h3><%= locals[:header] %></h3>
+<h3>
+  <%= locals[:header] %>
+  <% if locals[:link_to_new] %>
+    <%= link_to 'New', locals[:link_to_new], :class => 'btn btn-xs btn-primary' %>
+  <% end %>
+</h3>
 <% end %>
