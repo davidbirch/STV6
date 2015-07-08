@@ -1,46 +1,25 @@
-<h3>Raw Programs
-<%= link_to new_raw_program_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<%= bootstrap_flash %>
-<%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Subtitle</th>
-      <th>Category</th>
-      <th>Start Date/Time</th>
-      <th>End Date/Time</th>
-      <th>Region Name</th>
-      <th>Channel XMLTVID</th>
-      <th colspan="2"></th>
-    </tr>    
-  </thead>
-
-  <tbody>
-    <% @raw_programs.each do |raw_program| %>
-      <tr id="<%= raw_program.id %>">
-        <td><%= link_to raw_program.title, raw_program %></td>
-        <td><%= raw_program.subtitle %></td>
-        <td><%= raw_program.category %></td>
-        <td><%= raw_program.start_datetime %></td>
-        <td><%= raw_program.end_datetime %></td>
-        <td><%= raw_program.region_name %></td>
-        <td><%= raw_program.channel_xmltv_id %></td>
-        <td>
-          <%= link_to edit_raw_program_path(raw_program), :class => 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-pencil"></i>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to raw_program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-trash"></i>
-          <% end %>
-        </td>   
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Raw Programs",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Raw Programs"}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+  <%= render "shared/footer" %>
+</div> <!-- /container -->

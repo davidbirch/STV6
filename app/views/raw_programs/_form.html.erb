@@ -1,7 +1,0 @@
-<%= semantic_form_for @raw_program do |f| %>
-    <%= f.inputs :title, :subtitle, :category, :description, :start_datetime, :end_datetime, :region_name, :channel_xmltv_id %>
-    <%= f.actions do %>
-      <%= f.action :submit, :button_html => { :class => "btn btn-xs btn-primary"} %>
-      <%= f.action :cancel, :button_html => { :class => "btn btn-xs btn-danger"} %> 
-    <% end %>
-<% end %>

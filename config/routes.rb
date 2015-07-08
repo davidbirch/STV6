@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :conversion_summaries, :path => '/conversion-summaries', only: [:index, :show]
   resources :raw_channels, :path => '/raw-channels', only: [:index, :show]
-  resources :raw_programs, :path => '/raw-programs'
+  resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
 
   resources :sports
   resources :regions
