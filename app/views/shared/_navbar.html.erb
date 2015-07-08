@@ -1,0 +1,45 @@
+<div class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  <a class="navbar-brand" href="<%= root_path %>"><%= website_plain_english_formatted_name %></a>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Raw Guide Data<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">Raw Channels</li>
+            <li><a href="<%= raw_channels_path %>">All Raw Channels</a></li>
+            <li class="dropdown-header">Raw Programs</li>
+            <li><a href="<%= raw_programs_path %>">All Raw Programs</a></li>
+            <li><a href="<%= raw_programs_by_category_path %>">By Category</a></li>
+            <li class="dropdown-header">Raw Guide Data Conversion</li>
+            <li><a href="<%= conversion_summaries_path %>">All Conversion Summaries</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Views<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header">Channels</li>
+            <li><a href="<%= channels_path %>">All Channels</a></li>
+            <li><a href="<%= channels_by_short_name_path %>">By Short Name</a></li>
+            <li class="dropdown-header">Programs</li>
+            <li><a href="<%= programs_path %>">All Programs</a></li>
+            <li><a href="<%= programs_by_category_path %>">By Category</a></li>
+            <li><a href="<%= programs_by_day_path %>">By Day</a></li>
+            <li><a href="<%= programs_by_region_and_sport_path %>">By Region And Sport</a></li>
+            <li><a href="<%= programs_by_region_and_channel_path %>">By Region And Channel</a></li>
+            <li><a href="<%= programs_by_region_and_day_path %>">By Region And Day</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">More</li>
+            <li><a href="<%= regions_path %>">Regions</a></li>
+            <li><a href="<%= sports_path %>">Sports</a></li>
+          </ul>
+        </li>
+      </ul> <!-- /nav navbar-nav -->
+    </div> <!-- /navbar-collapse collapse-->
+  </div> <!-- /container -->
+</div> <!-- /navbar -->
