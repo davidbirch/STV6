@@ -1,37 +1,25 @@
-<ol class="breadcrumb">
-  <li><%= link_to title, root_path %></li>
-  <li><%= link_to "Programs", programs_path %></li>
-  <li class="active">By Category</li>
-</ol>
-<%= bootstrap_flash %>
-<h3>Programs
-<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<%= bootstrap_flash %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>Count</th>
-    </tr>    
-  </thead>
-
-  <tbody>
-    <tr class="info">
-        <td>Total</td>
-        <td><%= Program.count %></td>
-    </tr>
-    <% @programs_by_category.each do |program_by_category| %>
-      <tr>
-        <td><%= link_to program_by_category[0] , ("/programs-by-category/"+program_by_category[0]).html_safe %></td>
-        <td><%= program_by_category[1] %></td>
-      </tr>
-    <% end %>
-    <tr class="info">
-        <td>Total</td>
-        <td><%= Program.count %></td>
-    </tr>
-  </tbody>
-</table>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Programs By Category",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Programs"}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>
