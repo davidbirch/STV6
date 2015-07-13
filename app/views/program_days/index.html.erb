@@ -5,9 +5,7 @@
 </ol>
 <%= bootstrap_flash %>
 <h3>Programs
-<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
+<%= render "shared/form_actions", locals: {actions: ["New"], new_path: new_program_path} %> 
 </h3>
 <%= bootstrap_flash %>
 <table class="table table-striped">

@@ -1,0 +1,33 @@
+<% locals[:actions].each  do |action| %>
+
+  <% if action == "New" %>
+    <%= link_to locals[:new_path], :class => 'btn btn-primary btn-xs' do %>
+      <i class="glyphicon glyphicon-plus"></i> New
+  <% end %>
+  
+  <% elsif action == "Edit" %>
+    <%= link_to locals[:edit_path], :class => 'btn btn-info btn-xs' do %>
+      <i class="glyphicon glyphicon-pencil"></i> Edit
+    <% end %>
+    
+  <% elsif action == "Submit" %>
+    <%= button_tag(type: 'submit', class: 'btn btn-info btn-xs') do %>
+     <i class="glyphicon glyphicon-ok"></i> Save
+    <% end %>
+    
+  <% elsif action == "Cancel" %>
+    <%= link_to locals[:cancel_path], :class => 'btn btn-danger btn-xs' do %>
+      <i class="glyphicon glyphicon-remove"></i> Cancel
+    <% end %>
+  
+  <% elsif action == "Delete" %>
+    <%= link_to locals[:delete_path], data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
+      <i class="glyphicon glyphicon-trash"></i> Delete
+    <% end %>
+    
+  <% else %>
+    <%= link_to "#", :class => 'btn btn-default btn-xs' do %>
+      <i class="glyphicon glyphicon-ban-circle"></i> Unknown Action
+    <% end %>
+  <% end %>
+<% end %>

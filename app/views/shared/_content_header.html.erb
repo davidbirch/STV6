@@ -1,8 +1,8 @@
 <% unless defined?(locals[:header]).nil? %>
 <h3>
   <%= locals[:header] %>
-  <% if locals[:link_to_new] %>
-    <%= link_to 'New', locals[:link_to_new], :class => 'btn btn-xs btn-primary' %>
+  <% if locals[:new_path] %>
+    <%= render "shared/form_actions", locals: {actions: ["New"], new_path: locals[:new_path]} %> 
   <% end %>
 </h3>
 <% end %>

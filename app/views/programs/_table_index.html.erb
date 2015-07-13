@@ -1,0 +1,25 @@
+<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <% if locals[:field_list] %>
+        <% locals[:field_list].each do |field_name| %>
+        <th><%= field_name %></th>
+        <% end %> 
+      <% end %>
+    </tr>    
+  </thead>
+
+  <tbody>
+    <% @programs.each do |program| %>
+      <tr>
+      <% if locals[:field_list] %>
+        <% locals[:field_list].each do |field_name| %>
+        <td><%= program.read_attribute(field_name) %></td>
+        <% end %> 
+      <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>
