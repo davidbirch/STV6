@@ -1,48 +1,25 @@
-<ol class="breadcrumb">
-  <li><%= link_to title, root_path %></li>
-  <li><%= link_to "Programs", programs_path %></li>
-  <li class="active">By Region and Sport</li>
-</ol>
-<%= bootstrap_flash %>
-<h3>Programs
-<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-        <th>Sport</th>
-        <% @regions.each do |region| %>
-        <th><%= region.name %></th>
-        <% end %>
-        <th>Total</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <tr class="info">
-        <td>Total</td>
-        <% @regions.each do |region| %>
-        <td><%= Program.where(region_id: region.id).count %></td>
-        <% end %>
-        <td><%= Program.count %></td>
-    </tr>
-    <% @sports.each do |sport| %>
-    <tr>
-        <td><%= sport.name %></td>
-        <% @regions.each do |region| %>
-        <td><%= Program.where(region_id: region.id, sport_id: sport.id).count %></td>
-        <% end %>
-        <td><%= Program.where(sport_id: sport.id).count %></td>
-    </tr>
-    <% end %>
-    <tr class="info">
-        <td>Total</td>
-        <% @regions.each do |region| %>
-        <td><%= Program.where(region_id: region.id).count %></td>
-        <% end %>
-        <td><%= Program.count %></td>
-    </tr>
-  </tbody>
-</table>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 2,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Programs",
+   level_1_link: programs_path,
+   level_2_name:"By Region And Sport",
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Programs"}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

@@ -1,0 +1,19 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @sport.id %></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><%= @sport.name %></td>
+    </tr>
+    <tr>
+      <td>Program Count</td>
+      <td><%= @programs.count %></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_sport_path(@sport), delete_path: @sport} %>  
+</p>

@@ -15,7 +15,15 @@
       <tr>
       <% if locals[:field_list] %>
         <% locals[:field_list].each do |field_name| %>
-        <td><%= program.read_attribute(field_name) %></td>
+          <% if field_name == "region" %>
+            <td><%= program.region.name unless program.region.nil? %></td>
+          <% elsif field_name == "sport" %>
+            <td><%= program.sport.name unless program.sport.nil? %></td>
+          <% elsif field_name == "channel" %>
+            <td><%= program.channel.name unless program.channel.nil? %></td>
+          <% else %>
+            <td><%= program.read_attribute(field_name) %></td>
+          <% end %>
         <% end %> 
       <% end %>
       </tr>

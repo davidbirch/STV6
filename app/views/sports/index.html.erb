@@ -1,38 +1,25 @@
-<ol class="breadcrumb">
-  <li><%= link_to title, root_path %></li>
-  <li class="active">Sports</li>
-</ol>
-<%= bootstrap_flash %>
-<h3>Sports
-<%= link_to new_sport_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Program Count</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sports.each do |sport| %>
-      <tr id="<%= sport.id %>">
-        <td><%= link_to sport.name, sport %></td>
-        <td><%= sport.programs.count %></td>
-        <td>
-          <%= link_to edit_sport_path(sport), :class => 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-pencil"></i> Edit
-          <% end %>
-        </td>
-        <td>
-          <%= link_to sport, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-trash"></i> Delete
-          <% end %>
-        </td>   
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Sports",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Sports", new_path: new_sport_path}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>
