@@ -6,9 +6,9 @@ class ProgramDaysController < ApplicationController
     @programs_by_day = Program.group(:start_date_display).order("start_date_display ASC").count
   end
   
-  # GET /programs-by-day/:day
+  # GET /programs-by-day/:id
   def show
-    @programs = Program.where(start_date_display: params[:day]).paginate(:page => params[:page])
+    @programs = Program.where(start_date_display: params[:id]).paginate(:page => params[:page])
   end
   
 end
