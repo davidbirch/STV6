@@ -1,0 +1,25 @@
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>Day</th>
+      <th>Count</th>
+    </tr>    
+  </thead>
+
+  <tbody>
+    <tr class="info">
+        <td>Total</td>
+        <td><%= Program.count %></td>
+    </tr>
+    <% @programs_by_day.each do |program_by_day| %>
+      <tr>
+        <td><%= link_to Date.parse(program_by_day[0]).strftime("%a %d %b %Y") , ("/programs-by-day/"+program_by_day[0]).html_safe %></td>
+        <td><%= program_by_day[1] %></td>
+      </tr>
+    <% end %>
+    <tr class="info">
+        <td>Total</td>
+        <td><%= Program.count %></td>
+    </tr>
+  </tbody>
+</table>

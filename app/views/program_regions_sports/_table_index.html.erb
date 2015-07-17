@@ -3,7 +3,7 @@
     <tr>
         <th>Sport</th>
         <% @regions.each do |region| %>
-        <th><%= region.name %></th>
+        <th><%= link_to region.name, region %></th>
         <% end %>
         <th>Total</th>
     </tr>
@@ -19,7 +19,7 @@
     </tr>
     <% @sports.each do |sport| %>
     <tr>
-        <td><%= sport.name %></td>
+        <td><%= link_to sport.name, sport %></td>
         <% @regions.each do |region| %>
         <td><%= Program.where(region_id: region.id, sport_id: sport.id).count %></td>
         <% end %>

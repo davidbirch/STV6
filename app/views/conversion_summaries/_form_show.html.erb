@@ -46,5 +46,16 @@
         <% end %>
         <%= @conversion_summary.conversion_completed %></td>  
     </tr>
+    <tr>
+      <td class="active" colspan=2></td>
+    </tr>
+    <tr>
+      <td>Raw Channel Count</td>
+      <td><%= RawChannel.count %></td>
+    </tr>
+    <tr>
+      <td>Raw Program Count</td>
+      <td><%= RawProgram.count %></td>
+    </tr>
   </tbody>
 </table>

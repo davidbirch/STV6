@@ -22,6 +22,12 @@
             <td><%= program.channel.name unless program.channel.nil? %></td>
           <% elsif field_name == "id" %>
             <td><%= link_to program.id, program %></td>
+          <% elsif field_name == "start_datetime" %>
+            <td><%= program.start_datetime.strftime("%c") %></td>
+          <% elsif field_name == "end_datetime" %>
+            <td><%= program.end_datetime.strftime("%c") %></td> 
+          <% elsif field_name == "start_date_display" %>
+            <td><%= Date.parse(program.start_date_display).strftime("%a %d %b %Y") %></td>
           <% else %>
             <td><%= program.read_attribute(field_name) %></td>
           <% end %>

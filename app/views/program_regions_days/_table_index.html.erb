@@ -3,7 +3,7 @@
     <tr>
         <th>Days</th>
         <% @regions.each do |region| %>
-        <th><%= region.name %></th>
+        <th><%= link_to region.name, region %></th>
         <% end %>
         <th>Total</th>
     </tr>

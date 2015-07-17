@@ -1,35 +1,25 @@
-<ol class="breadcrumb">
-  <li><%= link_to title, root_path %></li>
-  <li><%= link_to "Programs", programs_path %></li>
-  <li class="active">By Day</li>
-</ol>
-<%= bootstrap_flash %>
-<h3>Programs
-<%= render "shared/form_actions", locals: {actions: ["New"], new_path: new_program_path} %> 
-</h3>
-<%= bootstrap_flash %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Day</th>
-      <th>Count</th>
-    </tr>    
-  </thead>
-
-  <tbody>
-    <tr class="info">
-        <td>Total</td>
-        <td><%= Program.count %></td>
-    </tr>
-    <% @programs_by_day.each do |program_by_day| %>
-      <tr>
-        <td><%= link_to Date.parse(program_by_day[0]).strftime("%a %d %b %Y") , ("/programs-by-day/"+program_by_day[0]).html_safe %></td>
-        <td><%= program_by_day[1] %></td>
-      </tr>
-    <% end %>
-    <tr class="info">
-        <td>Total</td>
-        <td><%= Program.count %></td>
-    </tr>
-  </tbody>
-</table>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Programs By Day",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Programs"}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>
