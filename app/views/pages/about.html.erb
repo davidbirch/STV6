@@ -1,3 +1,26 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
-<p><%= link_to "Home", root_path %></p>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "About Page",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "About Page"}  %>
+      <p>The About Page</p>
+      <p>Link to <%= link_to "Home", root_path %></p>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

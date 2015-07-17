@@ -1,8 +1,7 @@
-<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>
 <table class="table table-condensed">
   <thead>
     <tr>
-      <% if locals[:field_list] %>
+      <% if defined? locals[:field_list] %>
         <% locals[:field_list].each do |field_name| %>
         <th><%= field_name %></th>
         <% end %> 
@@ -12,8 +11,8 @@
 
   <tbody>
     <% @programs.each do |program| %>
-      <tr>
-      <% if locals[:field_list] %>
+      <tr id="program_"<%= program.id %>">
+      <% if defined? locals[:field_list] %>
         <% locals[:field_list].each do |field_name| %>
           <% if field_name == "region" %>
             <td><%= program.region.name unless program.region.nil? %></td>
@@ -21,11 +20,15 @@
             <td><%= program.sport.name unless program.sport.nil? %></td>
           <% elsif field_name == "channel" %>
             <td><%= program.channel.name unless program.channel.nil? %></td>
+          <% elsif field_name == "id" %>
+            <td><%= link_to program.id, program %></td>
           <% else %>
             <td><%= program.read_attribute(field_name) %></td>
           <% end %>
         <% end %> 
       <% end %>
+        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_program_path(program)} %></td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: program} %></td>    
       </tr>
     <% end %>
   </tbody>

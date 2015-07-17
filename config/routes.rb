@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
 # resources :channel_short_names
   get 'channels-by-short-name', to: 'channel_short_names#index'
-  get 'channels-by-short-name/:short_name', to: 'channel_short_names#show'
+  get 'channels-by-short-name/:url_friendly_short_name', to: 'channel_short_names#show'
 
 # resources :program_categories
   get 'programs-by-category', to: 'program_categories#index'

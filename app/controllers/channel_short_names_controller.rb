@@ -8,7 +8,7 @@ class ChannelShortNamesController < ApplicationController
 
   # GET /channels_by_short_name/:short_name
   def show
-    @channels = Channel.where(short_name: params[:short_name])
+    @channels = Channel.where(url_friendly_short_name: params[:url_friendly_short_name])
   end
 
 end

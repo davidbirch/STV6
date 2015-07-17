@@ -15,6 +15,8 @@
 #  programs_created        :integer
 #  programs_skipped        :integer
 #  final_program_count     :integer
+#  start_datetime          :datetime
+#  end_datetime            :datetime
 #  conversion_completed    :boolean
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

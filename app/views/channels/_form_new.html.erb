@@ -1,0 +1,30 @@
+<%= form_for @channel do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name, :placeholder=>"Channel Name ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :short_name %></td>
+          <td><%= f.text_field :short_name, :placeholder=>"Channel Short Name ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :xmltv_id %></td>
+          <td><%= f.text_field :xmltv_id, :placeholder=>"XMLTV ID ..." %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: channels_path} %>
+  </p>
+<% end %>
+ 

@@ -1,0 +1,27 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @channel.id %></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><%= @channel.name %></td>
+    </tr>
+    <tr>
+      <td>Short Name</td>
+      <td><%= @channel.short_name %></td>
+    </tr>
+     <tr>
+      <td>XMLTV ID</td>
+      <td><%= @channel.xmltv_id %></td>
+    </tr>
+    <tr>
+      <td>Program Count</td>
+      <td><%= @programs.count %></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_channel_path(@channel), delete_path: @channel} %>  
+</p>

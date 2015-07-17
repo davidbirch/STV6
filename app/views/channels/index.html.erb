@@ -1,40 +1,25 @@
-<ol class="breadcrumb">
-  <li><%= link_to title, root_path %></li>
-  <li class="active">Channels</li>
-</ol>
-<%= bootstrap_flash %>
-<h3>Channels
-<%= link_to new_channel_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Short name</th>
-      <th>Program Count</th>
-      <th colspan=2></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @channels.each do |channel| %>
-      <tr>
-        <td><%= link_to channel.name, channel %></td>
-        <td><%= channel.short_name %></td>
-        <td><%= channel.programs.count %></td>
-        <td>
-          <%= link_to edit_channel_path(channel), :class => 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-pencil"></i> Edit
-          <% end %>
-        </td>
-        <td>
-          <%= link_to channel, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-trash"></i> Delete
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Channels",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Channels", new_path: new_channel_path}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

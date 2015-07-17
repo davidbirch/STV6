@@ -1,0 +1,33 @@
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Short name</th>
+      <th>Program Count</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @channels.each do |channel| %>
+      <tr id="channel_<%= channel.id %>">
+        <td><%= channel.id %></td>
+        <td><%= link_to channel.name, channel %></td>
+        <td><%= channel.short_name %></td>
+        <td><%= channel.programs.count %></td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_channel_path(channel)} %></td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: channel} %></td>    
+      </tr>
+    <% end %>
+    <tr class="info">
+      <td></td>
+      <td><strong>Total</strong></td>
+      <td></td>
+      <td><strong><%= Program.count %></strong></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,6 +1,25 @@
-<h1>Editing Program</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @program %> |
-<%= link_to 'Back', programs_path %>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 2,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Programs",
+   level_1_link: programs_path,
+   level_2_name: @program.id.to_s + ": "+ @program.title,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Program"}  %>
+      <%= render "form_edit" %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

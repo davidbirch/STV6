@@ -1,47 +1,25 @@
-<ol class="breadcrumb">
-  <li><%= link_to title, root_path %></li>
-  <li class="active">Programs</li>
-</ol>
-<%= bootstrap_flash %>
-<h3>Programs
-<%= link_to new_program_path, :class => 'btn btn-xs btn-primary' do %>
-    <i class="glyphicon glyphicon-plus"></i> New
-<% end %>
-</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Subtitle</th>
-      <th>Category</th>
-      <th>Sport</th>
-      <th>Region</th>
-      <th>Channel</th>
-      <th colspan=2></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @programs.each do |program| %>
-      <tr>
-        <td><%= link_to program.title, program %></td>
-        <td><%= program.subtitle %></td>
-        <td><%= program.category %></td>
-        <td><%= program.sport.name unless program.sport.nil? %></td>
-        <td><%= program.region.name unless program.region.nil? %></td>
-        <td><%= program.channel.name unless program.channel.nil?%></td>
-        <td>
-          <%= link_to edit_program_path(program), :class => 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-pencil"></i> Edit
-          <% end %>
-        </td>
-        <td>
-          <%= link_to program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-trash"></i> Delete
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Programs",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Programs", new_path: new_program_path}  %>
+      <%= render "table_index", locals: {field_list: ["id", "title", "subtitle", "category", "region", "sport", "channel", "start_datetime", "end_datetime"]} %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

@@ -1,94 +1,26 @@
-<%= bootstrap_flash %>
-
-<h3>
-  Program: <%= @program.title %>
-  <%= link_to edit_channel_path(@program), :class => 'btn btn-info btn-xs' do %>
-    <i class="glyphicon glyphicon-pencil"></i> Edit
-  <% end %>
-  <%= link_to @program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-    <i class="glyphicon glyphicon-trash"></i> Delete
-  <% end %>
-</h3>
-<table class="table">
-  <tbody>
-    <tr>
-      <td>ID</td>
-      <td><%= @program.id %></td>
-    </tr>
-    <tr>
-      <td>Title</td>
-      <td><%= @program.title %></td>
-    </tr>
-    <tr>
-      <td>Subtitle</td>
-      <td><%= @program.subtitle %></td>
-    </tr>
-    <tr>
-      <td>Category</td>
-      <td><%= @program.category %></td>
-    </tr>
-    <tr>
-      <td>Start Date/Time</td>
-      <td><%= @program.start_datetime %></td>
-    </tr>
-    <tr>
-      <td>End Date/Time</td>
-      <td><%= @program.end_datetime %></td>
-    </tr>
-    <tr>
-      <td>Start Date Display</td>
-      <td><%= @program.start_date_display %></td>
-    </tr>
-    <tr>
-      <td>Region</td>
-      <td><%= @program.region.name unless @program.region.nil? %></td>
-    </tr>
-    <tr>
-      <td>Sport</td>
-      <td><%= @program.sport.name unless @program.sport.nil? %></td>
-    </tr>
-    <tr>
-      <td>Channel</td>
-      <td><%= @program.channel.name unless @program.channel.nil? %></td>  
-    </tr>
-  </tbody>
-</table>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Subtitle</th>
-      <th>Category</th>
-      <th>Sport</th>
-      <th>Region</th>
-      <th>Channel</th>
-      <th colspan=2></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @programs.each do |program| %>
-      <tr>
-        <td><%= program.id %></td>
-        <td><%= link_to program.title, program %></td>
-        <td><%= program.subtitle %></td>
-        <td><%= program.category %></td>
-        <td><%= program.sport.name unless program.sport.nil? %></td>
-        <td><%= program.region.name unless program.region.nil? %></td>
-        <td><%= program.channel.name unless program.channel.nil?%></td>
-        <td>
-          <%= link_to edit_program_path(program), :class => 'btn btn-info btn-xs' do %>
-            <i class="glyphicon glyphicon-pencil"></i> Edit
-          <% end %>
-        </td>
-        <td>
-          <%= link_to program, data:{confirm: 'Are you sure?'}, method: :delete, :class => 'btn btn-danger btn-xs' do %>
-            <i class="glyphicon glyphicon-trash"></i> Delete
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @programs, renderer: BootstrapPagination::Rails %>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 2,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Programs",
+   level_1_link: programs_path,
+   level_2_name: @program.id.to_s + ": "+ @program.title,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Program"}  %>
+      <%= render "form_show" %>
+      <%= render "programs/table_index", locals: {field_list: ["id", "title", "subtitle", "category", "region", "sport", "start_datetime", "end_datetime"]} %>
+    </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

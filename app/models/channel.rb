@@ -2,14 +2,16 @@
 #
 # Table name: channels
 #
-#  id          :integer          not null, primary key
-#  xmltv_id    :string(255)
-#  free_or_pay :string(255)
-#  name        :string(255)
-#  short_name  :string(255)
-#  black_flag  :boolean
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                      :integer          not null, primary key
+#  xmltv_id                :string(255)
+#  free_or_pay             :string(255)
+#  name                    :string(255)
+#  short_name              :string(255)
+#  black_flag              :boolean
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  url_friendly_name       :string(255)
+#  url_friendly_short_name :string(255)
 #
 
 class Channel < ActiveRecord::Base
@@ -29,7 +31,7 @@ class Channel < ActiveRecord::Base
   
   default_scope { order(:short_name) }
   
-  before_save :set_url_friendly_name
+  before_save :set_computed_columns
   
   class << self
     
@@ -43,8 +45,22 @@ class Channel < ActiveRecord::Base
     
   end
   
-  protected
+    protected
+  
+    def set_computed_columns
+        set_url_friendly_name
+        set_url_friendly_short_name
+    end
+    
     def set_url_friendly_name
       self.url_friendly_name = name.parameterize
     end 
+    
+    def set_url_friendly_short_name
+      self.url_friendly_short_name = short_name.parameterize
+    end
+    
+
+  protected
+    
 end
