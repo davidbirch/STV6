@@ -42,8 +42,25 @@ RSpec.describe Channel, type: :model do
     expect(FactoryGirl.build(:channel)).to validate_uniqueness_of(:xmltv_id)
   end
   
+  it "sets a url friendly name" do
+    @channel = FactoryGirl.create(:channel)
+    expect(@channel.url_friendly_name).to eq(@channel.name.parameterize)
+  end
+
+  it "sets a url friendly short name" do
+    @channel = FactoryGirl.create(:channel)
+    expect(@channel.url_friendly_short_name).to eq(@channel.short_name.parameterize)
+  end
+  
   it "should have many programs" do
     expect(FactoryGirl.build(:channel)).to have_many(:programs)
+  end
+  
+  it "can be found by the friendly id" do
+    @channel = FactoryGirl.create(:channel)
+    expect(Channel.find(@channel.id)).to eq(@channel)
+    expect(Channel.friendly.find(@channel.id)).to eq(@channel)
+    expect(Channel.friendly.find(@channel.url_friendly_name)).to eq(@channel)
   end
   
   describe "can create a channel based on a raw channel" do

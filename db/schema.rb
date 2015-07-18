@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627114948) do
+ActiveRecord::Schema.define(version: 20150718114839) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "xmltv_id",                limit: 255
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 20150627114948) do
     t.boolean  "conversion_completed",    limit: 1
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+  end
+
+  create_table "keywords", force: :cascade do |t|
+    t.string   "value",              limit: 255
+    t.integer  "sport_id",           limit: 4
+    t.integer  "priority",           limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "url_friendly_value", limit: 255
   end
 
   create_table "programs", force: :cascade do |t|

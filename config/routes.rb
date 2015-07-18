@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :keywords
   resources :channel_short_names, :path => 'channels-by-short-name', only: [:index, :show]
   resources :channels
   resources :conversion_summaries, :path => '/conversion-summaries', only: [:index, :show]

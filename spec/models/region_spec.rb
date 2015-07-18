@@ -26,8 +26,20 @@ RSpec.describe Region, type: :model do
     expect(FactoryGirl.build(:region)).to validate_uniqueness_of(:name)
   end
   
+  it "sets a url friendly name" do
+    @region = FactoryGirl.create(:region)
+    expect(@region.url_friendly_name).to eq(@region.name.parameterize)
+  end
+  
   it "should have many programs" do
     expect(FactoryGirl.build(:region)).to have_many(:programs)
+  end
+
+  it "can be found by the friendly id" do
+    @region = FactoryGirl.create(:region)
+    expect(Region.find(@region.id)).to eq(@region)
+    expect(Region.friendly.find(@region.id)).to eq(@region)
+    expect(Region.friendly.find(@region.url_friendly_name)).to eq(@region)
   end
     
 end

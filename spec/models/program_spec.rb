@@ -61,6 +61,16 @@ RSpec.describe Program, type: :model do
   it "should belong to a sport" do
     expect(FactoryGirl.build(:program)).to belong_to(:sport)
   end
+
+  it "should set the start_date_display" do
+    @program = FactoryGirl.create(:program)
+    expect(@program.start_date_display).to eq(@program.start_datetime.strftime("%F"))
+  end
+  
+  it "should set the url_friendly_category" do
+    @program = FactoryGirl.create(:program)
+    expect(@program.url_friendly_category).to eq(@program.category.parameterize)
+  end
   
   it "is invalid without a unique channel/region/sport/start/end" do
     expect(FactoryGirl.build(:program)).to validate_uniqueness_of(:channel_id).scoped_to(:region_id, :title, :sport_id, :start_datetime, :end_datetime)

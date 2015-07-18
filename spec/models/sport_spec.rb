@@ -25,8 +25,20 @@ RSpec.describe Sport, type: :model do
     expect(FactoryGirl.build(:sport)).to validate_uniqueness_of(:name)
   end
   
+  it "sets a url friendly name" do
+    @sport = FactoryGirl.create(:sport)
+    expect(@sport.url_friendly_name).to eq(@sport.name.parameterize)
+  end
+    
   it "should have many programs" do
     expect(FactoryGirl.build(:sport)).to have_many(:programs)
+  end
+  
+  it "can be found by the friendly id" do
+    @sport = FactoryGirl.create(:sport)
+    expect(Sport.find(@sport.id)).to eq(@sport)
+    expect(Sport.friendly.find(@sport.id)).to eq(@sport)
+    expect(Sport.friendly.find(@sport.url_friendly_name)).to eq(@sport)
   end
   
   describe "sort in alphabetical order by default" do
