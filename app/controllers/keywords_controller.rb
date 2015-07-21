@@ -3,7 +3,7 @@ class KeywordsController < ApplicationController
 
   # GET /keywords
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.all.order("priority DESC, value_length DESC")
   end
 
   # GET /keywords/1

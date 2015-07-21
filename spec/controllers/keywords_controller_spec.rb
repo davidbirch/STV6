@@ -56,7 +56,7 @@ RSpec.describe KeywordsController, type: :controller do
       it "creates a new Keyword" do
         expect {
           post :create, keyword: FactoryGirl.attributes_for(:keyword)
-        }.to change(Keyword, :count).by(1)
+        }.to change(Keyword.unscoped, :count).by(1)
       end
 
       it "assigns a newly created keyword as @keyword" do
@@ -121,7 +121,7 @@ RSpec.describe KeywordsController, type: :controller do
       keyword = FactoryGirl.create(:keyword)
       expect {
         delete :destroy, {:id => keyword.to_param}
-      }.to change(Keyword, :count).by(-1)
+      }.to change(Keyword.unscoped, :count).by(-1)
     end
 
     it "redirects to the keywords list" do

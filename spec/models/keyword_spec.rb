@@ -51,4 +51,10 @@ RSpec.describe Keyword, type: :model do
     expect(Keyword.friendly.find(@keyword.url_friendly_value)).to eq(@keyword)
   end
   
+  it "has a default value_length attribute" do
+    FactoryGirl.create(:keyword, value: "Testing")
+    expect(Keyword.find_by_value("Testing").value_length).to eq(7)
+        
+  end
+  
 end

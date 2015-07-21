@@ -24,6 +24,8 @@ class Keyword < ActiveRecord::Base
   
   before_save :set_url_friendly_value
   
+  default_scope {select("*, LENGTH(value) as value_length")}
+  
     protected
       def set_url_friendly_value
        self.url_friendly_value = value.parameterize
