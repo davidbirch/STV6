@@ -9,6 +9,10 @@
       <td><%= @sport.name %></td>
     </tr>
     <tr>
+      <td>Keyword Count</td>
+      <td><%= @keywords.count(:all) %></td>
+    </tr>
+    <tr>
       <td>Program Count</td>
       <td><%= @programs.count %></td>
     </tr>

@@ -6,6 +6,7 @@
     <tr>
       <th>#</th>
       <th>Name</th>
+      <th>Keyword Count</th>
       <th>Program Count</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -17,6 +18,7 @@
       <tr id="sport_<%= sport.id %>">
         <td><%= sport.id %></td>
         <td><%= link_to sport.name, sport %></td>
+        <td><%= sport.keywords.count(:all) %></td>
         <td><%= sport.programs.count %></td>
         <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_sport_path(sport)} %></td>
         <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: sport} %></td> 
@@ -25,6 +27,7 @@
     <tr class="info">
       <td></td>
       <td><strong>Total</strong></td>
+      <td><strong><%= Keyword.count(:all) %></strong></td>
       <td><strong><%= Program.count %></strong></td>
       <td></td>
       <td></td>
