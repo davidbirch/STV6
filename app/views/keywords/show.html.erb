@@ -1,19 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Value:</strong>
-  <%= @keyword.value %>
-</p>
-
-<p>
-  <strong>Sport:</strong>
-  <%= @keyword.sport_id %>
-</p>
-
-<p>
-  <strong>Priority:</strong>
-  <%= @keyword.priority %>
-</p>
-
-<%= link_to 'Edit', edit_keyword_path(@keyword) %> |
-<%= link_to 'Back', keywords_path %>
+<%= render "shared/navbar" %>
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 2,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Keywords",
+   level_1_link: keywords_path,
+   level_2_name: @keyword.value,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Keyword"}  %>
+      <%= render "form_show" %>
+   </div><!-- /col-lg-9 -->
+    <div class="col-lg-3">
+      <%= render "shared/sidebar" %>
+    </div><!-- /col-lg-3 -->
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "shared/footer" %>

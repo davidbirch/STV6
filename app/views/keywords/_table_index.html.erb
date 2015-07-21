@@ -1,0 +1,25 @@
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Value</th>
+      <th>Sport</th>
+      <th>Priority</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @keywords.each do |keyword| %>
+      <tr id="keyword_<%= keyword.id %>">
+        <td><%= keyword.id %></td>
+        <td><%= link_to keyword.value, keyword %></td>
+        <td><%= keyword.sport.name unless keyword.sport.nil?%></td>
+        <td><%= keyword.priority %></td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_keyword_path(keyword)} %></td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: keyword} %></td> 
+      </tr>      
+    <% end %>
+  </tbody>
+</table>

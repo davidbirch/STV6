@@ -1,0 +1,40 @@
+<% if @keyword.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@keyword.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @keyword.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @keyword do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :value %></td>
+          <td><%= f.text_field :value %></td>
+          <td></td>
+        </tr>
+         <tr>
+          <td><%= f.label :priority %></td>
+          <td><%= f.text_field :priority %></td>
+          <td></td>
+        </tr>
+          <tr>
+          <td><%= f.label :sport_id %></td>
+          <td><%= f.collection_select(:sport_id, Sport.all, :id, :name, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: keywords_path} %>
+  </p>
+<% end %>
+ 

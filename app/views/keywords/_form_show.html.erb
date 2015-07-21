@@ -1,0 +1,23 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @keyword.id %></td>
+    </tr>
+    <tr>
+      <td>Value</td>
+      <td><%= @keyword.value %></td>
+    </tr>
+    <tr>
+      <td>Priority</td>
+      <td><%= @keyword.priority %></td>
+    </tr>
+     <tr>
+      <td>Sport</td>
+      <td><%= @keyword.sport.name unless @keyword.sport.nil? %></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_keyword_path(@keyword), delete_path: @keyword} %>  
+</p>

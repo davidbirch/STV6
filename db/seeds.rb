@@ -28,3 +28,14 @@ CSV.open("db/data/channels.csv", "r").each do |row|
     c.black_flag = row[3]
   end
 end
+
+# import the data for keywords
+CSV.open("db/data/sport_keywords.csv", "r").each do |row|
+  if row[0] == "White Keyword"
+     Keyword.find_or_create_by(value: row[1]) do |k|
+      k.sport_id = Sport.find_by(name: row[2]).id
+      k.priority = row[3]
+    end
+  end
+end
+
