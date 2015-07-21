@@ -16,8 +16,8 @@ locals: {
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Sport"}  %>
       <%= render "form_show" %>
-      <%= render "keywords/table_index" %>
-      <%= render "programs/table_index", locals: {field_list: ["id", "title", "subtitle", "category", "region", "channel", "start_datetime", "end_datetime"]} %>
+      <%= render "keywords/table_index", locals: {header: "Listing Keywords"} %>
+      <%= render "programs/table_index", locals: {header: "Listing Programs", field_list: ["id", "title", "subtitle", "category", "region", "channel", "start_datetime", "end_datetime"]} %>
     </div><!-- /col-lg-9 -->
     <div class="col-lg-3">
       <%= render "shared/sidebar" %>

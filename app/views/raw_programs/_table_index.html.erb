@@ -1,4 +1,6 @@
-<%= will_paginate @raw_programs, renderer: BootstrapPagination::Rails %>
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>    
 <table class="table table-condensed">
   <thead>
     <tr>
