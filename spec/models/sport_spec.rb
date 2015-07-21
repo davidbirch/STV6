@@ -34,6 +34,10 @@ RSpec.describe Sport, type: :model do
     expect(FactoryGirl.build(:sport)).to have_many(:programs)
   end
   
+  it "should have many keywords" do
+    expect(FactoryGirl.build(:sport)).to have_many(:keywords)
+  end
+  
   it "can be found by the friendly id" do
     @sport = FactoryGirl.create(:sport)
     expect(Sport.find(@sport.id)).to eq(@sport)
