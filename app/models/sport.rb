@@ -33,7 +33,6 @@ class Sport < ActiveRecord::Base
       # pseudocode for finding the sport based on a raw program
       #
       # - if a black keyword is present return no sport
-      # - else if there is a sport name match return the Sport
       # - else if there is a sport keyword match return the Sport
       # - else check for a generic 'sport' keyword match and return 'Other Sport' unless there is a news or weather match
       
@@ -42,9 +41,6 @@ class Sport < ActiveRecord::Base
         # black keyword match so return nil
         return nil
       else
-        # check for a sport name match
-        sport = check_sport_name_match(raw_program)
-        return sport unless sport.nil?
         # check for a sport keyword match
         sport = check_sport_keyword_match(raw_program)
         return sport unless sport.nil?
@@ -59,42 +55,38 @@ class Sport < ActiveRecord::Base
       # no black keywords yet so return false
       return false
     end
-    
-    def check_sport_name_match(raw_program)
+        
+    def check_sport_keyword_match(raw_program)
       raw_program_title = raw_program["title"].downcase
       raw_program_subtitle = raw_program["subtitle"].downcase
       raw_program_category = raw_program["category"].downcase
-      list_of_sport_names =  Sport.pluck(:name).map(&:downcase).sort_by(&:length).reverse
+      list_of_sport_keywords =   Keyword.pluck(:value).map(&:downcase).sort_by(&:length).reverse
       
-      list_of_sport_names.each do |sport_name|
-        if sport_name.include? " "
+      list_of_sport_keywords.each do |sport_keyword|
+        if sport_keyword.include? " "
           # the sport_name contains a space so it has multiple words
           # use the include? method
-          if raw_program_title.include? sport_name
-            return Sport.find_by_name(sport_name)
-          elsif raw_program_subtitle.include? sport_name
-            return Sport.find_by_name(sport_name)
-          elsif raw_program_category.include? sport_name
-            return Sport.find_by_name(sport_name)
+          if raw_program_title.include? sport_keyword
+            return Keyword.find_by_value(sport_keyword).sport
+          elsif raw_program_subtitle.include? sport_keyword
+            return Keyword.find_by_value(sport_keyword).sport
+          elsif raw_program_category.include? sport_keyword
+            return Keyword.find_by_value(sport_keyword).sport
           end  
         else
           # the sport_name contains no space so it has only one word
           # use a standard include search
           raw_program_title.split.each do |s|
-            return Sport.find_by_name(sport_name) if s == sport_name
+            return Keyword.find_by_value(sport_keyword).sport if s == sport_keyword
           end
           raw_program_subtitle.split.each do |s|
-            return Sport.find_by_name(sport_name) if s == sport_name
+            return Keyword.find_by_value(sport_keyword).sport if s == sport_keyword
           end
           raw_program_category.split.each do |s|
-            return Sport.find_by_name(sport_name) if s == sport_name
+            return Keyword.find_by_value(sport_keyword).sport if s == sport_keyword
           end
         end
       end
-      return nil
-    end  
-    
-    def check_sport_keyword_match(raw_program)
       return nil
     end
      

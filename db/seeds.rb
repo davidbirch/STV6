@@ -17,7 +17,11 @@ end
 
 # import the data for sports
 CSV.open("db/data/sports.csv", "r").each do |row|
-  Sport.find_or_create_by(name: row[0])
+  sport = Sport.find_or_create_by(name: row[0])
+  Keyword.find_or_create_by(value: row[0]) do |k|
+      k.sport_id = sport.id
+      k.priority = 20
+    end
 end
 
 # import the data for channels
