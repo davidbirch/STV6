@@ -9,7 +9,7 @@ class KeywordsController < ApplicationController
   # GET /keywords/1
   def show
     @programs = @keyword.programs.paginate(:page => params[:page]) unless @keyword.nil?
-    
+    @programs_by_category = @keyword.programs.group(:url_friendly_category).order("count_all DESC").count
   end
 
   # GET /keywords/new
