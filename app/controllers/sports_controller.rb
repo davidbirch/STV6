@@ -9,7 +9,7 @@ class SportsController < ApplicationController
   # GET /sports/1
   def show
     @programs = @sport.programs.paginate(:page => params[:page]) unless @sport.nil?
-    @keywords = @sport.keywords.order("priority DESC, value_length DESC") unless @sport.nil?
+    @keywords = @sport.keywords.order("priority DESC, length(value) DESC") unless @sport.nil?
   end
 
   # GET /sports/new

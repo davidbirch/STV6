@@ -190,6 +190,12 @@ RSpec.describe Program, type: :model do
         expect(program.sport).to eq(Sport.find_by_name("Tennis"))
       end
       
+       it "sets the sport to 'Tennis' when the category contains punctuation" do
+        raw_program_tennis = FactoryGirl.create(:valid_raw_program, category: 'Sports, Tennis, Sports Group')
+        program = Program.create_from_raw_program(raw_program_tennis)
+        expect(program.sport).to eq(Sport.find_by_name("Tennis"))
+      end
+      
       it "sets the sport to 'Other Sport'" do
         other_sport_raw_program = FactoryGirl.create(:other_sport_raw_program)
         program = Program.create_from_raw_program(other_sport_raw_program)

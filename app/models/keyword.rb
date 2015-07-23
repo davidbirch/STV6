@@ -60,7 +60,7 @@ class Keyword < ActiveRecord::Base
       raw_program_subtitle = raw_program["subtitle"].downcase
       raw_program_category = raw_program["category"].downcase
       list_of_sport_keywords = Keyword.order("priority DESC, length(value) DESC").pluck(:value).map(&:downcase)
-      
+         
       list_of_sport_keywords.each do |sport_keyword|
         if sport_keyword.include? " "
           # the sport_name contains a space so it has multiple words
@@ -76,13 +76,13 @@ class Keyword < ActiveRecord::Base
           # the sport_name contains no space so it has only one word
           # use a standard include search
           raw_program_title.split.each do |s|
-            return Keyword.find_by_value(sport_keyword) if s == sport_keyword
+            return Keyword.find_by_value(sport_keyword) if s.gsub(/\W+/, '') == sport_keyword
           end
           raw_program_subtitle.split.each do |s|
-            return Keyword.find_by_value(sport_keyword) if s == sport_keyword
+            return Keyword.find_by_value(sport_keyword) if s.gsub(/\W+/, '') == sport_keyword
           end
           raw_program_category.split.each do |s|
-            return Keyword.find_by_value(sport_keyword) if s == sport_keyword
+            return Keyword.find_by_value(sport_keyword) if s.gsub(/\W+/, '') == sport_keyword
           end
         end
       end
