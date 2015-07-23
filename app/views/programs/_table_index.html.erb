@@ -21,6 +21,8 @@
             <td><%= program.region.name unless program.region.nil? %></td>
           <% elsif field_name == "sport" %>
             <td><%= program.sport.name unless program.sport.nil? %></td>
+          <% elsif field_name == "keyword" %>
+            <td><%= program.keyword.value unless program.keyword.nil? %></td>
           <% elsif field_name == "channel" %>
             <td><%= program.channel.name unless program.channel.nil? %></td>
           <% elsif field_name == "id" %>

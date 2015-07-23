@@ -16,6 +16,8 @@ locals: {
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Keyword"}  %>
       <%= render "form_show" %>
+      <%= render "programs/table_index", locals: {header: "Programs", field_list: ["id", "title", "subtitle", "category", "region", "sport", "channel", "start_datetime", "end_datetime"]} %>
+    
    </div><!-- /col-lg-9 -->
     <div class="col-lg-3">
       <%= render "shared/sidebar" %>

@@ -65,12 +65,14 @@ ActiveRecord::Schema.define(version: 20150718114839) do
     t.integer  "region_id",             limit: 4
     t.integer  "channel_id",            limit: 4
     t.integer  "sport_id",              limit: 4
+    t.integer  "keyword_id",            limit: 4
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.string   "url_friendly_category", limit: 255
   end
 
   add_index "programs", ["channel_id"], name: "index_programs_on_channel_id", using: :btree
+  add_index "programs", ["keyword_id"], name: "index_programs_on_keyword_id", using: :btree
   add_index "programs", ["region_id"], name: "index_programs_on_region_id", using: :btree
   add_index "programs", ["sport_id"], name: "index_programs_on_sport_id", using: :btree
 

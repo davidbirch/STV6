@@ -37,7 +37,11 @@ RSpec.describe Keyword, type: :model do
   
   it "should belong to a sport" do
     expect(FactoryGirl.build(:keyword)).to belong_to(:sport)
-  end  
+  end
+  
+  it "should have many programs" do
+    expect(FactoryGirl.build(:keyword)).to have_many(:programs)
+  end
   
   it "sets a url friendly value" do
     @keyword = FactoryGirl.create(:keyword)
@@ -50,11 +54,5 @@ RSpec.describe Keyword, type: :model do
     expect(Keyword.friendly.find(@keyword.id)).to eq(@keyword)
     expect(Keyword.friendly.find(@keyword.url_friendly_value)).to eq(@keyword)
   end
-  
-  it "has a default value_length attribute" do
-    FactoryGirl.create(:keyword, value: "Testing")
-    expect(Keyword.find_by_value("Testing").value_length).to eq(7)
-        
-  end
-  
+
 end

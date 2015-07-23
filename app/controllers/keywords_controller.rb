@@ -3,11 +3,13 @@ class KeywordsController < ApplicationController
 
   # GET /keywords
   def index
-    @keywords = Keyword.all.order("priority DESC, value_length DESC")
+    @keywords = Keyword.order("priority DESC, length(value) DESC")
   end
 
   # GET /keywords/1
   def show
+    @programs = @keyword.programs.paginate(:page => params[:page]) unless @keyword.nil?
+    
   end
 
   # GET /keywords/new

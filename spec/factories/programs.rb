@@ -41,6 +41,7 @@ FactoryGirl.define do
     region
     sport
     channel
+    keyword
   end
    
   factory :valid_program, parent: :program do |f|

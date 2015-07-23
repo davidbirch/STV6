@@ -57,22 +57,23 @@ RSpec.describe ProgramsController, type: :controller do
         @region = FactoryGirl.create(:region)
         @sport = FactoryGirl.create(:sport)
         @channel = FactoryGirl.create(:channel)
+        @keyword = FactoryGirl.create(:keyword)
       end
       
       it "creates a new Program" do
         expect {
-          post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id)
+          post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id)
         }.to change(Program, :count).by(1)
       end
 
       it "assigns a newly created program as @program" do
-        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id)
+        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id)
         expect(assigns(:program)).to be_a(Program)
         expect(assigns(:program)).to be_persisted
       end
 
       it "redirects to the created program" do
-        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id)
+        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id)
         expect(response).to redirect_to(Program.last)
       end
     end

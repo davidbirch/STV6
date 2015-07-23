@@ -23,6 +23,7 @@ class Program < ActiveRecord::Base
   belongs_to :channel
   belongs_to :region
   belongs_to :sport
+  belongs_to :keyword
   
   validates_presence_of :title
   validates_presence_of :start_datetime
@@ -30,6 +31,7 @@ class Program < ActiveRecord::Base
   validates_presence_of :region_id
   validates_presence_of :sport_id
   validates_presence_of :channel_id
+  validates_presence_of :keyword_id
   
   validates_uniqueness_of :channel_id , :scope => [:region_id, :title, :sport_id, :start_datetime, :end_datetime]
   
@@ -39,7 +41,8 @@ class Program < ActiveRecord::Base
     
     def create_from_raw_program(raw_program)
       
-      sport = Sport.find_for_raw_program(raw_program)
+      keyword = Keyword.find_for_raw_program(raw_program)
+      sport = keyword.sport unless keyword.nil?
       region = Region.find_by_name(raw_program.region_name)
       channel = Channel.find_by_xmltv_id(raw_program.channel_xmltv_id)
           
@@ -58,7 +61,8 @@ class Program < ActiveRecord::Base
         :end_datetime   => Time.zone.parse(raw_program.end_datetime.strftime("%F %R")).utc,
         :region_id      => (region.id unless region.nil?),
         :channel_id     => (channel.id unless channel.nil?),
-        :sport_id       => (sport.id unless sport.nil?)
+        :sport_id       => (sport.id unless sport.nil?),
+        :keyword_id     => (keyword.id unless keyword.nil?)
       )
       Time.zone = old_time_zone
       return program

@@ -47,6 +47,11 @@
           <td></td>
         </tr>
         <tr>
+          <td><%= f.label :keyword_id %></td>
+          <td><%= f.collection_select(:keyword_id, Keyword.all, :id, :name, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+        <tr>
           <td><%= f.label :region_id %></td>
           <td><%= f.collection_select(:region_id, Region.all, :id, :name, {include_blank: true}) %></td>
           <td></td>

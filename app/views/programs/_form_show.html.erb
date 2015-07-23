@@ -17,6 +17,10 @@
       <td><%= @program.category %></td>
     </tr>
     <tr>
+      <td>Keyword</td>
+      <td><%= @program.keyword.value unless @program.keyword.nil? %></td>
+    </tr>
+    <tr>
       <td>Region</td>
       <td><%= @program.region.name unless @program.region.nil? %></td>
     </tr>
