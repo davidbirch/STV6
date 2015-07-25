@@ -16,6 +16,10 @@
       <td>Sport</td>
       <td><%= @keyword.sport.name unless @keyword.sport.nil? %></td>
     </tr>
+     <tr>
+      <td>Program Count</td>
+      <td><%= @keyword.programs.count unless @keyword.programs.nil? %></td>
+    </tr>
   </tbody>
 </table>
 <p>

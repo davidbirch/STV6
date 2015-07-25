@@ -1,14 +1,16 @@
 <div class="well sidebar-nav">
   <h3>Sidebar</h3>
-
   <ul class="nav nav-list">
-    <li class="nav-header">Sidebar</li>
-    <li><%= link_to "Link1", "/path1"  %></li>
-    <li><%= link_to "Link2", "/path2"  %></li>
-    <li><%= link_to "Link3", "/path3"  %></li>
+  <% if current_user %>
+    <li><p class="navbar-text">Signed in as <strong><%= current_user.name %>!</strong></p></li>
+    <li><%= link_to "Sign out", signout_path %></li>
+  <% else %>
+    <li><%= link_to "Sign in with Twitter", signin_path %></li>
+  <% end %>
   </ul>
 </div><!--/.well -->
-<pre class="debug_dump">
-  <p>Current Time: <%= Time.new.utc %></p>
-</pre>
-<%= debug params %>
+<% if current_user %>
+  <%= debug current_user.inspect %>
+  <pre class="debug_dump"><p>Current Time: <%= Time.new.utc %></p></pre>
+  <%= debug params %>
+<% end %>

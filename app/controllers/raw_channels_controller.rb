@@ -1,4 +1,5 @@
 class RawChannelsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_raw_channel, only: [:show, :edit, :update, :destroy]
 
   # GET /raw_channels

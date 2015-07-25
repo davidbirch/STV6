@@ -1,4 +1,5 @@
 class ConversionSummariesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_conversion_summary, only: [:show]
 
   # GET /conversion_summaries

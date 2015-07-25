@@ -1,5 +1,5 @@
 class ProgramCategoriesController < ApplicationController
-
+  before_filter :authenticate_user!
 
   # GET /programs_by_category      
   def index

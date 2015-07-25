@@ -59,8 +59,5 @@ class Channel < ActiveRecord::Base
     def set_url_friendly_short_name
       self.url_friendly_short_name = short_name.parameterize
     end
-    
 
-  protected
-    
 end
