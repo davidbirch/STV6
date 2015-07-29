@@ -59,6 +59,9 @@ gem 'friendly_id'
 
 # Use Omniauth
 gem 'omniauth-twitter'
+
+# Use nokogiri
+gem 'nokogiri'
   
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
