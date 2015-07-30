@@ -4,7 +4,7 @@ class RawProgramsController < ApplicationController
 
   # GET /raw_programs
   def index
-    @raw_programs = RawProgram.paginate(:page => params[:page])
+    @raw_programs = RawProgram.all
   end
 
   # GET /raw_programs/1
@@ -54,6 +54,6 @@ class RawProgramsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def raw_program_params
-      params.require(:raw_program).permit(:title, :subtitle, :category, :description, :start_datetime, :end_datetime, :region_name, :channel_xmltv_id)
+      params.require(:raw_program).permit(:title, :subtitle, :category, :description, :start_datetime, :end_datetime, :region_name, :channel_free_or_pay)
     end
 end

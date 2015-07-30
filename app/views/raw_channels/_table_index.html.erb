@@ -6,18 +6,17 @@
     <tr>
       <th>#</th>
       <th>Channel Name</th>
-      <th>XMLTV ID</th>
+      <th>Free Or Pay</th>
     </tr>
   </thead>
 
   <tbody>
     <% @raw_channels.each do |raw_channel| %>
       <tr id="raw_channel_<%= raw_channel.id %>">
-        <td><%= raw_channel.id %></td>
-        <td><%= link_to raw_channel.channel_name, raw_channel %></td>
-        <td><%= raw_channel.xmltv_id %></td>    
+        <td><%= link_to raw_channel.id, raw_channel%></td>
+        <td><%= raw_channel.channel_name %></td>
+        <td><%= raw_channel.free_or_pay %></td>    
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= will_paginate @raw_channels, renderer: BootstrapPagination::Rails %>

@@ -4,7 +4,7 @@ class RawChannelsController < ApplicationController
 
   # GET /raw_channels
   def index
-     @raw_channels = RawChannel.paginate(:page => params[:page])
+     @raw_channels = RawChannel.all
   end
 
   # GET /raw_channels/1
@@ -54,6 +54,6 @@ class RawChannelsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def raw_channel_params
-      params.require(:raw_channel).permit(:xmltv_id, :channel_name)
+      params.require(:raw_channel).permit(:free_or_pay, :channel_name)
     end
 end
