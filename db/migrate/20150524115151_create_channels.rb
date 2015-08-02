@@ -1,7 +1,6 @@
 class CreateChannels < ActiveRecord::Migration
   def change
     create_table :channels do |t|
-      t.string :xmltv_id
       t.string :free_or_pay
       t.string :name
       t.string :short_name

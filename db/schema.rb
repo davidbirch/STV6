@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(version: 20150724133640) do
 
   create_table "channels", force: :cascade do |t|
-    t.string   "xmltv_id",                limit: 255
     t.string   "free_or_pay",             limit: 255
     t.string   "name",                    limit: 255
     t.string   "short_name",              limit: 255
@@ -58,7 +57,8 @@ ActiveRecord::Schema.define(version: 20150724133640) do
     t.string   "title",                 limit: 255
     t.string   "subtitle",              limit: 255
     t.string   "category",              limit: 255
-    t.string   "description",           limit: 255
+    t.text     "description",           limit: 65535
+    t.text     "program_hash",          limit: 65535
     t.datetime "start_datetime"
     t.string   "start_date_display",    limit: 255
     t.datetime "end_datetime"
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 20150724133640) do
     t.integer  "channel_id",            limit: 4
     t.integer  "sport_id",              limit: 4
     t.integer  "keyword_id",            limit: 4
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "url_friendly_category", limit: 255
   end
 
@@ -75,13 +75,6 @@ ActiveRecord::Schema.define(version: 20150724133640) do
   add_index "programs", ["keyword_id"], name: "index_programs_on_keyword_id", using: :btree
   add_index "programs", ["region_id"], name: "index_programs_on_region_id", using: :btree
   add_index "programs", ["sport_id"], name: "index_programs_on_sport_id", using: :btree
-
-  create_table "raw_channels", force: :cascade do |t|
-    t.string   "channel_name",        limit: 255
-    t.string   "channel_free_or_pay", limit: 255
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-  end
 
   create_table "raw_programs", force: :cascade do |t|
     t.text     "program_hash",        limit: 65535

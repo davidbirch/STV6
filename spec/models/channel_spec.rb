@@ -29,17 +29,9 @@ RSpec.describe Channel, type: :model do
   it "is invalid without a short name" do
     expect(FactoryGirl.build(:channel, short_name: nil)).to validate_presence_of(:short_name)
   end
-  
-  it "is invalid without an xmltv id" do
-    expect(FactoryGirl.build(:channel, xmltv_id: nil)).to validate_presence_of(:xmltv_id)
-  end
-  
+    
   it "is invalid without a unique name" do
     expect(FactoryGirl.build(:channel)).to validate_uniqueness_of(:name)
-  end
-  
-  it "is invalid without a unique xmltv_id" do
-    expect(FactoryGirl.build(:channel)).to validate_uniqueness_of(:xmltv_id)
   end
   
   it "sets a url friendly name" do
@@ -62,27 +54,5 @@ RSpec.describe Channel, type: :model do
     expect(Channel.friendly.find(@channel.id)).to eq(@channel)
     expect(Channel.friendly.find(@channel.url_friendly_name)).to eq(@channel)
   end
-  
-  describe "can create a channel based on a raw channel" do
-    
-    before :each do
-      @channel_nine = FactoryGirl.create(:channel_nine)
-    end
-    
-    context "where the channel already exists" do
-      it "does not create a duplicate channel" do
-        raw_channel_nine = FactoryGirl.create(:raw_channel_nine)
-        expect(Channel.create_from_raw_channel(raw_channel_nine).new_record?).to be true
-      end
-    end
-        
-    context "where the channel does not exist" do
-      it "creates a new channel" do
-        raw_channel_seven = FactoryGirl.create(:raw_channel_seven)
-        expect(Channel.create_from_raw_channel(raw_channel_seven).new_record?).to be false
-      end 
-    end
-    
-  end
-  
+
 end

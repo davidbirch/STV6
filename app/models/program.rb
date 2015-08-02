@@ -13,6 +13,7 @@
 #  region_id             :integer
 #  channel_id            :integer
 #  sport_id              :integer
+#  keyword_id            :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  url_friendly_category :string(255)
@@ -44,7 +45,7 @@ class Program < ActiveRecord::Base
       keyword = Keyword.find_for_raw_program(raw_program)
       sport = keyword.sport unless keyword.nil?
       region = Region.find_by_name(raw_program.region_name)
-      channel = Channel.find_by_xmltv_id(raw_program.channel_xmltv_id)
+      channel = Channel.find_or_create_from_raw_program(raw_program)
           
       # bug where the time zone is not being set properly, calling an 'inspect' seems to fix it
       # may cause performance issues - however this is only used in the converter
@@ -57,6 +58,7 @@ class Program < ActiveRecord::Base
         :subtitle       => raw_program.subtitle,
         :category       => raw_program.category,
         :description    => raw_program.description,
+        :program_hash   => raw_program.program_hash,
         :start_datetime => Time.zone.parse(raw_program.start_datetime.strftime("%F %R")).utc,
         :end_datetime   => Time.zone.parse(raw_program.end_datetime.strftime("%F %R")).utc,
         :region_id      => (region.id unless region.nil?),

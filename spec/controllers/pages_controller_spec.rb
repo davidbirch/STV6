@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe PagesController, type: :controller do
+  before(:each) do
+    @user = FactoryGirl.create(:valid_user)
+    session[:user_id] = @user.id
+  end
 
   describe "GET #home" do
     before :each do

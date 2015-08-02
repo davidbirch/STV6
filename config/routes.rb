@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   resources :program_regions_days, :path => '/programs-by-region-and-day', only: [:index]
   resources :program_regions_channels, :path => '/programs-by-region-and-channel', only: [:index]
   resources :programs
-  resources :raw_channels, :path => '/raw-channels', only: [:index, :show]
   resources :raw_program_categories, :path => '/raw-programs-by-category', only: [:index]
   resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
   resources :regions

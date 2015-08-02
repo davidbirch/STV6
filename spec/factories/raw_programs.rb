@@ -2,17 +2,19 @@
 #
 # Table name: raw_programs
 #
-#  id               :integer          not null, primary key
-#  title            :string(255)
-#  subtitle         :string(255)
-#  category         :string(255)
-#  description      :string(255)
-#  start_datetime   :datetime
-#  end_datetime     :datetime
-#  region_name      :string(255)
-#  channel_xmltv_id :string(255)
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                  :integer          not null, primary key
+#  program_hash        :text(65535)
+#  title               :string(255)
+#  subtitle            :string(255)
+#  category            :string(255)
+#  description         :text(65535)
+#  start_datetime      :datetime
+#  end_datetime        :datetime
+#  region_name         :string(255)
+#  channel_name        :string(255)
+#  channel_free_or_pay :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 
 FactoryGirl.define do
@@ -30,12 +32,12 @@ FactoryGirl.define do
     start_datetime TEN_PM_TOMORROW_RAW
     end_datetime ELEVEN_PM_TOMORROW_RAW
     region_name "Some region"
-    channel_xmltv_id "channel.free.au"   
+    channel_name "Channel"   
   end
   
   factory :valid_raw_program, parent: :raw_program do |f|
     f.region_name "Brisbane"
-    f.channel_xmltv_id "seven.free.au"   
+    f.channel_name "Seven"   
   end
   
   factory :invalid_raw_program, parent: :raw_program do |f|

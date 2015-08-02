@@ -4,7 +4,8 @@ class CreatePrograms < ActiveRecord::Migration
       t.string :title
       t.string :subtitle
       t.string :category
-      t.string :description
+      t.text :description
+      t.text :program_hash
       t.datetime :start_datetime
       t.string :start_date_display
       t.datetime :end_datetime

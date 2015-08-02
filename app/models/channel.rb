@@ -24,10 +24,8 @@ class Channel < ActiveRecord::Base
   
   validates_presence_of :name
   validates_presence_of :short_name
-  validates_presence_of :xmltv_id
   
   validates_uniqueness_of :name
-  validates_uniqueness_of :xmltv_id
   
   default_scope { order(:short_name) }
   
@@ -35,12 +33,10 @@ class Channel < ActiveRecord::Base
   
   class << self
     
-    def create_from_raw_channel(raw_channel)
-      Channel.create(
-        :name       => raw_channel.channel_name,
-        :short_name => raw_channel.channel_name[0,4],
-        :xmltv_id   => raw_channel.xmltv_id 
-      )
+    def find_or_create_from_raw_program(raw_program)
+      Channel.find_or_create_by(name: raw_program.channel_name) do |c|
+        c.short_name = raw_program.channel_name[0,4]
+      end
     end
     
   end

@@ -13,6 +13,7 @@
 #  region_id             :integer
 #  channel_id            :integer
 #  sport_id              :integer
+#  keyword_id            :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  url_friendly_category :string(255)

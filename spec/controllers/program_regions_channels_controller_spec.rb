@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe ProgramRegionsChannelsController, type: :controller do
+  before(:each) do
+    @user = FactoryGirl.create(:valid_user)
+    session[:user_id] = @user.id
+  end
 
   describe "GET #index" do
     before :each do

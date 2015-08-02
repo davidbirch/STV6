@@ -13,6 +13,7 @@
 #  region_id             :integer
 #  channel_id            :integer
 #  sport_id              :integer
+#  keyword_id            :integer
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  url_friendly_category :string(255)
@@ -166,7 +167,7 @@ RSpec.describe Program, type: :model do
         
     context "where the program does not exist" do
       it "creates a new program" do
-        raw_program_tennis = FactoryGirl.create(:cricket_raw_program, region_name: "Melbourne", channel_xmltv_id: "nine.free.au", category: "Tennis")
+        raw_program_tennis = FactoryGirl.create(:cricket_raw_program, region_name: "Melbourne", channel_name: "Nine", category: "Tennis")
         expect(Program.create_from_raw_program(raw_program_tennis).new_record?).to be false
       end 
     end

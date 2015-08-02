@@ -3,9 +3,9 @@
   <ul class="nav nav-list">
   <% if current_user %>
     <li><p class="navbar-text">Signed in as <strong><%= current_user.name %>!</strong></p></li>
-    <li><%= link_to "Sign out", signout_path %></li>
+    <li><p><%= link_to "Sign out", signout_path %></p></li>
   <% else %>
-    <li><%= link_to "Sign in with Twitter", signin_path %></li>
+    <li><p><%= link_to "Sign in with Twitter", signin_path %></p></li>
   <% end %>
   </ul>
 </div><!--/.well -->

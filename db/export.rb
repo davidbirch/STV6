@@ -13,11 +13,11 @@ CSV.open("db/data/sports.csv", "wb") do |csv|
   end
 end
 
-CSV.open("db/data/channels.csv", "wb") do |csv|
-  Channel.all.each do |channel|
-    csv << [channel.name, channel.short_name, channel.xmltv_id, channel.black_flag]
-  end
-end
+#CSV.open("db/data/channels.csv", "wb") do |csv|
+#  Channel.all.each do |channel|
+#    csv << [channel.name, channel.short_name, channel.xmltv_id, channel.black_flag]
+#  end
+#end
 
 CSV.open("db/data/sport_keywords.csv", "wb") do |csv|
   SportKeyword.all.each do |sport_keyword|
