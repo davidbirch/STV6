@@ -25,4 +25,18 @@ class RawProgram < ActiveRecord::Base
   validates_presence_of :region_name
   validates_presence_of :channel_name
   
+  def self.migrate_all_to_programs
+    programs_skipped = 0
+    programs_created = 0
+    
+    RawProgram.find_each do |raw_program|
+      program = Program.create_from_raw_program(raw_program)
+      if program.new_record?
+        programs_skipped += 1
+      else
+        programs_created += 1
+      end
+    end
+  end
+  
 end
