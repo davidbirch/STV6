@@ -1,0 +1,29 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+
+<% @start_dates.each do |start_date| %>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+        <th colspan=4><%= Time.new(start_date).strftime("%A, %e %b %y")%></th>
+    </tr>
+  </thead>
+  <thead>
+    <tr>
+        <th>Time</th>
+        <th>Title</th>
+        <th>Sport</th>
+        <th>Channel</th>       
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>Time</td>
+        <td>Title</td>
+        <td>Sport</td>
+        <td>Channel</td>       
+    </tr>
+  </tbody>
+</table>
+<% end %>
