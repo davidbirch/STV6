@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   
   resources :keywords
-  resources :guides, only: [:index, :show]
   resources :channel_short_names, :path => 'channels-by-short-name', only: [:index, :show]
   resources :channels
   resources :conversion_summaries, :path => '/conversion-summaries', only: [:index, :show]
@@ -15,6 +14,9 @@ Rails.application.routes.draw do
   resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
   resources :regions
   resources :sports
+  
+  resources :guides, only: [:index, :show]
+  
   
   get 'auth/:provider/callback',      to: 'sessions#create'
   get 'auth/failure',                 to: 'sessions#failure'

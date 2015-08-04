@@ -6,24 +6,32 @@
 <table class="table table-condensed">
   <thead>
     <tr>
-        <th colspan=4><%= Time.new(start_date).strftime("%A, %e %b %y")%></th>
+        <th colspan=6><%= start_date.to_time.strftime("%A, %e %b %y")%></th>
     </tr>
   </thead>
   <thead>
     <tr>
-        <th>Time</th>
+        <th>ID</th>
+        <th>Start Date/Time</th>
+        <th>End Date/Time</th>
         <th>Title</th>
         <th>Sport</th>
-        <th>Channel</th>       
+        <th>Channel</th>
+        <th>Channel Short Name</th>     
     </tr>
   </thead>
   <tbody>
-    <tr>
-        <td>Time</td>
-        <td>Title</td>
-        <td>Sport</td>
-        <td>Channel</td>       
+    <% @programs.where(start_date_display: start_date).each do |program| %>
+    <tr id="program_<%= program.id %>"></tr>
+      <td><%= link_to program.id, program %></td>
+      <td><%= program.start_datetime %></td>
+      <td><%= program.end_datetime %></td>
+      <td><%= program.title %></td>
+      <td><%= program.sport.name %></td>
+      <td><%= program.channel.name %></td>
+      <td><%= program.channel.short_name %></td>
     </tr>
+    <% end %>
   </tbody>
 </table>
 <% end %>

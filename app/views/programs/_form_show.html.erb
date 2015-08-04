@@ -40,13 +40,17 @@
       <td>Channel</td>
       <td><%= @program.channel.name unless @program.channel.nil? %></td>
     </tr>
-     <tr>
+    <tr>
       <td>Start Date/Time</td>
       <td><%= @program.start_datetime %></td>
     </tr>
-      <tr>
+    <tr>
       <td>End Date/Time</td>
       <td><%= @program.end_datetime %></td>
+    </tr>
+    <tr>
+      <td>Start Date Display</td>
+      <td><%= @program.start_date_display %></td>
     </tr>
   </tbody>
 </table>

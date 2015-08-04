@@ -6,7 +6,8 @@
 #  title                 :string(255)
 #  subtitle              :string(255)
 #  category              :string(255)
-#  description           :string(255)
+#  description           :text(65535)
+#  program_hash          :text(65535)
 #  start_datetime        :datetime
 #  start_date_display    :string(255)
 #  end_datetime          :datetime

@@ -2,7 +2,7 @@ class Scraper
   require 'open-uri'
   @log = Logger.new(File.expand_path("#{Rails.root}/log/scraper.log", __FILE__))
   REGION_LIST = [["Adelaide","81"],["Brisbane","75"],["Melbourne","94"],["Perth","101"],["Sydney","73"]]
-  DAYS_TO_GATHER = 0.25 # days
+  DAYS_TO_GATHER = 0.125 # days
   SIZE_OF_A_DAY = 86400 # epoch time units (86400 is equal to 24 hours)
   SIZE_OF_TIME_SLICE = 10800 # epoch time units (10800 is equal to 3 hours)
          
@@ -68,7 +68,7 @@ class Scraper
         end   
       end
       attr_start_datetime = Time.at(tv["event_date"][0]["0"].to_i) unless tv["event_date"][0]["0"].nil?
-      attr_end_datetime = Time.at(tv["event_date"][0]["0"].to_i) unless tv["event_date"][0]["0"].nil?
+      attr_end_datetime = Time.at(tv["end_date"][0]["0"].to_i) unless tv["end_date"][0]["0"].nil?
       
       # if nil then default to an empty string
       attr_title ||= ""

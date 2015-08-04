@@ -3,7 +3,6 @@
 # Table name: channels
 #
 #  id                      :integer          not null, primary key
-#  xmltv_id                :string(255)
 #  free_or_pay             :string(255)
 #  name                    :string(255)
 #  short_name              :string(255)

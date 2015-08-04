@@ -6,7 +6,8 @@
 #  title                 :string(255)
 #  subtitle              :string(255)
 #  category              :string(255)
-#  description           :string(255)
+#  description           :text(65535)
+#  program_hash          :text(65535)
 #  start_datetime        :datetime
 #  start_date_display    :string(255)
 #  end_datetime          :datetime
@@ -38,6 +39,11 @@ class Program < ActiveRecord::Base
   
   before_save :set_computed_columns
   
+  scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
+  scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}
+  scope :by_subtitle, ->{order("subtitle DESC, title DESC")}  
+  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).chronological.by_channel_short_name.by_subtitle}
+    
   class << self
     
     def create_from_raw_program(raw_program)
@@ -46,14 +52,8 @@ class Program < ActiveRecord::Base
       sport = keyword.sport unless keyword.nil?
       region = Region.find_by_name(raw_program.region_name)
       channel = Channel.find_or_create_from_raw_program(raw_program)
-          
-      # bug where the time zone is not being set properly, calling an 'inspect' seems to fix it
-      # may cause performance issues - however this is only used in the converter
-      raw_program.inspect
-      old_time_zone = Time.zone
-      Time.zone = raw_program.region_name
         
-      program = Program.create(
+      Program.create(
         :title          => raw_program.title,
         :subtitle       => raw_program.subtitle,
         :category       => raw_program.category,
@@ -66,8 +66,6 @@ class Program < ActiveRecord::Base
         :sport_id       => (sport.id unless sport.nil?),
         :keyword_id     => (keyword.id unless keyword.nil?)
       )
-      Time.zone = old_time_zone
-      return program
     
     end
   
