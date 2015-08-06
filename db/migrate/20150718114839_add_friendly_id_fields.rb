@@ -5,6 +5,6 @@ class AddFriendlyIdFields < ActiveRecord::Migration
     add_column :keywords, :url_friendly_value, :string
     add_column :channels, :url_friendly_name, :string
     add_column :channels, :url_friendly_short_name, :string
-    add_column :programs, :url_friendly_category, :string
+    
   end
 end

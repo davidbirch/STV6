@@ -4,11 +4,13 @@ class CreatePrograms < ActiveRecord::Migration
       t.string :title
       t.string :subtitle
       t.string :category
+      t.string :url_friendly_category
       t.text :description
       t.text :program_hash
       t.datetime :start_datetime
-      t.string :start_date_display
       t.datetime :end_datetime
+      t.string :start_date_display
+      t.string :local_start_date_display
       t.integer :region_id
       t.integer :channel_id
       t.integer :sport_id

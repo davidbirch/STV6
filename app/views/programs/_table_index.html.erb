@@ -31,8 +31,14 @@
             <td><%= program.start_datetime.strftime("%c") %></td>
           <% elsif field_name == "end_datetime" %>
             <td><%= program.end_datetime.strftime("%c") %></td> 
-          <% elsif field_name == "start_date_display" %>
-            <td><%= Date.parse(program.start_date_display).strftime("%a %d %b %Y") %></td>
+          <% elsif field_name == "local_start_datetime" %>
+            <td><%= program.local_start_datetime.strftime("%c") %></td>
+          <% elsif field_name == "local_end_datetime" %>
+            <td><%= program.local_end_datetime.strftime("%c") %></td> 
+          <% elsif field_name == "local_time_zone" %>
+            <td><%= program.local_time_zone %></td> 
+          <% elsif field_name == "local_start_date_display" %>
+            <td><%= Date.parse(program.local_start_date_display).strftime("%a %d %b %Y") %></td>
           <% else %>
             <td><%= program.read_attribute(field_name) %></td>
           <% end %>

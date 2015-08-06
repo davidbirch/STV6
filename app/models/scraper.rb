@@ -2,7 +2,7 @@ class Scraper
   require 'open-uri'
   @log = Logger.new(File.expand_path("#{Rails.root}/log/scraper.log", __FILE__))
   REGION_LIST = [["Adelaide","81"],["Brisbane","75"],["Melbourne","94"],["Perth","101"],["Sydney","73"]]
-  DAYS_TO_GATHER = 0.125 # days
+  DAYS_TO_GATHER = 5 # days
   SIZE_OF_A_DAY = 86400 # epoch time units (86400 is equal to 24 hours)
   SIZE_OF_TIME_SLICE = 10800 # epoch time units (10800 is equal to 3 hours)
          
@@ -32,14 +32,20 @@ class Scraper
                       
             # access the file and the data_hash
             file = URI.parse(encoded_uri)
-            data_hash = JSON.parse(file.read)
-            
+            get_file_count = 0
+            begin
+              data_hash = JSON.parse(file.read)
+            rescue Errno::ECONNRESET => e
+              get_file_count += 1
+              retry unless get_file_count > 10
+              @log.debug("Tried #{get_file_count} times and couldn't get #{file}: #{e}")
+            end
             # populate a sorted array of times from the tv shows
             data_hash["tv"][0]["item"].each {|tv|
               raw_program = create_raw_program_from_data_hash(region_name, tv)
               raw_program_count += 1
             }
-            @log.info("Created #{raw_program_count.to_s} raw programs for #{region_name}(#{region_code.to_s}).")  
+            @log.info("Created #{raw_program_count.to_s} raw programs for #{region_name}(#{region_code.to_s}) at #{start_time.strftime("%c")}.")  
           end
       }
         

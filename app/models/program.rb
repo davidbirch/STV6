@@ -42,7 +42,27 @@ class Program < ActiveRecord::Base
   scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
   scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}
   scope :by_subtitle, ->{order("subtitle DESC, title DESC")}  
-  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).chronological.by_channel_short_name.by_subtitle}
+  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).chronological.by_channel_short_name.by_subtitle}  
+   
+  def local_time_zone
+    region.name
+  end
+    
+  def local_start_datetime
+    start_datetime.in_time_zone(local_time_zone)
+  end
+    
+  def local_end_datetime
+    end_datetime.in_time_zone(local_time_zone)
+  end
+    
+  def full_title
+    if subtitle != ""
+      title + " (" + subtitle + ")"
+    else
+      title
+    end
+   end
     
   class << self
     
@@ -75,11 +95,16 @@ class Program < ActiveRecord::Base
   
     def set_computed_columns
         set_start_date_display
+        set_local_start_date_display
         set_url_friendly_category
     end
-    
+            
     def set_start_date_display
       self.start_date_display = start_datetime.strftime("%F")
+    end
+    
+    def set_local_start_date_display
+      self.local_start_date_display = start_datetime.in_time_zone(region.name).strftime("%F")
     end
     
     def set_url_friendly_category

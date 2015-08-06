@@ -41,6 +41,10 @@
       <td><%= @program.channel.name unless @program.channel.nil? %></td>
     </tr>
     <tr>
+      <td>Start Date Display</td>
+      <td><%= @program.start_date_display %></td>
+    </tr>
+    <tr>
       <td>Start Date/Time</td>
       <td><%= @program.start_datetime %></td>
     </tr>
@@ -49,9 +53,22 @@
       <td><%= @program.end_datetime %></td>
     </tr>
     <tr>
-      <td>Start Date Display</td>
-      <td><%= @program.start_date_display %></td>
+      <td>Local Start Date Display</td>
+      <td><%= @program.local_start_date_display %></td>
     </tr>
+    <tr>
+      <td>Local Start Date/Time</td>
+      <td><%= @program.local_start_datetime %></td>
+    </tr>
+    <tr>
+      <td>Local End Date/Time</td>
+      <td><%= @program.local_end_datetime %></td>
+    </tr>
+    <tr>
+      <td>Local Time Zone</td>
+      <td><%= @program.local_time_zone %></td>
+    </tr>
+    
   </tbody>
 </table>
 <p>
