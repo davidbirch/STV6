@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
+  resources :scrapers
   resources :keywords
   resources :channel_short_names, :path => 'channels-by-short-name', only: [:index, :show]
   resources :channels
-  resources :conversion_summaries, :path => '/conversion-summaries', only: [:index, :show]
   resources :program_categories, :path => '/programs-by-category', only: [:index, :show]
   resources :program_days, :path => '/programs-by-day', only: [:index, :show]
   resources :program_regions_sports, :path => '/programs-by-region-and-sport', only: [:index]

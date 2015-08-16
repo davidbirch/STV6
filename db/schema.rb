@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724133640) do
+ActiveRecord::Schema.define(version: 20150810114245) do
 
   create_table "channels", force: :cascade do |t|
     t.string   "free_or_pay",             limit: 255
@@ -43,6 +43,22 @@ ActiveRecord::Schema.define(version: 20150724133640) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   limit: 4,     default: 0, null: false
+    t.integer  "attempts",   limit: 4,     default: 0, null: false
+    t.text     "handler",    limit: 65535,             null: false
+    t.text     "last_error", limit: 65535
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "keywords", force: :cascade do |t|
     t.string   "value",              limit: 255
@@ -98,6 +114,15 @@ ActiveRecord::Schema.define(version: 20150724133640) do
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "url_friendly_name",   limit: 255
+  end
+
+  create_table "scrapers", force: :cascade do |t|
+    t.text     "target_region_list", limit: 65535
+    t.text     "log",                limit: 65535
+    t.string   "status",             limit: 255
+    t.float    "days_to_gather",     limit: 24
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "sports", force: :cascade do |t|

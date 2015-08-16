@@ -1,0 +1,37 @@
+<small>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @scraper.id %></td>
+    </tr>
+    <tr>
+      <td>Days To Gather</td>
+      <td><%= @scraper.days_to_gather %></td>
+    </tr>
+    <tr>
+      <td>Target Region List</td>
+      <td><%= @scraper.target_region_list %></td>
+    </tr>
+    <tr>
+      <td>Log</td>
+      <td><%= simple_format @scraper.log %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><%= @scraper.status %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @scraper.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @scraper.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_scraper_path(@scraper), delete_path: @scraper} %>  
+</p>
+</small>

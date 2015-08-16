@@ -5,19 +5,22 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-  <a class="navbar-brand" href="<%= root_path %>"><%= website_plain_english_formatted_name %></a>
+    <strong>
+      <a class="navbar-brand" href="<%= root_path %>"><%= website_plain_english_formatted_name %></a> 
+    </strong> 
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Raw Programs<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Importer<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="<%= conversion_summaries_path %>">Conversion Summaries</a></li>
+            <li><a href="<%= scrapers_path %>">Scrapers</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<%= raw_programs_path %>">Raw Programs</a></li>
+            <li role="separator" class="divider"></li>
           </ul>
         </li> <!-- /dropdown -->
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin Views<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reference<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="<%= regions_path %>">Regions</a></li>
             <li role="separator" class="divider"></li>
@@ -25,6 +28,11 @@
             <li role="separator" class="divider"></li>
             <li><a href="<%= keywords_path %>">Keywords</a></li>
             <li role="separator" class="divider"></li>
+          </ul>
+        </li> <!-- /dropdown -->          
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guide<span class="caret"></span></a>
+          <ul class="dropdown-menu">
             <li><a href="<%= guides_path %>">Guides</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="<%= channels_path %>">Channels</a></li>
@@ -36,8 +44,9 @@
             <li><a href="<%= program_regions_sports_path %>">By Region And Sport</a></li>
             <li><a href="<%= program_regions_channels_path %>">By Region And Channel</a></li>
             <li><a href="<%= program_regions_days_path %>">By Region And Day</a></li>
+            <li role="separator" class="divider"></li>
           </ul>
-        </li> <!-- /dropdown -->     
+        </li> <!-- /dropdown -->   
       </ul> <!-- /nav navbar-nav -->
     </div> <!-- /navbar-collapse collapse-->
   </div> <!-- /container -->

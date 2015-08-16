@@ -54,7 +54,10 @@ gem 'request-log-analyzer'
 # Use whenever gem
 gem 'whenever', :require => false
 
-# Use frieldny_id
+# User delayed job
+gem 'delayed_job_active_record'
+
+# Use friendly_id
 gem 'friendly_id'
 
 # Use Omniauth

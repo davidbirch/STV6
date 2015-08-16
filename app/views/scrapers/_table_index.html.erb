@@ -1,0 +1,38 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>    
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Target Region List</th>
+      <th>Days To Gather</th>
+      <th>Status</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @scrapers.each do |scraper| %>
+      <tr id="scraper_<%= scraper.id %>">
+        <td><%= link_to scraper.id, scraper %></td>
+        <td><%= scraper.target_region_list %></td>
+        <td><%= scraper.days_to_gather %></td>
+        <td>
+        <% if scraper.status == "Completed"  %>
+          <i class="glyphicon glyphicon-ok text-success"></i>
+        <% elsif scraper.status == "Started" %>
+          <i class="glyphicon glyphicon-flash text-primary"></i>
+        <% elsif scraper.status = "Error" %>
+          <i class="glyphicon glyphicon-remove text-danger"></i>
+        <% else %>
+          <i class="glyphicon glyphicon-exclamation-sign text-warning"></i>
+        <% end %>
+        </td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_scraper_path(scraper)} %></td>
+        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: scraper} %></td>    
+      </tr>
+    <% end %>
+  </tbody>
+</table>

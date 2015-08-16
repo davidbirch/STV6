@@ -1,22 +1,71 @@
 <%= render "shared/navbar" %>
-<%= render "shared/breadcrumb",
-locals: {
-   active_level: 1,
-   level_0_name: "Home Icon",
-   level_0_link: root_path,
-   level_1_name: "Home Page",
-   level_1_link: nil,
-   level_2_name: nil,
-   level_2_link: nil
-   }
-%>
+<%= render "shared/home_header" %>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-9">          
       <%= render "shared/flash" %>
-      <%= render "shared/content_header", locals: {header: "Home Page"}  %>
-      <p>The Home Page</p>
-      <p>Link to <%= link_to "About", about_path %></p>
+      <div class="row">
+         
+         <div class="col-sm-6 col-md-4">
+           <div class="thumbnail">
+             <img src="assets/city_of_melbourne_140x140.png" alt="Melbourne">
+             <div class="caption">
+               <h3 class="text-center">Melbourne</h3>
+            </div>
+           </div>
+         </div>
+         
+         <div class="col-sm-6 col-md-4">
+           <div class="thumbnail">
+             <img src="assets/city_of_sydney_140x140.png" alt="Sydney">
+             <div class="caption">
+               <h3 class="text-center">Sydney</h3>
+            </div>
+           </div>
+         </div>
+         
+         <div class="col-sm-6 col-md-4">
+           <div class="thumbnail">
+             <img src="http://placehold.it/140x140" alt="Perth">
+             <div class="caption">
+               <h3 class="text-center">Perth</h3>
+            </div>
+           </div>
+         </div>
+      
+       </div><!-- row -->
+       <div class="row">
+         
+         <div class="col-sm-6 col-md-4">
+           <div class="thumbnail">
+             <img src="http://placehold.it/140x140" alt="Adelaide">
+             <div class="caption">
+               <h3 class="text-center">Adelaide</h3>
+            </div>
+           </div>
+         </div>
+         
+         <div class="col-sm-6 col-md-4">
+           <div class="thumbnail">
+             <img src="http://placehold.it/140x140" alt="Hobart">
+             <div class="caption">
+               <h3 class="text-center">Hobart</h3>
+            </div>
+           </div>
+         </div>
+         
+         <div class="col-sm-6 col-md-4">
+           <div class="thumbnail">
+             <img src="http://placehold.it/140x140" alt="Brisbane">
+             <div class="caption">
+               <h3 class="text-center">Brisbane</h3>
+            </div>
+           </div>
+         </div>
+      
+       </div><!-- row -->
+       
     </div><!-- /col-lg-9 -->
     <div class="col-lg-3">
       <%= render "shared/sidebar" %>

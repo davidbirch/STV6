@@ -1,0 +1,40 @@
+<% if @scraper.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@scraper.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @scraper.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @scraper do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :days_to_gather %></td>
+          <td><%= f.number_field :days_to_gather, :step => 0.125 %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :target_region_list %></td>
+          <td><%= f.text_area :target_region_list %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :status %></td>
+          <td><%= f.text_field :status %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: scrapers_path} %>
+  </p>
+<% end %>
+ 

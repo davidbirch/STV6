@@ -25,5 +25,9 @@ module App
     
     # Force SSL
     config.force_ssl = true
+    
+    # Use Delayed Job
+    config.active_job.queue_adapter = :delayed_job
+    
   end
 end
