@@ -1,0 +1,27 @@
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @user.id %></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <td>Provider</td>
+      <td><%= @user.provider %></td>
+    </tr>
+    <tr>
+      <td>UID</td>
+      <td><%= @user.uid %></td>
+    </tr>
+    <tr>
+      <td>Source</td>
+      <td><%= @user.source %></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_user_path(@user), delete_path: @user} %>  
+</p>

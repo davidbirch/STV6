@@ -9,45 +9,7 @@
       <a class="navbar-brand" href="<%= root_path %>"><%= website_plain_english_formatted_name %></a> 
     </strong> 
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Importer<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<%= scrapers_path %>">Scrapers</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<%= raw_programs_path %>">Raw Programs</a></li>
-            <li role="separator" class="divider"></li>
-          </ul>
-        </li> <!-- /dropdown -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reference<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<%= regions_path %>">Regions</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<%= sports_path %>">Sports</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<%= keywords_path %>">Keywords</a></li>
-            <li role="separator" class="divider"></li>
-          </ul>
-        </li> <!-- /dropdown -->          
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guide<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="<%= guides_path %>">Guides</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<%= channels_path %>">Channels</a></li>
-            <li><a href="<%= channel_short_names_path %>">By Short Name</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="<%= programs_path %>">Programs</a></li>
-            <li><a href="<%= program_categories_path %>">By Category</a></li>
-            <li><a href="<%= program_days_path %>">By Day</a></li>
-            <li><a href="<%= program_regions_sports_path %>">By Region And Sport</a></li>
-            <li><a href="<%= program_regions_channels_path %>">By Region And Channel</a></li>
-            <li><a href="<%= program_regions_days_path %>">By Region And Day</a></li>
-            <li role="separator" class="divider"></li>
-          </ul>
-        </li> <!-- /dropdown -->   
-      </ul> <!-- /nav navbar-nav -->
+      <%= render "shared/navbar_links" %>
     </div> <!-- /navbar-collapse collapse-->
   </div> <!-- /container -->
 </div> <!-- /navbar -->

@@ -1,0 +1,46 @@
+<% if @user.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@user.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @user do |f| %>
+
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name, :placeholder=>"User Name ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :uid %></td>
+          <td><%= f.text_field :uid, :placeholder=>"UID ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :provider %></td>
+          <td><%= f.text_field :provider, :placeholder=>"Provider ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :source %></td>
+          <td><%= f.text_field :source, :placeholder=>"Source ..." %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: users_path} %>
+  </p>
+<% end %>
+ 
