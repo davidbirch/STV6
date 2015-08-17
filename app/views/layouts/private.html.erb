@@ -21,6 +21,8 @@
   </head>
   <body>
     <%= yield %>
-    <p>PRIVATE</p>
+  <% if current_user %>
+    <%= debug params %>
+  <% end %>
   </body>
 </html>

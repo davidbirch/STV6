@@ -1,0 +1,33 @@
+<small>
+<table class="table">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @migrator.id %></td>
+    </tr>
+    <tr>
+      <td>Target Region List</td>
+      <td><%= @migrator.target_region_list %></td>
+    </tr>
+    <tr>
+      <td>Log</td>
+      <td><%= simple_format @migrator.log %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><%= @migrator.status %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @migrator.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @migrator.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_migrator_path(@migrator), delete_path: @migrator} %>  
+</p>
+</small>

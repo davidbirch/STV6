@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :channel_short_names, :path => 'channels-by-short-name', only: [:index, :show]
   resources :channels
   resources :keywords
+  resources :migrators
   resources :program_categories, :path => '/programs-by-category', only: [:index, :show]
   resources :program_days, :path => '/programs-by-day', only: [:index, :show]
   resources :program_regions_sports, :path => '/programs-by-region-and-sport', only: [:index]

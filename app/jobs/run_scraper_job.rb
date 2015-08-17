@@ -31,6 +31,7 @@ class RunScraperJob < ActiveJob::Base
           region_list.each {|region_name,region_code|  
             base_uri = ("https://au.tv.yahoo.com/tv-guide/data/" + region_code + "/168/")
             scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: The base URI is #{base_uri}")
+            scraper.save
                 
             number_of_time_slices.times do |i|
               start_time = Time.at(initial_start_time + (i* size_of_a_time_slice))
