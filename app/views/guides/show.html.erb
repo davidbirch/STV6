@@ -1,25 +1,14 @@
-<%= render "shared/navbar" %>
-<%= render "shared/breadcrumb",
-locals: {
-   active_level: 2,
-   level_0_name: "Home Icon",
-   level_0_link: root_path,
-   level_1_name: "Guides",
-   level_1_link: guides_path,
-   level_2_name: @region.name,
-   level_2_link: nil
-   }
-%>
+<%= render "shared/public_navbar" %>
 <div class="container">
+  <%= render "shared/adsense_728_x_90" %>
   <div class="row">
-    <div class="col-lg-9">          
+    <div class="col-sm-12 col-md-2"></div>
+    <div class="col-sm-12 col-md-8">          
       <%= render "shared/flash" %>
-      <%= render "shared/content_header", locals: {header: "Guide"}  %>
+      <%= render "shared/guide_form_control" %>
       <%= render "form_show" %>  
-    </div><!-- /col-lg-9 -->
-    <div class="col-lg-3">
-      <%= render "shared/sidebar" %>
-    </div><!-- /col-lg-3 -->
+    </div><!-- /col-md-8 -->
+    <div class="col-sm-12 col-md-2"></div>
   </div><!-- /row -->
 </div> <!-- /container -->
 <%= render "shared/footer" %>
