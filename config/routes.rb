@@ -16,10 +16,7 @@ Rails.application.routes.draw do
   resources :scrapers
   resources :sports
   resources :users
-  
-  resources :guides, only: [:index, :show]
-  
-  
+   
   get 'auth/:provider/callback',      to: 'sessions#create'
   get 'auth/failure',                 to: 'sessions#failure'
   get 'signout',                      to: 'sessions#destroy', as: 'signout'
@@ -28,5 +25,9 @@ Rails.application.routes.draw do
   get 'about',                        to: 'pages#about'
   
   root "pages#home"
+  
+  # special routes for /region and /region/sport
+  get ':region_name',                 to: 'guides#show'
+  get ':region_name/:sport_name',     to: 'guides#show'
   
 end

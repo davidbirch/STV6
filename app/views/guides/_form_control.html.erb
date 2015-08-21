@@ -1,0 +1,25 @@
+<div class="form-group">
+  <div class="row guide-form-control">
+    <div class="col-xs-6 col-sm-3">
+      <%= label_tag 'Region:', nil, class: 'guide_label' %>
+      <%= select_tag('region', options_for_select(Region.all.pluck(:name).sort, (@region.name if @region)), class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <%= label_tag 'Sport:', nil, class: 'guide_label' %>
+      <%= select_tag('sport', options_for_select([""] + Sport.all.pluck(:name).sort, (@sport.name if @sport)), class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <%= form_tag("/#{@region.url_friendly_name}", :method => "get") do %>
+        <%= label_tag 'Search:', nil, class: 'guide_label' %>
+        <div class="input-group">
+          <%= search_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: 'Search for...' %>
+          <span class="input-group-btn">
+            <button class='btn btn-info btn-sm'>
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div><!-- /input-group -->
+      <% end %>
+    </div>
+  </div>
+</div>

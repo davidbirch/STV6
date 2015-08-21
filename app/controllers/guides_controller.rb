@@ -1,17 +1,10 @@
 class GuidesController < ApplicationController
-  before_filter :authenticate_user!
-
-  # GET /guides      
-  def index
-    @regions = Region.all
-    @start_dates = Program.distinct.pluck(:local_start_date_display).sort
-    @guides = Program.distinct.pluck(:region_id, :local_start_date_display)
-  end
-
-  # GET /guides/:region_id
-  # GET /guides/:region_id/:sport_id
+  
+  # GET /guides/:region_name
+  # GET /guides/:region_name/:sport_name
   def show
-    @region = Region.friendly.find(params[:id])
+    @region = Region.friendly.find(params[:region_name]) if params[:region_name]
+    @sport = Sport.friendly.find(params[:sport_name]) if params[:sport_name]
     @start_dates = Program.where(region_id: @region.id).distinct.pluck(:local_start_date_display).sort
 
     @programs = @region.programs.ordered_for_tv_guide
