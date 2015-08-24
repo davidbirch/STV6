@@ -5,10 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="apple-touch-icon" href="assets/apple-touch-icon-precomposed.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/apple-touch-icon-72x72-precomposed.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/apple-touch-icon-114x114-precomposed.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/apple-touch-icon-144x144-precomposed.png" />
+    <link rel="apple-touch-icon" href="http://sportontelevision.com/apple-touch-icon.png" />
     
     <title><%= title %></title>
     <%= csrf_meta_tags %>
@@ -20,9 +17,5 @@
     <%= javascript_include_tag "application" %>
   </head>
   <body>
-    <%= yield %>
-  <% if current_user %>
-    <%= debug params %>
-  <% end %>
-  </body>
+    <%= yield %>  </body>
 </html>

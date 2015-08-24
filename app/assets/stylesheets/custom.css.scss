@@ -15,7 +15,7 @@
 ol{
     margin-bottom: 0px;
 }
-.alert, .guide-form-control, .adsense-728-90{
+.alert, .guide-form-control, .extra-top-margin{
     margin-top: 20px;
 }
 .footer{
@@ -23,6 +23,9 @@ ol{
     color: #fff;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.footer a{
+    color: #ffffff;
 }
 .navbar-brand{
   background-image: url('pattern_bars_circle.png');
@@ -73,4 +76,8 @@ ol{
     background-color: #428bca;
     border-color: #428bca;
     border-top: 1px solid #dddddd;
+}
+.dropdown-menu {
+    width: 300px;
+    
 }

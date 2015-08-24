@@ -7,14 +7,8 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :correct_user?
   
-  layout :determine_layout
-  
   private
-    
-    def determine_layout
-      current_user ? "private" : "public"
-    end
-     
+      
     def current_user
       begin
         @current_user ||= User.find(session[:user_id]) if session[:user_id]

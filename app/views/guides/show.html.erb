@@ -1,15 +1,16 @@
-<%= render "shared/public_navbar" %>
+<%= render "shared/navbar" %>
+<%= render "shared/adsense_responsive_banner_1" %> 
 <div class="container">
-  <%= render "shared/adsense_728_x_90" %>
+  <%= render "shared/adsense_responsive_banner_2" %>    
   <div class="row">
-   <%= render "shared/flash" %>
-    <div class="col-sm-12 col-md-2"></div>
-    <div class="col-sm-12 col-md-8">          
+    <div class="col-xs-12 col-md-1 col-lg-2"></div>
+    <div class="col-xs-12 col-md-10 col-lg-8">          
       <%= render "shared/flash" %>
       <%= render "form_control" %>
       <%= render "form_show" %>  
     </div><!-- /col-md-8 -->
-    <div class="col-sm-12 col-md-2"></div>
+    <div class="col-xs-12 col-md-1 col-lg-2"></div>
   </div><!-- /row -->
 </div> <!-- /container -->
+<%= render "shared/adsense_responsive_banner_1" %> 
 <%= render "shared/footer" %>
