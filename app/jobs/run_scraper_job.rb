@@ -71,6 +71,12 @@ class RunScraperJob < ActiveJob::Base
           scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: JSON Parse Error")
           scraper.status = "Error"
           scraper.save
+          scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: encoded uri: #{encoded_uri}")
+          scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: file.read: #{file.read}")
+          scraper.save
+          
+          @log.error("#{e.message}")
+          @log.error("#{e.backtrace}")
           
         rescue => e
           # generic error once the scraper exists
