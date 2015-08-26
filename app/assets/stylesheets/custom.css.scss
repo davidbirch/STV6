@@ -28,7 +28,7 @@ ol{
     color: #ffffff;
 }
 .navbar-brand{
-  background-image: url('pattern_bars_circle.png');
+  background-image: image-url("stv_logo.png");
   background-size: 46px;
   background-repeat: no-repeat;
   float: left;
@@ -49,7 +49,7 @@ ol{
 }
 .home-header {
     background-color: #5fb0e4;
-    background-image: url('home_header.png');
+    background-image: image-url("home_background.png");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -78,6 +78,17 @@ ol{
     border-top: 1px solid #dddddd;
 }
 .dropdown-menu {
-    width: 300px;
-    
+    width: 300px;  
 }
+col.col_time{
+	width: 6%;
+    }
+col.col_title{
+	width: 49%;
+    }
+col.col_sport{
+	width: 13%;
+    }
+col.col_channel{
+	width: 32%;
+    }
