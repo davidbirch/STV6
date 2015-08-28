@@ -56,6 +56,7 @@ gem 'whenever', :require => false
 
 # User delayed job
 gem 'delayed_job_active_record'
+gem 'daemons'
 
 # Use friendly_id
 gem 'friendly_id'

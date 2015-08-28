@@ -12,14 +12,11 @@ locals: {
 %>
 <div class="container">
   <div class="row">
-    <div class="col-lg-9">          
+    <div class="col-lg-12">          
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Migrator"}  %>
       <%= render "form" %>
-    </div><!-- /col-lg-9 -->
-    <div class="col-lg-3">
-      <%= render "shared/sidebar" %>
-    </div><!-- /col-lg-3 -->
+    </div><!-- /col-lg-12 -->
   </div><!-- /row -->
 </div> <!-- /container -->
 <%= render "shared/footer" %>
