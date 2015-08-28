@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  resources :channel_short_names, :path => 'channels-by-short-name', only: [:index, :show]
+  resources :channel_short_names, :path => '/channels-by-short-name', only: [:index, :show]
   resources :channels
   resources :keywords
   resources :migrators
@@ -16,18 +16,21 @@ Rails.application.routes.draw do
   resources :scrapers
   resources :sports
   resources :users
-   
+  
+  # special routes for sessions 
   get 'auth/:provider/callback',      to: 'sessions#create'
   get 'auth/failure',                 to: 'sessions#failure'
   get 'signout',                      to: 'sessions#destroy', as: 'signout'
   get 'signin',                       to: 'sessions#new', as: 'signin'
   
-  get 'about',                        to: 'pages#about'
-  
-  root "pages#home"
-  
+  # special routes for pages
+  get 'contact',                        to: 'pages#contact'
+  get 'privacy',                        to: 'pages#privacy'
+    
   # special routes for /region and /region/sport
   get ':region_name',                 to: 'guides#show'
   get ':region_name/:sport_name',     to: 'guides#show'
+  
+  root "guides#index"
   
 end

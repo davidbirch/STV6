@@ -22,6 +22,36 @@ module ApplicationHelper
       site_variables["website_plain_english_formatted_name"]
     end
   end
+  
+  def website_plain_english_formatted_l2_name(website_plain_english_formatted_l2_name = nil)
+    if website_plain_english_formatted_l2_name.present?
+      website_plain_english_formatted_l2_name
+    elsif @website_plain_english_formatted_l2_name.present?
+      @website_plain_english_formatted_l2_name
+    else
+      site_variables["website_plain_english_formatted_l2_name"]
+    end
+  end
+  
+  def website_url_formatted_name(website_url_formatted_name = nil)
+    if website_url_formatted_name.present?
+      website_url_formatted_name
+    elsif @website_url_formatted_name.present?
+      @website_url_formatted_name
+    else
+      site_variables["website_url_formatted_name"]
+    end
+  end
+  
+  def website_contact_email(website_contact_email = nil)
+    if website_contact_email.present?
+      website_contact_email
+    elsif @website_contact_email.present?
+      @website_contact_email
+    else
+      site_variables["website_contact_email"]
+    end
+  end
     
     private
     

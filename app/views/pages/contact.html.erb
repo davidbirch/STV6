@@ -4,7 +4,7 @@ locals: {
    active_level: 1,
    level_0_name: "Home Icon",
    level_0_link: root_path,
-   level_1_name: "About Page",
+   level_1_name: "Contact Page",
    level_1_link: nil,
    level_2_name: nil,
    level_2_link: nil
@@ -14,9 +14,9 @@ locals: {
   <div class="row">
     <div class="col-lg-9">          
       <%= render "shared/flash" %>
-      <%= render "shared/content_header", locals: {header: "About Page"}  %>
-      <p>The About Page</p>
-      <p>Link to <%= link_to "Home", root_path %></p>
+      <%= render "shared/content_header", locals: {header: "Contact Page"}  %>
+      <p><%= website_plain_english_formatted_name %> welcomes your feedback.  If you have any questions or would like further information, please contact us as follows </p>
+      <p>E-mail: <%= website_contact_email %></p>
     </div><!-- /col-lg-9 -->
     <div class="col-lg-3">
       <%= render "shared/sidebar" %>
@@ -24,3 +24,5 @@ locals: {
   </div><!-- /row -->
 </div> <!-- /container -->
 <%= render "shared/footer" %>
+
+
