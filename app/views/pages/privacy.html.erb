@@ -1,4 +1,3 @@
-<%= render "shared/navbar" %>
 <%= render "shared/breadcrumb",
 locals: {
    active_level: 1,
@@ -12,7 +11,8 @@ locals: {
 %>
 <div class="container">
   <div class="row">
-    <div class="col-lg-9">          
+    <div class="col-xs-12 col-md-1 col-lg-2"></div>
+    <div class="col-xs-12 col-md-10 col-lg-8">        
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Privacy Policy"}  %>
       <p>This page sets forth the Privacy Policy for the <%= website_plain_english_formatted_name %> website, <%= website_url_formatted_name %>.</p>
@@ -32,13 +32,10 @@ locals: {
       <h4>Contacting us</h4>
       <p><%= website_url_formatted_name %> welcomes your comments regarding this Privacy Policy. If you have any questions about this Privacy Policy and would like further information, please contact us as follows </p>
       <p>E-mail: <%= website_contact_email %></p>
-    </div><!-- /col-lg-9 -->
-    <div class="col-lg-3">
-      <%= render "shared/sidebar" %>
-    </div><!-- /col-lg-3 -->
+    </div><!-- /col-xs-12 col-md-10 col-lg-8 -->
+    <div class="col-xs-12 col-md-1 col-lg-2"></div>
   </div><!-- /row -->
 </div> <!-- /container -->
-<%= render "shared/footer" %>
 
 
 

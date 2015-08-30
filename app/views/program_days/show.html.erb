@@ -1,4 +1,3 @@
-<%= render "shared/navbar" %>
 <%= render "shared/breadcrumb",
 locals: {
    active_level: 2,
@@ -6,20 +5,16 @@ locals: {
    level_0_link: root_path,
    level_1_name: "Programs By Day",
    level_1_link: program_days_path,
-   level_2_name:"Category: " + params[:id],
+   level_2_name:"Day: " + params[:id],
    level_2_link: nil
    }
 %>
 <div class="container">
   <div class="row">
-    <div class="col-lg-9">          
+    <div class="col-xs-12">          
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Category: " + params[:id]}  %>
       <%= render "programs/table_index", locals: {field_list: ["id", "title", "subtitle", "category", "region", "sport", "channel"]} %>
-    </div><!-- /col-lg-9 -->
-    <div class="col-lg-3">
-      <%= render "shared/sidebar" %>
-    </div><!-- /col-lg-3 -->
+    </div><!-- /col-xs-12 -->
   </div><!-- /row -->
 </div> <!-- /container -->
-<%= render "shared/footer" %>
