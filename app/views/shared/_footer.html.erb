@@ -2,6 +2,47 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 text-center">
+      
+<% if current_user %>
+  
+        <ul class="list-inline small">
+          <li><%= link_to "Scrapers", scrapers_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "Raw Programs", raw_programs_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "Migrators", migrators_path %></li>
+        </ul>
+        
+        <ul class="list-inline small">
+          <li><%= link_to "Regions", regions_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "Sports", sports_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "Keywords", keywords_path %></li>
+        </ul>   
+  
+        <ul class="list-inline small">
+          <li><%= link_to "Channels", channels_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "By Short Name", channel_short_names_path %></li>
+        </ul>
+        
+        <ul class="list-inline small">
+          <li><%= link_to "Programs", programs_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li> 
+          <li><%= link_to "By Category", program_categories_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "By Day", program_days_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "By Region And Sport", program_regions_sports_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "By Region And Channel", program_regions_channels_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "By Region And Day", program_regions_days_path %></li>  
+        </ul>
+        
+<% else %>
+  
         <ul class="list-inline small">
           <li><%= link_to "Home", root_path %></li>
           <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
@@ -9,7 +50,10 @@
           <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
           <li><%= link_to "Privacy", privacy_path %></li>
         </ul>
-      </div> 
+     
+<% end %>
+
+       </div> 
     </div>    
   </div>
 </footer>
