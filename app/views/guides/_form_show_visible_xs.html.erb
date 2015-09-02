@@ -1,15 +1,17 @@
 <% @start_dates.each do |start_date| %>
- <div class="panel panel-primary">
+  <% close_table = false %>
+     <% last_program = nil %>
+       <% @programs.where(local_start_date_display: start_date).each do |program| %>
+          <% if program.current? %>
+              <% if last_program.nil? %>
+               <% close_table = true %>    
+               <div class="panel panel-primary">
    <div class="panel-heading stv-panel-primary"><strong><%= start_date.to_time.strftime("%A, %e %b %y")%></strong></div>
      <table class="table table-condensed table-hover">
         <colgroup>
            <col class="col_sport">
          </colgroup>
          <tbody>
-           <% last_program = nil %>
-           <% @programs.where(local_start_date_display: start_date).each do |program| %>
-            <% if program.current? %>
-              <% if last_program.nil? %>
               <tr id="program_<%= program.id %>"></tr>
                 <td class="mobile-program">
                  <h5 class="no-bottom-margin"><%= program.full_title %></h5>
@@ -30,10 +32,12 @@
               <% last_program = program %>
              <% end %>
            <% end %>
+            <% if close_table %>
                 </p>
                </td>
              </tr>
          </tbody>
        </table>
    </div>
+   <% end %>
  <% end %>    

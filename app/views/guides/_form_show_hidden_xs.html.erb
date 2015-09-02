@@ -1,5 +1,11 @@
 <% @start_dates.each do |start_date| %>
- <div class="panel panel-primary">
+  <% close_table = false %>
+  <% last_program = nil %>
+  <% @programs.where(local_start_date_display: start_date).each do |program| %>
+    <% if program.current? %>
+      <% if last_program.nil? %>
+        <% close_table = true %>    
+  <div class="panel panel-primary">
    <div class="panel-heading stv-panel-primary"><strong><%= start_date.to_time.strftime("%A, %e %b %y")%></strong></div>
      <div class="table-responsive">
        <table class="table table-condensed table-hover">
@@ -18,17 +24,13 @@
            </tr>
          </thead>
          <tbody class="small">
-           <% last_program = nil %>
-           <% @programs.where(local_start_date_display: start_date).each do |program| %>
-            <% if program.current? %>
-             <% if last_program.nil? %>
-             <tr id="program_<%= program.id %>"></tr>
+          <tr id="program_<%= program.id %>"></tr>
                <td><%= program.local_start_datetime.strftime("%H:%M") %></td>
                <td><%= link_to program.full_title, program %></td>
                <td><%= program.sport.name %></td>
                <td>
                  <%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>)    
-             <% elsif !(program.sport.name == last_program.sport.name && program.channel.short_name == last_program.channel.short_name && program.start_datetime == last_program.start_datetime && program.end_datetime == last_program.end_datetime) %>
+      <% elsif !(program.sport.name == last_program.sport.name && program.channel.short_name == last_program.channel.short_name && program.start_datetime == last_program.start_datetime && program.end_datetime == last_program.end_datetime) %>
                </td>
              </tr>
              <tr id="program_<%= program.id %>"></tr>
@@ -37,16 +39,18 @@
                <td><%= program.sport.name %></td>
                <td>
                  <%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>)    
-             <% else %>
+      <% else %>
                  <br><%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>) 
-             <% end %>
-             <% last_program = program %>
-            <% end %>
-           <% end %>
-               </td>
+      <% end %> 
+      <% last_program = program %>
+    <% end %>
+  <% end %>
+  <% if close_table %>
+              </td>
              </tr>
          </tbody>
        </table>
      </div>
    </div>
- <% end %>    
+  <% end %>
+<% end %>    
