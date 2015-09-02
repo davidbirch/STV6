@@ -40,21 +40,31 @@ class Program < ActiveRecord::Base
   
   before_save :set_computed_columns
   
+  scope :historic, ->{where("end_datetime < ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
+  scope :current, ->{where("end_datetime >= ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
   scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}
   scope :by_subtitle, ->{order("subtitle DESC, title DESC")}  
-  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).chronological.by_channel_short_name.by_subtitle}  
+  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).current.chronological.by_channel_short_name.by_subtitle}  
    
   def local_time_zone
     region.name
   end
-    
+   
   def local_start_datetime
     start_datetime.in_time_zone(local_time_zone)
   end
     
   def local_end_datetime
     end_datetime.in_time_zone(local_time_zone)
+  end
+    
+  def current?
+    end_datetime >= Time.now
+  end
+  
+  def historic?
+    end_datetime < Time.now
   end
     
   def full_title

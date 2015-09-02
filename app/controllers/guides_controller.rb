@@ -11,15 +11,15 @@ class GuidesController < ApplicationController
     
     if @search_string
       # GET /guides/:region_name/?search=:search
-      @start_dates = Program.where(region_id: @region.id).where("title like ? or subtitle like ?", "%#{@search_string}%", "%#{@search_string}%").distinct.pluck(:local_start_date_display).sort
+      @start_dates = Program.current.where(region_id: @region.id).where("title like ? or subtitle like ?", "%#{@search_string}%", "%#{@search_string}%").distinct.pluck(:local_start_date_display).sort
       @programs = @region.programs.where("title like ? or subtitle like ?", "%#{@search_string}%", "%#{@search_string}%").ordered_for_tv_guide
     elsif @sport
       # GET /guides/:region_name/:sport_name
-      @start_dates = Program.where(region_id: @region.id).where(sport_id: @sport.id).distinct.pluck(:local_start_date_display).sort
+      @start_dates = Program.current.where(region_id: @region.id).where(sport_id: @sport.id).distinct.pluck(:local_start_date_display).sort
       @programs = @region.programs.where(sport_id: @sport.id).ordered_for_tv_guide
     else
       # GET /guides/:region_name
-      @start_dates = Program.where(region_id: @region.id).distinct.pluck(:local_start_date_display).sort
+      @start_dates = Program.current.where(region_id: @region.id).distinct.pluck(:local_start_date_display).sort
       @programs = @region.programs.ordered_for_tv_guide
      end
     

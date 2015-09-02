@@ -20,6 +20,7 @@
          <tbody class="small">
            <% last_program = nil %>
            <% @programs.where(local_start_date_display: start_date).each do |program| %>
+            <% if program.current? %>
              <% if last_program.nil? %>
              <tr id="program_<%= program.id %>"></tr>
                <td><%= program.local_start_datetime.strftime("%H:%M") %></td>
@@ -40,6 +41,7 @@
                  <br><%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>) 
              <% end %>
              <% last_program = program %>
+            <% end %>
            <% end %>
                </td>
              </tr>
