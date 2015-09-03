@@ -24,7 +24,7 @@ class Scraper < ActiveRecord::Base
   
     def set_default_params
       if self.target_region_list.nil? || self.target_region_list == ""
-        self.target_region_list = {"Adelaide":"81","Brisbane":"75","Melbourne":"94","Perth":"101","Sydney":"73"}.to_json
+        self.target_region_list = [["Adelaide","81"],["Brisbane","75"],["Melbourne","94"],["Perth","101"],["Sydney","73"]]
       end
       self.days_to_gather ||= 5
     end
