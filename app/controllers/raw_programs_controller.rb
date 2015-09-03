@@ -4,7 +4,7 @@ class RawProgramsController < ApplicationController
 
   # GET /raw_programs
   def index
-    @raw_programs = RawProgram.all
+    @raw_programs = RawProgram.paginate(:page => params[:page])
   end
 
   # GET /raw_programs/1
