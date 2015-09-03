@@ -39,7 +39,7 @@
                <td><%= program.sport.name %></td>
                <td>
                  <%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>)    
-      <% else %>
+      <% elsif !(program.channel.name == last_program.channel.name) %>
                  <br><%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>) 
       <% end %> 
       <% last_program = program %>

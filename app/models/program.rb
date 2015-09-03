@@ -44,8 +44,9 @@ class Program < ActiveRecord::Base
   scope :current, ->{where("end_datetime >= ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
   scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}
+  scope :by_sport_name, ->{order("sports.name ASC")}
   scope :by_subtitle, ->{order("subtitle DESC, title DESC")}  
-  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).current.chronological.by_channel_short_name.by_subtitle}  
+  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).current.chronological.by_sport_name.by_channel_short_name.by_subtitle}  
    
   def local_time_zone
     region.name
