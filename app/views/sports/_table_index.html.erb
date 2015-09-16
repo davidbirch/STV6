@@ -1,36 +1,38 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
 <% end %>    
-<table class="table table-condensed">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Keyword Count</th>
-      <th>Program Count</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sports.each do |sport| %>
-      <tr id="sport_<%= sport.id %>">
-        <td><%= sport.id %></td>
-        <td><%= link_to sport.name, sport %></td>
-        <td><%= sport.keywords.count(:all) %></td>
-        <td><%= sport.programs.count %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_sport_path(sport)} %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: sport} %></td> 
-      </tr>      
-    <% end %>
-    <tr class="info">
-      <td></td>
-      <td><strong>Total</strong></td>
-      <td><strong><%= Keyword.count(:all) %></strong></td>
-      <td><strong><%= Program.count %></strong></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+     <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Keyword Count</th>
+        <th>Program Count</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @sports.each do |sport| %>
+        <tr id="sport_<%= sport.id %>">
+          <td><%= sport.id %></td>
+          <td><%= link_to sport.name, sport %></td>
+          <td><%= sport.keywords.count(:all) %></td>
+          <td><%= sport.programs.count %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_sport_path(sport)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: sport} %></td> 
+        </tr>      
+      <% end %>
+      <tr class="info">
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td><strong><%= Keyword.count(:all) %></strong></td>
+        <td><strong><%= Program.count %></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

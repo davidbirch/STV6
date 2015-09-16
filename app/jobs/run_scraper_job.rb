@@ -37,6 +37,8 @@ class RunScraperJob < ActiveJob::Base
               start_time = Time.at(initial_start_time + (i* size_of_a_time_slice))
               end_time = Time.at(start_time.to_i + size_of_a_time_slice)
               encoded_uri = URI.encode(base_uri + start_time.to_i.to_s + "/" + end_time.to_i.to_s + "/")
+              scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: The encoded URI is #{encoded_uri}")
+              scraper.save
               raw_program_count = 0
                         
               # access the file and the data_hash
@@ -71,7 +73,6 @@ class RunScraperJob < ActiveJob::Base
           scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: JSON Parse Error")
           scraper.status = "Error"
           scraper.save
-          scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: encoded uri: #{encoded_uri}")
           scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: file.read: #{file.read}")
           scraper.save
           

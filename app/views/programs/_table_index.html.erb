@@ -1,53 +1,55 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
 <% end %>      
-<table class="table table-condensed">
-  <thead>
-    <tr>
-      <% if defined? locals[:field_list] %>
-        <% locals[:field_list].each do |field_name| %>
-        <th><%= field_name %></th>
-        <% end %> 
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <% if defined? locals[:field_list] %>
+          <% locals[:field_list].each do |field_name| %>
+          <th><%= field_name %></th>
+          <% end %> 
+        <% end %>
+      </tr>    
+    </thead>
+  
+    <tbody>
+      <% @programs.each do |program| %>
+        <tr id="program_"<%= program.id %>">
+        <% if defined? locals[:field_list] %>
+          <% locals[:field_list].each do |field_name| %>
+            <% if field_name == "region" %>
+              <td><%= program.region.name unless program.region.nil? %></td>
+            <% elsif field_name == "sport" %>
+              <td><%= program.sport.name unless program.sport.nil? %></td>
+            <% elsif field_name == "keyword" %>
+              <td><%= program.keyword.value unless program.keyword.nil? %></td>
+            <% elsif field_name == "channel" %>
+              <td><%= program.channel.name unless program.channel.nil? %></td>
+            <% elsif field_name == "id" %>
+              <td><%= link_to program.id, program %></td>
+            <% elsif field_name == "start_datetime" %>
+              <td><%= program.start_datetime.strftime("%c") %></td>
+            <% elsif field_name == "end_datetime" %>
+              <td><%= program.end_datetime.strftime("%c") %></td> 
+            <% elsif field_name == "local_start_datetime" %>
+              <td><%= program.local_start_datetime.strftime("%c") %></td>
+            <% elsif field_name == "local_end_datetime" %>
+              <td><%= program.local_end_datetime.strftime("%c") %></td> 
+            <% elsif field_name == "local_time_zone" %>
+              <td><%= program.local_time_zone %></td> 
+            <% elsif field_name == "local_start_date_display" %>
+              <td><%= Date.parse(program.local_start_date_display).strftime("%a %d %b %Y") %></td>
+            <% else %>
+              <td><%= program.read_attribute(field_name) %></td>
+            <% end %>
+          <% end %> 
+        <% end %>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_program_path(program)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: program} %></td>    
+        </tr>
       <% end %>
-    </tr>    
-  </thead>
-
-  <tbody>
-    <% @programs.each do |program| %>
-      <tr id="program_"<%= program.id %>">
-      <% if defined? locals[:field_list] %>
-        <% locals[:field_list].each do |field_name| %>
-          <% if field_name == "region" %>
-            <td><%= program.region.name unless program.region.nil? %></td>
-          <% elsif field_name == "sport" %>
-            <td><%= program.sport.name unless program.sport.nil? %></td>
-          <% elsif field_name == "keyword" %>
-            <td><%= program.keyword.value unless program.keyword.nil? %></td>
-          <% elsif field_name == "channel" %>
-            <td><%= program.channel.name unless program.channel.nil? %></td>
-          <% elsif field_name == "id" %>
-            <td><%= link_to program.id, program %></td>
-          <% elsif field_name == "start_datetime" %>
-            <td><%= program.start_datetime.strftime("%c") %></td>
-          <% elsif field_name == "end_datetime" %>
-            <td><%= program.end_datetime.strftime("%c") %></td> 
-          <% elsif field_name == "local_start_datetime" %>
-            <td><%= program.local_start_datetime.strftime("%c") %></td>
-          <% elsif field_name == "local_end_datetime" %>
-            <td><%= program.local_end_datetime.strftime("%c") %></td> 
-          <% elsif field_name == "local_time_zone" %>
-            <td><%= program.local_time_zone %></td> 
-          <% elsif field_name == "local_start_date_display" %>
-            <td><%= Date.parse(program.local_start_date_display).strftime("%a %d %b %Y") %></td>
-          <% else %>
-            <td><%= program.read_attribute(field_name) %></td>
-          <% end %>
-        <% end %> 
-      <% end %>
-        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_program_path(program)} %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: program} %></td>    
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
 <%= will_paginate @programs, renderer: BootstrapPagination::Rails %>

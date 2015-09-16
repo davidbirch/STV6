@@ -1,35 +1,35 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
 <% end %>
-<small>
-<table class="table table-condensed">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Program Count</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @regions.each do |region| %>
-      <tr id="region_<%= region.id %>">
-        <td><%= region.id %></td>
-        <td><%= link_to region.name, region %></td>
-        <td><%= region.programs.count %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_region_path(region)} %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: region} %></td> 
-      </tr>      
-    <% end %>
-    <tr class="info">
-      <td></td>
-      <td><strong>Total</strong></td>
-      <td><strong><%= Program.count %></strong></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-</small>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Program Count</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @regions.each do |region| %>
+        <tr id="region_<%= region.id %>">
+          <td><%= region.id %></td>
+          <td><%= link_to region.name, region %></td>
+          <td><%= region.programs.count %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_region_path(region)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: region} %></td> 
+        </tr>      
+      <% end %>
+      <tr class="info">
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td><strong><%= Program.count %></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
