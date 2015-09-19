@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_channel, only: [:show, :edit, :update, :destroy]
+  before_action :set_channel, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /channels
   def index
@@ -38,6 +38,20 @@ class ChannelsController < ApplicationController
       redirect_to @channel, notice: 'Channel was successfully updated.'
     else
       render :edit
+    end
+  end
+
+  # PATCH/PUT /channels/1/set_black_flag_on
+  def set_black_flag_on
+    if @channel.update(black_flag: true)
+      redirect_to channels_url, notice: 'Channel ' + @channel.url_friendly_name + ' was successfully updated.'
+    end
+  end
+  
+  # PATCH/PUT /channels/1/set_black_flag_off
+  def set_black_flag_off
+    if @channel.update(black_flag: false)
+      redirect_to channels_url, notice: 'Channel ' + @channel.url_friendly_name + ' was successfully updated.'
     end
   end
 

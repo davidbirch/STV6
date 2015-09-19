@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   
   resources :channel_short_names, :path => '/channels-by-short-name', only: [:index, :show]
-  resources :channels
+  resources :channels do
+    member do
+      put 'set_black_flag_on'
+      put 'set_black_flag_off'
+    end
+  end
   resources :keywords
   resources :migrators
   resources :program_categories, :path => '/programs-by-category', only: [:index, :show]

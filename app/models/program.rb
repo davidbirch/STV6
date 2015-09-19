@@ -41,12 +41,13 @@ class Program < ActiveRecord::Base
   before_save :set_computed_columns
   
   scope :historic, ->{where("end_datetime < ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
+  scope :exclude_black_channels, ->{where("channels.black_flag IS NULL OR channels.black_flag = false")}
   scope :current, ->{where("end_datetime >= ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
   scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}
   scope :by_sport_name, ->{order("sports.name ASC")}
   scope :by_subtitle, ->{order("subtitle DESC, title DESC")}  
-  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).current.chronological.by_sport_name.by_channel_short_name.by_subtitle}  
+  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region).exclude_black_channels.current.chronological.by_sport_name.by_channel_short_name.by_subtitle}  
    
   def local_time_zone
     region.name

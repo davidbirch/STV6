@@ -7,6 +7,7 @@
       <th>#</th>
       <th>Name</th>
       <th>Short name</th>
+      <th>Black Flag</th>
       <th>Program Count</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -23,6 +24,17 @@
         <td><%= channel.id %></td>
         <td><%= link_to channel.name, channel %></td>
         <td><%= channel.short_name %></td>
+        <td>
+        <% if channel.black_flag? %>
+          <%= link_to set_black_flag_off_channel_path(channel), :method => :put do %>
+            <i class="fa fa-circle"></i> 
+          <% end %>
+        <% else %>
+          <%= link_to set_black_flag_on_channel_path(channel), :method => :put do %>
+            <i class="fa fa-circle-o"></i> 
+          <% end %>
+        <% end %>
+        </td>
         <td><%= channel.programs.count %></td>
         <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_channel_path(channel)} %></td>
         <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: channel} %></td>
