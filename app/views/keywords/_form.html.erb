@@ -26,7 +26,12 @@
           <td><%= f.text_field :priority, :placeholder=>"Priority ..." %></td>
           <td></td>
         </tr>
-          <tr>
+        <tr>
+          <td><%= f.label :black_flag %></td>
+          <td><%= f.check_box :black_flag %></td>
+          <td></td>
+        </tr>
+        <tr>
           <td><%= f.label :sport_id %></td>
           <td><%= f.collection_select(:sport_id, Sport.all, :id, :name, {include_blank: true}) %></td>
           <td></td>

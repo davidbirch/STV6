@@ -40,6 +40,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
   
   # Adds whitelisted ips for logging
-  config.web_console.whitelisted_ips = '202.161.18.16'
-  BetterErrors::Middleware.allow_ip! '202.161.18.16'
+  config.web_console.whitelisted_ips = '114.198.46.1'
+  BetterErrors::Middleware.allow_ip! '114.198.46.1'
 end

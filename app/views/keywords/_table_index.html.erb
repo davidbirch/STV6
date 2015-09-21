@@ -9,6 +9,7 @@
         <th>Value</th>
         <th>Sport</th>
         <th>Priority</th>
+        <th>Black Flag</th>
         <th>Program Count</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -22,6 +23,17 @@
           <td><%= link_to keyword.value, keyword %></td>
           <td><%= keyword.sport.name unless keyword.sport.nil? %></td>
           <td><%= keyword.priority %></td>
+          <td>
+          <% if keyword.black_flag? %>
+            <%= link_to set_black_flag_off_keyword_path(keyword), :method => :put do %>
+              <i class="fa fa-circle"></i> 
+            <% end %>
+          <% else %>
+            <%= link_to set_black_flag_on_keyword_path(keyword), :method => :put do %>
+              <i class="fa fa-circle-o"></i> 
+            <% end %>
+          <% end %>
+          </td>
           <td><%= keyword.programs.count unless keyword.programs.nil? %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_keyword_path(keyword)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: keyword} %></td> 

@@ -1,6 +1,6 @@
 class KeywordsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_keyword, only: [:show, :edit, :update, :destroy]
+  before_action :set_keyword, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /keywords
   def index
@@ -42,6 +42,19 @@ class KeywordsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /keywords/1/set_black_flag_on
+  def set_black_flag_on
+    if @keyword.update(black_flag: true)
+      redirect_to keywords_url, notice: 'Keyword ' + @keyword.url_friendly_value + ' was successfully updated.'
+    end
+  end
+  
+  # PATCH/PUT /keywords/1/set_black_flag_off
+  def set_black_flag_off
+    if @keyword.update(black_flag: false)
+      redirect_to keywords_url, notice: 'Keyword ' + @keyword.url_friendly_value + ' was successfully updated.'
+    end
+  end
   # DELETE /keywords/1
   def destroy
     @keyword.destroy
@@ -56,6 +69,6 @@ class KeywordsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def keyword_params
-      params.require(:keyword).permit(:value, :sport_id, :priority)
+      params.require(:keyword).permit(:value, :sport_id, :priority, :black_flag)
     end
 end

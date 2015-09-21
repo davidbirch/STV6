@@ -7,7 +7,12 @@ Rails.application.routes.draw do
       put 'set_black_flag_off'
     end
   end
-  resources :keywords
+  resources :keywords do
+    member do
+      put 'set_black_flag_on'
+      put 'set_black_flag_off'
+    end
+  end
   resources :migrators
   resources :program_categories, :path => '/programs-by-category', only: [:index, :show]
   resources :program_days, :path => '/programs-by-day', only: [:index, :show]
