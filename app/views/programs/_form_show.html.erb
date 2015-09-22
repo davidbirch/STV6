@@ -1,15 +1,28 @@
-<table class="table">
+   <table class="table">
   <tbody>
     <tr>
       <td>ID</td>
       <td><%= @program.id %></td>
     </tr>
     <tr>
-      <td>Title</td>
-      <td><%= @program.title %></td>
+      <td>Title
+      <%= link_to ("https://www.google.com/search?q=" + @program.title), :target => "_blank" do %>
+            <i class="fa fa-search"></i> 
+      <% end %>
+      </td>
+      <td><%= @program.title %>
+       <%= link_to new_keyword_path(:value => @program.title), :target => "_blank" do %>
+            <i class="fa fa-bookmark-o"></i> 
+      <% end %>
+      
+      </td>
     </tr>
     <tr>
-      <td>Subtitle</td>
+      <td>Subtitle
+      <%= link_to ("https://www.google.com/search?q=" + @program.title + " " + @program.subtitle), :target => "_blank" do %>
+            <i class="fa fa-search"></i> 
+      <% end %>
+      </td>
       <td><%= @program.subtitle %></td>
     </tr>
     <tr>
@@ -26,19 +39,19 @@
     </tr>
     <tr>
       <td>Keyword</td>
-      <td><%= @program.keyword.value unless @program.keyword.nil? %></td>
+      <td><%= link_to(@program.keyword.value, @program.keyword) unless @program.keyword.nil? %></td>
     </tr>
     <tr>
       <td>Region</td>
-      <td><%= @program.region.name unless @program.region.nil? %></td>
+      <td><%= link_to(@program.region.name, @program.region) unless @program.region.nil? %></td>
     </tr>
     <tr>
       <td>Sport</td>
-      <td><%= @program.sport.name unless @program.sport.nil? %></td>
+      <td><%= link_to(@program.sport.name, @program.sport) unless @program.sport.nil? %></td>
     </tr>
     <tr>
       <td>Channel</td>
-      <td><%= @program.channel.name unless @program.channel.nil? %></td>
+      <td><%= link_to(@program.channel.name, @program.channel) unless @program.channel.nil? %></td>
     </tr>
     <tr>
       <td>Start Date Display</td>

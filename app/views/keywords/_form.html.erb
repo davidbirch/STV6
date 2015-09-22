@@ -18,7 +18,7 @@
         </tr>
         <tr>
           <td><%= f.label :value %></td>
-          <td><%= f.text_field :value, :placeholder=>"Keyword Value ..." %></td>
+          <td><%= f.text_field :value, :value=>params[:value], :placeholder=>"Keyword Value ..." %></td>
           <td></td>
         </tr>
          <tr>
@@ -42,4 +42,7 @@
     <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: keywords_path} %>
   </p>
 <% end %>
+<p>
+ <%= debug params %>
+</p>
  
