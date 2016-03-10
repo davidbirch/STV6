@@ -21,7 +21,7 @@ CSV.open("db/data/sports.csv", "r").each do |row|
   Keyword.find_or_create_by(value: row[0]) do |k|
       k.sport_id = sport.id
       if row[0] == "Other Sport"
-	 k.priority = 0
+		k.priority = 0
       else      
         k.priority = 20
       end
@@ -38,12 +38,10 @@ end
 #end
 
 # import the data for keywords
-CSV.open("db/data/sport_keywords.csv", "r").each do |row|
-  if row[0] == "White Keyword"
-     Keyword.find_or_create_by(value: row[1]) do |k|
-      k.sport_id = Sport.find_by(name: row[2]).id
-      k.priority = row[3]
-    end
+CSV.open("db/data/keywords.csv", "r").each do |row|
+  Keyword.find_or_create_by(value: row[0]) do |k|
+    k.sport_id = Sport.find_by(name: row[1]).id
+    k.priority = row[2]
   end
 end
 

@@ -7,8 +7,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :nickname
       t.string :image
       t.string :email
-      t.text :source   
-
+      t.text :source
+      t.boolean :admin
+      
       t.timestamps null: false
     end
   end

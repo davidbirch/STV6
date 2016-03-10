@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150919130527) do
     t.string   "image",      limit: 255
     t.string   "email",      limit: 255
     t.text     "source",     limit: 65535
+    t.boolean  "admin",      limit: 1
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
