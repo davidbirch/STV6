@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12 text-center">
       
-<% if current_user %>
+<% if current_user && admin_user? %>
   
         <ul class="list-inline small">
           <li><%= link_to "Scrapers", scrapers_path %></li>
