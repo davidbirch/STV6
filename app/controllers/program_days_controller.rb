@@ -1,5 +1,5 @@
 class ProgramDaysController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! && :check_admin_user!
 
 
   # GET /programs-by-day      

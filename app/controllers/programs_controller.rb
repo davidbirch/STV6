@@ -1,5 +1,5 @@
 class ProgramsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! && :check_admin_user!
   before_action :set_program, only: [:show, :edit, :update, :destroy]
 
   # GET /programs

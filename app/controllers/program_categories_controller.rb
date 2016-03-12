@@ -1,6 +1,6 @@
 class ProgramCategoriesController < ApplicationController
-  before_filter :authenticate_user!
-
+  before_filter :authenticate_user! && :check_admin_user!
+    
   # GET /programs_by_category      
   def index
     @programs_by_category = Program.group(:url_friendly_category).order("count_all DESC").count

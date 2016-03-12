@@ -1,5 +1,5 @@
 class KeywordsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! && :check_admin_user!
   before_action :set_keyword, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /keywords

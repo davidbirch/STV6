@@ -1,5 +1,5 @@
 class RawProgramsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! && :check_admin_user!
   before_action :set_raw_program, only: [:show, :edit, :update, :destroy]
 
   # GET /raw_programs

@@ -1,5 +1,5 @@
 <ul class="nav navbar-nav navbar-right">
-<% if current_user %>
+<% if current_user && admin_user? %>
   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Importer<span class="caret"></span></a>
@@ -46,11 +46,12 @@
     <ul class="dropdown-menu">
       <li class="disabled"><a href="#">Signed in as <strong><%= current_user.name %>!</strong></a></li>
       <li><%= link_to "Sign out", signout_path %></li>
+      <li><%= link_to "View details", user_path(current_user) %></li>
       <li><a href="<%= users_path %>">Users</a></li>
       <li role="separator" class="divider"></li>
     </ul>
-  </li>
-    
+  </li> <!-- /dropdown -->
+      
 <% else %>
   
   <% Region.all.order(:name).each do |region| %>
@@ -59,6 +60,20 @@
     <% else %>
       <li><%= link_to region.name, ("/"+region.friendly_id) %></li>
     <% end %>
+  <% end %>
+  
+  <% if current_user %>
+  
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag(current_user.image.insert(4,"s").html_safe, size: "40x40", class: "img-circle") %></a>
+    <ul class="dropdown-menu">
+      <li class="disabled"><a href="#">Signed in as <strong><%= current_user.name %>!</strong></a></li>
+      <li><%= link_to "Sign out", signout_path %></li>
+      <li><%= link_to "View details", user_path(current_user) %></li>
+      <li role="separator" class="divider"></li>
+    </ul>
+  </li> <!-- /dropdown -->
+    
   <% end %>
 
 <% end %>

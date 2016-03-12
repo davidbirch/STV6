@@ -1,5 +1,5 @@
 class SportsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! && :check_admin_user!
   before_action :set_sport, only: [:show, :edit, :update, :destroy]
 
   # GET /sports
