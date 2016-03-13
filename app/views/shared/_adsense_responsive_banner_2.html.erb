@@ -1,3 +1,6 @@
+<% if current_user && admin_user? %>
+<!-- Supress Responsive Ad Banner -->
+<!-- Logged In As Admin User -->
 <div class="row hidden-xs extra-top-margin">
   <div class="col-sm-12 col-md-1 col-lg-2"></div>
   <div class="col-sm-12 col-md-10 col-lg-8 text-center">
@@ -5,5 +8,18 @@
   </div>
   <div class="col-sm-12 col-md-1 col-lg-2"></div>
 </div>
-   
-   
+<% elsif !Rails.env.production? %>
+<!-- Supress Responsive Ad Banner -->
+<!-- Not In Production -->
+<div class="row hidden-xs extra-top-margin">
+  <div class="col-sm-12 col-md-1 col-lg-2"></div>
+  <div class="col-sm-12 col-md-10 col-lg-8 text-center">
+    <img src="https://placehold.it/728x90">
+  </div>
+  <div class="col-sm-12 col-md-1 col-lg-2"></div>
+</div>
+<% else %>
+<!-- Include Responsive Ad Banner 728x90-->
+      
+    
+<% end %>

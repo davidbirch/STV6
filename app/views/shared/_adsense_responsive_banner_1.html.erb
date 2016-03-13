@@ -1,3 +1,17 @@
+<% if current_user && admin_user? %>
+<!-- Supress Responsive Ad Banner-->
+<!-- Logged In As Admin User -->
 <div class="visible-xs-block text-center">
   <img src="https://placehold.it/320x100">
 </div>
+<% elsif !Rails.env.production? %>
+<!-- Supress Responsive Ad Banner -->
+<!-- Not In Production -->
+<div class="visible-xs-block text-center">
+  <img src="https://placehold.it/320x100">
+</div>
+<% else %>
+<!-- Include Responsive Ad Banner 320x100-->
+
+    
+<% end %>

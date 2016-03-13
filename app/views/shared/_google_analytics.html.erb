@@ -1,0 +1,14 @@
+<% if current_user && admin_user? %>
+<!-- Supress Google Analytics -->
+<!-- Logged In As Admin User -->
+
+<% elsif !Rails.env.production? %>
+<!-- Supress Google Analytics -->
+<!-- Not In Production -->
+  
+<% else %>
+<!-- Include Google Analytics -->
+    
+    
+    
+<% end %>
