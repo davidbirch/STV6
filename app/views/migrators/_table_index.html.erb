@@ -8,6 +8,8 @@
         <th>#</th>
         <th>Target Region List</th>
         <th>Status</th>
+        <th>Created At</th>
+        <th>Updated At</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -29,6 +31,8 @@
             <i class="glyphicon glyphicon-time text-warning"></i>
           <% end %>
           </td>
+          <td><%= migrator.created_at %></td>
+          <td><%= migrator.updated_at %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_migrator_path(migrator)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: migrator} %></td>    
         </tr>
