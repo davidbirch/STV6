@@ -6,6 +6,7 @@
 #  value              :string(255)
 #  sport_id           :integer
 #  priority           :integer
+#  black_flag         :boolean
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  url_friendly_value :string(255)

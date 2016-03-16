@@ -1,0 +1,35 @@
+<% if @category.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@category.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @category.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @category do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name, :placeholder=>"Category Name ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :black_flag %></td>
+          <td><%= f.check_box :black_flag %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: categories_path} %>
+  </p>
+<% end %>
+ 

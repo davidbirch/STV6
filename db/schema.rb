@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919130527) do
+ActiveRecord::Schema.define(version: 20160313103457) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",              limit: 255
+    t.boolean  "black_flag",        limit: 1
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "url_friendly_name", limit: 255
+  end
 
   create_table "channels", force: :cascade do |t|
     t.string   "free_or_pay",             limit: 255
@@ -22,26 +30,6 @@ ActiveRecord::Schema.define(version: 20150919130527) do
     t.datetime "updated_at",                          null: false
     t.string   "url_friendly_name",       limit: 255
     t.string   "url_friendly_short_name", limit: 255
-  end
-
-  create_table "conversion_summaries", force: :cascade do |t|
-    t.integer  "raw_channel_count",       limit: 4
-    t.integer  "final_raw_channel_count", limit: 4
-    t.integer  "starting_channel_count",  limit: 4
-    t.integer  "channels_created",        limit: 4
-    t.integer  "channels_skipped",        limit: 4
-    t.integer  "final_channel_count",     limit: 4
-    t.integer  "raw_program_count",       limit: 4
-    t.integer  "final_raw_program_count", limit: 4
-    t.integer  "starting_program_count",  limit: 4
-    t.integer  "programs_created",        limit: 4
-    t.integer  "programs_skipped",        limit: 4
-    t.integer  "final_program_count",     limit: 4
-    t.datetime "start_datetime"
-    t.datetime "end_datetime"
-    t.boolean  "conversion_completed",    limit: 1
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -64,10 +52,10 @@ ActiveRecord::Schema.define(version: 20150919130527) do
     t.string   "value",              limit: 255
     t.integer  "sport_id",           limit: 4
     t.integer  "priority",           limit: 4
+    t.boolean  "black_flag",         limit: 1
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "url_friendly_value", limit: 255
-    t.boolean  "black_flag",         limit: 1
   end
 
   create_table "migrators", force: :cascade do |t|
@@ -81,8 +69,6 @@ ActiveRecord::Schema.define(version: 20150919130527) do
   create_table "programs", force: :cascade do |t|
     t.string   "title",                    limit: 255
     t.string   "subtitle",                 limit: 255
-    t.string   "category",                 limit: 255
-    t.string   "url_friendly_category",    limit: 255
     t.text     "description",              limit: 65535
     t.text     "program_hash",             limit: 65535
     t.datetime "start_datetime"
@@ -93,10 +79,12 @@ ActiveRecord::Schema.define(version: 20150919130527) do
     t.integer  "channel_id",               limit: 4
     t.integer  "sport_id",                 limit: 4
     t.integer  "keyword_id",               limit: 4
+    t.integer  "category_id",              limit: 4
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end
 
+  add_index "programs", ["category_id"], name: "index_programs_on_category_id", using: :btree
   add_index "programs", ["channel_id"], name: "index_programs_on_channel_id", using: :btree
   add_index "programs", ["keyword_id"], name: "index_programs_on_keyword_id", using: :btree
   add_index "programs", ["region_id"], name: "index_programs_on_region_id", using: :btree

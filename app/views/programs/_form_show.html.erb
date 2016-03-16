@@ -26,16 +26,16 @@
       <td><%= @program.subtitle %></td>
     </tr>
     <tr>
-      <td>Category</td>
-      <td><%= @program.category %></td>
-    </tr>
-    <tr>
       <td>Description</td>
       <td><%= @program.description %></td>
     </tr>
     <tr>
       <td>Program Hash</td>
       <td><%= @program.program_hash %></td>
+    </tr>
+    <tr>
+      <td>Category</td>
+      <td><%= link_to(@program.category.name, @program.category) unless @program.category.nil? %></td>
     </tr>
     <tr>
       <td>Keyword</td>

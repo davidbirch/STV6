@@ -10,6 +10,7 @@
 #  image      :string(255)
 #  email      :string(255)
 #  source     :text(65535)
+#  admin      :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -27,6 +28,7 @@ class User < ActiveRecord::Base
       user.nickname = auth["info"]["nickname"]
       user.image = auth["info"]["image"]
       user.source = auth
+      user.admin = false
     end
   end
 end

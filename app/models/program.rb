@@ -5,8 +5,6 @@
 #  id                       :integer          not null, primary key
 #  title                    :string(255)
 #  subtitle                 :string(255)
-#  category                 :string(255)
-#  url_friendly_category    :string(255)
 #  description              :text(65535)
 #  program_hash             :text(65535)
 #  start_datetime           :datetime
@@ -17,6 +15,7 @@
 #  channel_id               :integer
 #  sport_id                 :integer
 #  keyword_id               :integer
+#  category_id              :integer
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #
@@ -27,6 +26,7 @@ class Program < ActiveRecord::Base
   belongs_to :region
   belongs_to :sport
   belongs_to :keyword
+  belongs_to :category
   
   validates_presence_of :title
   validates_presence_of :start_datetime
@@ -35,6 +35,7 @@ class Program < ActiveRecord::Base
   validates_presence_of :sport_id
   validates_presence_of :channel_id
   validates_presence_of :keyword_id
+  validates_presence_of :category_id
   
   validates_uniqueness_of :channel_id , :scope => [:region_id, :title, :sport_id, :start_datetime, :end_datetime]
   
@@ -43,12 +44,13 @@ class Program < ActiveRecord::Base
   scope :historic, ->{where("end_datetime < ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :exclude_black_channels, ->{where("channels.black_flag IS NULL OR channels.black_flag = false" )}
   scope :exclude_black_keywords, ->{where("keywords.black_flag IS NULL OR keywords.black_flag = false" )}
+  scope :exclude_black_categories, ->{where("categories.black_flag IS NULL OR categories.black_flag = false" )}
   scope :current, ->{where("end_datetime >= ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
   scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}
   scope :by_sport_name, ->{order("sports.name ASC")}
   scope :by_subtitle, ->{order("subtitle DESC, title DESC")}  
-  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region, :keyword).exclude_black_channels.exclude_black_keywords.current.chronological.by_sport_name.by_channel_short_name.by_subtitle}  
+  scope :ordered_for_tv_guide, ->{includes(:sport, :channel, :region, :keyword, :category).exclude_black_channels.exclude_black_keywords.exclude_black_categories.current.chronological.by_sport_name.by_channel_short_name.by_subtitle}  
    
   def local_time_zone
     region.name
@@ -86,11 +88,11 @@ class Program < ActiveRecord::Base
       sport = keyword.sport unless keyword.nil?
       region = Region.find_by_name(raw_program.region_name)
       channel = Channel.find_or_create_from_raw_program(raw_program)
+      category = Category.find_or_create_from_raw_program(raw_program)
         
       Program.create(
         :title          => raw_program.title,
         :subtitle       => raw_program.subtitle,
-        :category       => raw_program.category,
         :description    => raw_program.description,
         :program_hash   => raw_program.program_hash,
         :start_datetime => raw_program.start_datetime,
@@ -98,7 +100,8 @@ class Program < ActiveRecord::Base
         :region_id      => (region.id unless region.nil?),
         :channel_id     => (channel.id unless channel.nil?),
         :sport_id       => (sport.id unless sport.nil?),
-        :keyword_id     => (keyword.id unless keyword.nil?)
+        :keyword_id     => (keyword.id unless keyword.nil?),
+        :category_id    => (category.id unless category.nil?)       
       )
     
     end
@@ -110,7 +113,6 @@ class Program < ActiveRecord::Base
     def set_computed_columns
         set_start_date_display
         set_local_start_date_display
-        set_url_friendly_category
     end
             
     def set_start_date_display
@@ -119,10 +121,6 @@ class Program < ActiveRecord::Base
     
     def set_local_start_date_display
       self.local_start_date_display = start_datetime.in_time_zone(region.name).strftime("%F")
-    end
-    
-    def set_url_friendly_category
-      self.url_friendly_category = category.parameterize
     end
     
 end

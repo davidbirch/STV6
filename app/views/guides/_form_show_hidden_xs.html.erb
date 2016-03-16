@@ -26,7 +26,11 @@
          <tbody class="small">
           <tr id="program_<%= program.id %>"></tr>
                <td><%= program.local_start_datetime.strftime("%H:%M") %></td>
-               <td><%= program.full_title %></td>
+               <% if current_user && admin_user? %>
+               <td><%= link_to program.full_title, program %></td> 
+               <% else %>
+               <td><%= program.full_title %></td> 
+               <% end %>
                <td><%= program.sport.name %></td>
                <td>
                  <%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>)    
@@ -35,7 +39,11 @@
              </tr>
              <tr id="program_<%= program.id %>"></tr>
                <td><%= program.local_start_datetime.strftime("%H:%M") %></td>
-               <td><%= program.full_title %></td>
+               <% if current_user && admin_user? %>
+               <td><%= link_to program.full_title, program %></td> 
+               <% else %>
+               <td><%= program.full_title %></td> 
+               <% end %>
                <td><%= program.sport.name %></td>
                <td>
                  <%= program.channel.name %> (<%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %>)    
