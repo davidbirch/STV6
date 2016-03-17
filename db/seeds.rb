@@ -29,13 +29,20 @@ CSV.open("db/data/sports.csv", "r").each do |row|
 end
 
 # import the data for channels
-#CSV.open("db/data/channels.csv", "r").each do |row|
-#  Channel.find_or_create_by(name: row[0]) do |c|
-#    c.short_name = row[1]
-#    c.xmltv_id = row[2]
-#    c.black_flag = row[3]
-#  end
-#end
+CSV.open("db/data/channels.csv", "r").each do |row|
+  Channel.find_or_create_by(name: row[0]) do |c|
+    c.short_name = row[1]
+    c.xmltv_id = row[2]
+    c.black_flag = row[3]
+  end
+end
+
+# import the data for categories
+CSV.open("db/data/categories.csv", "r").each do |row|
+  Category.find_or_create_by(name: row[0]) do |c|
+    c.black_flag = row[1]
+  end
+end
 
 # import the data for keywords
 CSV.open("db/data/keywords.csv", "r").each do |row|
