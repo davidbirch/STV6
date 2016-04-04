@@ -36,13 +36,10 @@ class ApplicationController < ActionController::Base
     def authenticate_user!
       if !current_user
         redirect_to root_url, :alert => 'You need to sign in for access to this page.'
-      end
-    end
-    
-    def check_admin_user!
-      if !current_user.admin?
+      elsif !current_user.admin?
         redirect_to root_url, :alert => 'You are not able to perform this action.'
       end
     end
     
 end
+

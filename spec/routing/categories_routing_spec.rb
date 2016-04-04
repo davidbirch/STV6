@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  url_friendly_name :string(255)
+#  black_flag        :boolean
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 require "rails_helper"
 
 RSpec.describe CategoriesController, type: :routing do
@@ -31,5 +43,12 @@ RSpec.describe CategoriesController, type: :routing do
       expect(:delete => "/categories/1").to route_to("categories#destroy", :id => "1")
     end
 
+    it "routes to #set_black_flag_on" do
+      expect(:put => "/categories/1/set_black_flag_on").to route_to("categories#set_black_flag_on", :id => "1")
+    end
+    
+    it "routes to #set_black_flag_off" do
+      expect(:put => "/categories/1/set_black_flag_off").to route_to("categories#set_black_flag_off", :id => "1")
+    end
   end
 end

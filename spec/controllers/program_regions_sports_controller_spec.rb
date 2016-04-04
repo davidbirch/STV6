@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe ProgramRegionsSportsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:valid_user)
-    session[:user_id] = @user.id
+    @admin_user = FactoryGirl.create(:valid_admin_user)
+    session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do

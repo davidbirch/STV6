@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table", id="form-show">
   <tbody>
     <tr>
       <td>ID</td>
@@ -14,10 +14,10 @@
     </tr>
     <tr>
       <td>Program Count</td>
-      <td><%= @category.programs.count %></td>
+      <td><%= @programs.count %></td>
     </tr>
   </tbody>
 </table>
-<p>
+<p id="form-actions">
   <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_category_path(@category), delete_path: @category} %>  
 </p>

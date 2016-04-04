@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table", id="form-show">
   <tbody>
     <tr>
       <td>ID</td>
@@ -22,10 +22,10 @@
     </tr>
      <tr>
       <td>Program Count</td>
-      <td><%= @keyword.programs.count unless @keyword.programs.nil? %></td>
+      <td><%= @programs.count %></td>
     </tr>
   </tbody>
 </table>
-<p>
+<p id="form-actions">
   <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_keyword_path(@keyword), delete_path: @keyword} %>  
 </p>

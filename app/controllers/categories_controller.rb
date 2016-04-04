@@ -1,5 +1,17 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  url_friendly_name :string(255)
+#  black_flag        :boolean
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class CategoriesController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
   before_action :set_category, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /categories
@@ -41,14 +53,14 @@ class CategoriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /keywords/1/set_black_flag_on
+  # PATCH/PUT /categories/1/set_black_flag_on
   def set_black_flag_on
     if @category.update(black_flag: true)
       redirect_to categories_url, notice: 'Keyword ' + @category.url_friendly_name + ' was successfully updated.'
     end
   end
   
-  # PATCH/PUT /keywords/1/set_black_flag_off
+  # PATCH/PUT /categories/1/set_black_flag_off
   def set_black_flag_off
     if @category.update(black_flag: false)
       redirect_to categories_url, notice: 'Keyword ' + @category.url_friendly_name + ' was successfully updated.'

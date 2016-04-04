@@ -26,18 +26,13 @@
           <td><%= f.text_field :subtitle, :placeholder=>"Subtitle ..." %></td>
           <td></td>
         </tr>
-        <tr>
-          <td><%= f.label :category %></td>
-          <td><%= f.text_field :category, :placeholder=>"Category ..." %></td>
-          <td></td>
-        </tr>
          <tr>
           <td><%= f.label :description %></td>
           <td><%= f.text_field :description, :placeholder=>"Description ..." %></td>
           <td></td>
         </tr> 
         <tr>
-          <td><%= f.label :programm_hash %></td>
+          <td><%= f.label :program_hash %></td>
           <td><%= f.text_field :program_hash, :placeholder=>"Program Hash ..." %></td>
           <td></td>
         </tr>
@@ -53,7 +48,7 @@
         </tr>
         <tr>
           <td><%= f.label :keyword_id %></td>
-          <td><%= f.collection_select(:keyword_id, Keyword.all, :id, :name, {include_blank: true}) %></td>
+          <td><%= f.collection_select(:keyword_id, Keyword.all, :id, :value, {include_blank: true}) %></td>
           <td></td>
         </tr>
         <tr>
@@ -69,6 +64,11 @@
         <tr>
           <td><%= f.label :sport_id %></td>
           <td><%= f.collection_select(:sport_id, Sport.all, :id, :name, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :category_id %></td>
+          <td><%= f.collection_select(:category_id, Category.all, :id, :name, {include_blank: true}) %></td>
           <td></td>
         </tr>
       </tbody>

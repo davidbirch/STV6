@@ -9,7 +9,7 @@ end
 
 CSV.open("db/data/channels.csv", "wb") do |csv|
   Channel.all.each do |channel|
-    csv << [channel.name, channel.short_name, channel.free_or_pay, channel.black_flag]
+    csv << [channel.name, channel.short_name, channel.black_flag]
   end
 end
 

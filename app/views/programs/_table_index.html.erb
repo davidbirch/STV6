@@ -26,7 +26,7 @@
               <td><%= program.keyword.value unless program.keyword.nil? %></td>
             <% elsif field_name == "channel" %>
               <td><%= program.channel.name unless program.channel.nil? %></td>
-            <% elsif field_name == "channel" %>
+            <% elsif field_name == "category" %>
               <td><%= program.category.name unless program.category.nil? %></td>
             <% elsif field_name == "id" %>
               <td><%= link_to program.id, program %></td>

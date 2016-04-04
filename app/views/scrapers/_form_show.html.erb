@@ -1,5 +1,4 @@
-<small>
-<table class="table">
+<table class="table", id="form-show">
   <tbody>
     <tr>
       <td>ID</td>
@@ -12,6 +11,22 @@
     <tr>
       <td>Target Region List</td>
       <td><%= @scraper.target_region_list %></td>
+    </tr>
+    <tr>
+      <td>Requested By</td>
+      <td><%= @scraper.requested_by %></td>
+    </tr>
+    <tr>
+      <td>Requested At</td>
+      <td><%= @scraper.requested_at %></td>
+    </tr>
+    <tr>
+      <td>Started At</td>
+      <td><%= @scraper.started_at %></td>
+    </tr>
+    <tr>
+      <td>Completed At</td>
+      <td><%= @scraper.completed_at %></td>
     </tr>
     <tr>
       <td>Log</td>
@@ -31,7 +46,6 @@
     </tr>
   </tbody>
 </table>
-<p>
+<p id="form-actions">
   <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_scraper_path(@scraper), delete_path: @scraper} %>  
 </p>
-</small>

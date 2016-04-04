@@ -41,10 +41,10 @@ class Program < ActiveRecord::Base
   
   before_save :set_computed_columns
   
-  scope :historic, ->{where("end_datetime < ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :exclude_black_channels, ->{where("channels.black_flag IS NULL OR channels.black_flag = false" )}
   scope :exclude_black_keywords, ->{where("keywords.black_flag IS NULL OR keywords.black_flag = false" )}
   scope :exclude_black_categories, ->{where("categories.black_flag IS NULL OR categories.black_flag = false" )}
+  scope :historic, ->{where("end_datetime < ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :current, ->{where("end_datetime >= ?", Time.new(Time.now.year, Time.now.month, Time.now.day))}
   scope :chronological, ->{order("start_datetime ASC, end_datetime ASC")}
   scope :by_channel_short_name, ->{order("channels.short_name ASC, channels.name ASC")}

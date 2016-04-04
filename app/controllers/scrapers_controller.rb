@@ -1,10 +1,27 @@
+# == Schema Information
+#
+# Table name: scrapers
+#
+#  id                 :integer          not null, primary key
+#  target_region_list :text(65535)
+#  log                :text(65535)
+#  status             :string(255)
+#  days_to_gather     :float(24)
+#  requested_by       :string(255)
+#  requested_at       :datetime
+#  started_at         :datetime
+#  completed_at       :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
 class ScrapersController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
   before_action :set_scraper, only: [:show, :edit, :update, :destroy]
 
   # GET /scrapers
   def index
-    @scrapers = Scraper.all
+    @scrapers = Scraper.all.by_requested_at
   end
 
   # GET /scrapers/1
@@ -23,6 +40,7 @@ class ScrapersController < ApplicationController
   # POST /scrapers
   def create
     @scraper = Scraper.new(scraper_params)
+    @scraper.requested_by = @current_user.name
 
     if @scraper.save
       redirect_to @scraper, notice: 'Scraper was successfully created.'
@@ -54,6 +72,6 @@ class ScrapersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def scraper_params
-      params.require(:scraper).permit(:target_region_list, :log, :days_to_gather, :status)
+      params.require(:scraper).permit(:target_region_list, :days_to_gather, :requested_by)
     end
 end

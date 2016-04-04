@@ -18,19 +18,14 @@
 #
 
 FactoryGirl.define do
-  
-  TEN_PM_TOMORROW_RAW ||= DateTime.new((DateTime.now + 2).year, (DateTime.now + 2).month, (DateTime.now + 2).day, 8, 0, 0, '+10')
-  ELEVEN_PM_TOMORROW_RAW ||= DateTime.new((DateTime.now + 2).year, (DateTime.now + 2).month, (DateTime.now + 2).day, 9, 0, 0, '+10')
-  TEN_PM_YESTERDAY_RAW ||= DateTime.new((DateTime.now - 2).year, (DateTime.now - 2).month, (DateTime.now - 2).day, 8, 0, 0, '+10')
-  ELEVEN_PM_YESTERDAY_RAW ||= DateTime.new((DateTime.now - 2).year, (DateTime.now - 2).month, (DateTime.now - 2).day, 9, 0, 0, '+10')
       
   factory :raw_program do
     title "Some title"
     subtitle "Some subtitle"
     category "The category"
     description "A show"
-    start_datetime TEN_PM_TOMORROW_RAW
-    end_datetime ELEVEN_PM_TOMORROW_RAW
+    start_datetime Time.new((Date.today + 1).year, (Date.today + 1).month, (Date.today + 1).day, 22, 00, 00)
+    end_datetime Time.new((Date.today + 1).year, (Date.today + 1).month, (Date.today + 1).day, 23, 30, 00)
     region_name "Some region"
     channel_name "Channel"   
   end
@@ -74,8 +69,8 @@ FactoryGirl.define do
   end
   
   factory :historic_raw_program, parent: :valid_raw_program do |f|
-    f.start_datetime TEN_PM_YESTERDAY_RAW
-    f.end_datetime ELEVEN_PM_YESTERDAY_RAW
+    f.start_datetime Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 22, 00, 00)
+    f.end_datetime Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 23, 30, 00)
   end
     
 end

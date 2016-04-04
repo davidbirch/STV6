@@ -3,11 +3,15 @@
 <% end %>
 <div class="table-responsive small">
   <table class="table table-condensed table-stretched">
-   <thead>
+    <thead>
       <tr>
         <th>#</th>
         <th>Target Region List</th>
         <th>Days To Gather</th>
+        <th>Requested By</th>
+        <th>Requested At</th>
+        <th>Started At</th>
+        <th>Completed At</th>
         <th>Status</th>
         <th>Created At</th>
         <th>Updated At</th>
@@ -22,6 +26,10 @@
           <td><%= link_to scraper.id, scraper %></td>
           <td><%= scraper.target_region_list %></td>
           <td><%= scraper.days_to_gather %></td>
+          <td><%= scraper.requested_by %></td>
+          <td><%= scraper.requested_at %></td>
+          <td><%= scraper.started_at %></td>
+          <td><%= scraper.completed_at %></td>
           <td>
           <% if scraper.status == "Completed"  %>
             <i class="glyphicon glyphicon-ok text-success"></i>

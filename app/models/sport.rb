@@ -4,9 +4,9 @@
 #
 #  id                :integer          not null, primary key
 #  name              :string(255)
+#  url_friendly_name :string(255)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  url_friendly_name :string(255)
 #
 
 class Sport < ActiveRecord::Base

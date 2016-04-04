@@ -19,5 +19,19 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   
+  it "has a valid factory" do
+    expect(FactoryGirl.create(:user)).to be_valid
+  end
   
+  it "can assign the admin privilege" do
+    user = FactoryGirl.create(:valid_user)
+    user.assign_admin
+    expect(user.admin?).to be true 
+  end
+  
+  it "can remove the admin privilege" do
+    user = FactoryGirl.create(:valid_admin_user)
+    user.remove_admin
+    expect(user.admin?).to be false 
+  end
 end

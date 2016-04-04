@@ -3,19 +3,19 @@
   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Importer<span class="caret"></span></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="nav-importer">
       <li><%= link_to "Scrapers", scrapers_path %></li>
       <li role="separator" class="divider"></li>
       <li><%= link_to "Raw Programs", raw_programs_path %></li>
       <li role="separator" class="divider"></li>
       <li><%= link_to "Migrators", migrators_path %></li>
       <li role="separator" class="divider"></li>         
-    </ul>
+     </ul>
   </li> <!-- /dropdown -->
   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reference<span class="caret"></span></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="nav-reference">
       <li><%= link_to "Regions", regions_path %></li>
       <li role="separator" class="divider"></li>
       <li><%= link_to "Sports", sports_path %></li>
@@ -29,7 +29,7 @@
   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guide<span class="caret"></span></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="nav-guide">
       <li><%= link_to "Channels", channels_path %></li>
       <li><%= link_to "By Short Name", channel_short_names_path %></li>
       <li role="separator" class="divider"></li>
@@ -39,12 +39,13 @@
       <li><%= link_to "By Region And Channel", program_regions_channels_path %></li>
       <li><%= link_to "By Region And Day", program_regions_days_path %></li>
       <li role="separator" class="divider"></li>
+
     </ul>
   </li> <!-- /dropdown -->
-  
+    
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag(current_user.image.insert(4,"s").html_safe, size: "40x40", class: "img-circle") %></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="nav-user">
       <li class="disabled"><a href="#">Signed in as <strong><%= current_user.name %>!</strong></a></li>
       <li><%= link_to "Sign out", signout_path %></li>
       <li><%= link_to "View details", user_path(current_user) %></li>
@@ -67,7 +68,7 @@
   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag(current_user.image.insert(4,"s").html_safe, size: "40x40", class: "img-circle") %></a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu" id="nav-user">
       <li class="disabled"><a href="#">Signed in as <strong><%= current_user.name %>!</strong></a></li>
       <li><%= link_to "Sign out", signout_path %></li>
       <li><%= link_to "View details", user_path(current_user) %></li>

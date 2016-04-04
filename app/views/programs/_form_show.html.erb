@@ -1,4 +1,4 @@
-   <table class="table">
+<table class="table", id="form-show">
   <tbody>
     <tr>
       <td>ID</td>
@@ -84,6 +84,6 @@
     
   </tbody>
 </table>
-<p>
+<p id="form-actions">
   <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_program_path(@program), delete_path: @program} %>  
 </p>

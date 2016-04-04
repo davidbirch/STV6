@@ -16,19 +16,31 @@
 #
 
 class User < ActiveRecord::Base
-  def self.from_omniauth(auth)
-    where(provider: auth["provider"], uid: auth["uid"]).first || create_from_omniauth(auth)
-  end
   
-  def self.create_from_omniauth(auth)
-    create! do |user|
-      user.provider = auth["provider"]
-      user.uid = auth["uid"]
-      user.name = auth["info"]["name"]
-      user.nickname = auth["info"]["nickname"]
-      user.image = auth["info"]["image"]
-      user.source = auth
-      user.admin = false
+  def assign_admin
+    self.update(admin: true)
+  end
+
+  def remove_admin
+    self.update(admin: false)
+  end
+    
+  class << self
+  
+    def from_omniauth(auth)
+      where(provider: auth["provider"], uid: auth["uid"]).first || create_from_omniauth(auth)
+    end
+    
+    def create_from_omniauth(auth)
+      create! do |user|
+        user.provider = auth["provider"]
+        user.uid = auth["uid"]
+        user.name = auth["info"]["name"]
+        user.nickname = auth["info"]["nickname"]
+        user.image = auth["info"]["image"]
+        user.source = auth
+        user.admin = false
+      end
     end
   end
 end

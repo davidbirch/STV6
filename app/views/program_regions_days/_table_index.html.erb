@@ -1,40 +1,42 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
-<% end %>    
-<table class="table table-condensed">
-  <thead>
-    <tr>
-        <th>Days</th>
-        <% @regions.each do |region| %>
-        <th><%= link_to region.name, region %></th>
-        <% end %>
-        <th>Total</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <tr class="info">
-        <td><strong>Total</strong></td>
-        <% @regions.each do |region| %>
-        <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
-        <% end %>
-        <td><strong><%= Program.count %></strong></td>
-    </tr>
-    <% @programs_by_day.each do |program_by_day| %>
-    <tr>
-        <td><%= link_to Date.parse(program_by_day[0]).strftime("%a %d %b %Y") , ("/programs-by-day/"+program_by_day[0]).html_safe %></td>
-        <% @regions.each do |region| %>
-        <td><%= Program.where(region_id: region.id, start_date_display: program_by_day[0]).count %></td>
-        <% end %>
-        <td><%= Program.where(start_date_display: program_by_day[0]).count %></td>
-    </tr>
-    <% end %>
-    <tr class="info">
-        <td><strong>Total</strong></td>
-        <% @regions.each do |region| %>
-        <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
-        <% end %>
-        <td><strong><%= Program.count %></strong></td>
-    </tr>
-  </tbody>
-</table>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+          <th>Days</th>
+          <% @regions.each do |region| %>
+          <th><%= link_to region.name, region %></th>
+          <% end %>
+          <th>Total</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr class="info">
+          <td><strong>Total</strong></td>
+          <% @regions.each do |region| %>
+          <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
+          <% end %>
+          <td><strong><%= Program.count %></strong></td>
+      </tr>
+      <% @programs_by_day.each do |program_by_day| %>
+      <tr>
+          <td><%= link_to Date.parse(program_by_day[0]).strftime("%a %d %b %Y") , ("/programs-by-day/"+program_by_day[0]).html_safe %></td>
+          <% @regions.each do |region| %>
+          <td><%= Program.where(region_id: region.id, start_date_display: program_by_day[0]).count %></td>
+          <% end %>
+          <td><%= Program.where(start_date_display: program_by_day[0]).count %></td>
+      </tr>
+      <% end %>
+      <tr class="info">
+          <td><strong>Total</strong></td>
+          <% @regions.each do |region| %>
+          <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
+          <% end %>
+          <td><strong><%= Program.count %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

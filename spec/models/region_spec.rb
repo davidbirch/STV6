@@ -2,12 +2,11 @@
 #
 # Table name: regions
 #
-#  id                  :integer          not null, primary key
-#  name                :string(255)
-#  timezone_adjustment :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  url_friendly_name   :string(255)
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  url_friendly_name :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 require 'rails_helper'

@@ -8,47 +8,38 @@ require "rails_helper"
 # rack_test instead of selenium/firefox or selenium/chrome (DB)
   
 describe "pages: " do
-  
-  describe "home page" do
+    
+  describe "contact page" do
     it "should exist" do
-      visit root_path
+      visit contact_path
+      expect(page).to have_content("Contact Page")
       expect(page.status_code).to be(200)
     end
-    
-    it "should link to the about page when authenticated" do
-      mock_auth_hash
-      visit root_path
-      click_link "Sign in with Twitter"
-      click_link "About"
-      expect(page).to have_content("The About Page")
-      expect(page.status_code).to be(200)  
-    end
-
   end
   
-  describe "about page" do
+  describe "privacy page" do
+    it "should exist" do
+      visit privacy_path
+      expect(page).to have_content("Privacy Policy")
+      expect(page.status_code).to be(200)
+    end
+  end
+
+  
+  describe "dashboard page" do
     it "should exist when authenticated" do
-      visit root_path
-      click_link "Sign in with Twitter"
-      visit about_path
-      expect(page).to have_content("The About Page")
+      mock_auth_hash
+      visit signin_path
+      User.first.assign_admin
+      visit dashboard_path
+      expect(page).to have_content("Dashboard")
       expect(page.status_code).to be(200)
     end
     
     it "should return an error when not authenticated" do
-      visit about_path
+      visit dashboard_path
       expect(page).to have_content("You need to sign in for access to this page.")
       expect(page.status_code).to be(200)
-    end
-    
-    it "should link back to the home page when authenticated" do
-      visit root_path
-      mock_auth_hash
-      click_link "Sign in with Twitter"
-      visit about_path
-      click_link('Home')
-      expect(page).to have_content("The Home Page")
-      expect(page.status_code).to be(200)  
     end
   end
 

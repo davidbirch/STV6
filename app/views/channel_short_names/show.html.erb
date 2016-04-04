@@ -5,7 +5,7 @@ locals: {
    level_0_link: root_path,
    level_1_name: "Channels By Short Name",
    level_1_link: channel_short_names_path,
-   level_2_name: params[:url_friendly_short_name],
+   level_2_name: params[:id],
    level_2_link: nil
    }
 %>
@@ -13,7 +13,7 @@ locals: {
   <div class="row">
     <div class="col-xs-12">          
       <%= render "shared/flash" %>
-      <%= render "shared/content_header", locals: {header: "Short Name: " + params[:url_friendly_short_name]}  %>
+      <%= render "shared/content_header", locals: {header: "Short Name: " + params[:id]}  %>
       <%= render "channels/table_index" %>
     </div><!-- /col-xs-12 -->
   </div><!-- /row -->

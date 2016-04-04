@@ -1,9 +1,21 @@
+# == Schema Information
+#
+# Table name: channels
+#
+#  id                      :integer          not null, primary key
+#  name                    :string(255)
+#  url_friendly_name       :string(255)
+#  short_name              :string(255)
+#  url_friendly_short_name :string(255)
+#  black_flag              :boolean
+#
+
 require 'rails_helper'
 
 RSpec.describe ChannelsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:valid_user)
-    session[:user_id] = @user.id
+    @admin_user = FactoryGirl.create(:valid_admin_user)
+    session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
@@ -131,6 +143,38 @@ RSpec.describe ChannelsController, type: :controller do
     it "redirects to the channels list" do
       channel = FactoryGirl.create(:channel)
       delete :destroy, {:id => channel.to_param}
+      expect(response).to redirect_to(channels_url)
+    end
+  end
+    
+  describe "PUT #set_black_flag_on" do
+    it "sets the black_flag field to true" do
+      channel = FactoryGirl.create(:channel)
+      put :set_black_flag_on, {:id => channel.to_param}
+      channel.reload
+      expect(channel.black_flag?).to be true
+    end
+    
+    it "redirects to the channels index" do
+      channel = FactoryGirl.create(:channel)
+      put :set_black_flag_on, {:id => channel.to_param}
+      channel.reload
+      expect(response).to redirect_to(channels_url)
+    end
+  end
+  
+  describe "PUT #set_black_flag_off" do
+    it "sets the black_flag field to false" do
+      channel = FactoryGirl.create(:channel)
+      put :set_black_flag_off, {:id => channel.to_param}
+      channel.reload
+      expect(channel.black_flag?).to be false
+    end
+    
+    it "redirects to the channels index" do
+      channel = FactoryGirl.create(:channel)
+      put :set_black_flag_off, {:id => channel.to_param}
+      channel.reload
       expect(response).to redirect_to(channels_url)
     end
   end

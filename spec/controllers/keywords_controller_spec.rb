@@ -1,9 +1,23 @@
+# == Schema Information
+#
+# Table name: keywords
+#
+#  id                 :integer          not null, primary key
+#  value              :string(255)
+#  url_friendly_value :string(255)
+#  sport_id           :integer
+#  priority           :integer
+#  black_flag         :boolean
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe KeywordsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:valid_user)
-    session[:user_id] = @user.id
+    @admin_user = FactoryGirl.create(:valid_admin_user)
+    session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
@@ -131,6 +145,38 @@ RSpec.describe KeywordsController, type: :controller do
     it "redirects to the keywords list" do
       keyword = FactoryGirl.create(:keyword)
       delete :destroy, {:id => keyword.to_param}
+      expect(response).to redirect_to(keywords_url)
+    end
+  end
+  
+  describe "PUT #set_black_flag_on" do
+    it "sets the black_flag field to true" do
+      keyword = FactoryGirl.create(:keyword)
+      put :set_black_flag_on, {:id => keyword.to_param}
+      keyword.reload
+      expect(keyword.black_flag?).to be true
+    end
+    
+    it "redirects to the keywords index" do
+      keyword = FactoryGirl.create(:keyword)
+      put :set_black_flag_on, {:id => keyword.to_param}
+      keyword.reload
+      expect(response).to redirect_to(keywords_url)
+    end
+  end
+  
+  describe "PUT #set_black_flag_off" do
+    it "sets the black_flag field to false" do
+      keyword = FactoryGirl.create(:keyword)
+      put :set_black_flag_off, {:id => keyword.to_param}
+      keyword.reload
+      expect(keyword.black_flag?).to be false
+    end
+    
+    it "redirects to the keywords index" do
+      keyword = FactoryGirl.create(:keyword)
+      put :set_black_flag_off, {:id => keyword.to_param}
+      keyword.reload
       expect(response).to redirect_to(keywords_url)
     end
   end

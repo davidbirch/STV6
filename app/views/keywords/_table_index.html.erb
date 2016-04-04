@@ -3,7 +3,7 @@
 <% end %>
 <div class="table-responsive small">
   <table class="table table-condensed table-stretched">
-     <thead>
+    <thead>
       <tr>
         <th>#</th>
         <th>Value</th>
@@ -34,11 +34,20 @@
             <% end %>
           <% end %>
           </td>
-          <td><%= keyword.programs.count unless keyword.programs.nil? %></td>
+          <td><%= keyword.programs.count %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_keyword_path(keyword)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: keyword} %></td> 
         </tr>      
       <% end %>
+      <tr class="info">
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td></td>
+        <td></td>
+        <td><strong><%= Program.count %></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
     </tbody>
   </table>
 </div>

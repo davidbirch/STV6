@@ -55,6 +55,10 @@ RSpec.describe Program, type: :model do
   it "is invalid without a channel_id" do
     expect(FactoryGirl.build(:program, channel_id: nil)).to validate_presence_of(:channel_id)
   end
+  
+  it "is invalid without a channel_id" do
+    expect(FactoryGirl.build(:program, category_id: nil)).to validate_presence_of(:category_id)
+  end
     
   it "should belong to a region" do
     expect(FactoryGirl.build(:program)).to belong_to(:region)
@@ -72,14 +76,13 @@ RSpec.describe Program, type: :model do
     expect(FactoryGirl.build(:program)).to belong_to(:keyword)
   end
 
+  it "should belong to a category" do
+    expect(FactoryGirl.build(:program)).to belong_to(:category)
+  end
+  
   it "should set the start_date_display" do
     @program = FactoryGirl.create(:program)
     expect(@program.start_date_display).to eq(@program.start_datetime.strftime("%F"))
-  end
-  
-  it "should set the url_friendly_category" do
-    @program = FactoryGirl.create(:program)
-    expect(@program.url_friendly_category).to eq(@program.category.parameterize)
   end
   
   it "is invalid without a unique channel/region/sport/start/end" do
@@ -96,54 +99,57 @@ RSpec.describe Program, type: :model do
       @region_melbourne = FactoryGirl.create(:region_melbourne)
       @region_brisbane = FactoryGirl.create(:region_brisbane)
       @keyword = FactoryGirl.create(:keyword)
+      @category = FactoryGirl.create(:sport_category)
       
-      @program_1 = FactoryGirl.create(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id)
+      @program_1 = FactoryGirl.create(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id)
+      
     end
     
     context "where they all match" do
-      it "does not create a duplicate program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id).valid?).to be false
+      it "does not create a duplicate program" do 
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be false
       end
     end
     
     context "where the channel is different" do
       it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_seven.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id).valid?).to be true
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_seven.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be true
       end
     end
     
     context "where the sport is different" do
       it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_tennis.id, keyword_id: @keyword.id).valid?).to be true
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_tennis.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be true
       end
     end
         
     context "where the region is different" do
       it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_brisbane.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id).valid?).to be true
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_brisbane.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be true
       end
     end
     
     context "where the title is different" do
       it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, title: "Some other title").valid?).to be true
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id, title: "Some other title").valid?).to be true
       end
     end
    
     context "where the start_datetime is different" do
       it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, start_datetime: TEN_PM_YESTERDAY_PROG).valid?).to be true
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id, start_datetime: Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 22, 00, 00)).valid?).to be true
       end
     end
    
     context "where the end_datetime is different" do
       it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, end_datetime: ELEVEN_PM_YESTERDAY_PROG).valid?).to be true  
+        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id, end_datetime: Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 23, 30, 00)).valid?).to be true  
       end
-    end  
+    end
+    
   end
-  
-    describe "can create a program based on a raw program" do
+   
+  describe "can create a program based on a raw program" do
     
     before :each do
       ["Cricket","Tennis","Rugby League","Soccer","Rugby Union","Other Sport"].each {|e|
@@ -218,5 +224,5 @@ RSpec.describe Program, type: :model do
     end
       
   end
-  
+ 
 end

@@ -1,5 +1,27 @@
+# == Schema Information
+#
+# Table name: programs
+#
+#  id                       :integer          not null, primary key
+#  title                    :string(255)
+#  subtitle                 :string(255)
+#  description              :text(65535)
+#  program_hash             :text(65535)
+#  start_datetime           :datetime
+#  end_datetime             :datetime
+#  start_date_display       :string(255)
+#  local_start_date_display :string(255)
+#  region_id                :integer
+#  channel_id               :integer
+#  sport_id                 :integer
+#  keyword_id               :integer
+#  category_id              :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+
 class ProgramsController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
   before_action :set_program, only: [:show, :edit, :update, :destroy]
 
   # GET /programs
@@ -55,6 +77,6 @@ class ProgramsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def program_params
-      params.require(:program).permit(:title, :subtitle, :category, :description, :start_datetime, :end_datetime, :keyword_id, :region_id, :channel_id, :sport_id)
+      params.require(:program).permit(:title, :subtitle, :description, :start_datetime, :end_datetime, :keyword_id, :region_id, :channel_id, :sport_id, :category_id)
     end
 end

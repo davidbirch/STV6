@@ -21,35 +21,24 @@
 #
 
 FactoryGirl.define do
-  
-  TEN_PM_TOMORROW_PROG ||= DateTime.new((DateTime.now + 1).year, (DateTime.now + 1).month, (DateTime.now + 1).day, 8, 0, 0, '+10')
-  ELEVEN_PM_TOMORROW_PROG ||= DateTime.new((DateTime.now + 1).year, (DateTime.now + 1).month, (DateTime.now + 1).day, 9, 0, 0, '+10')
-  TEN_PM_YESTERDAY_PROG ||= DateTime.new((DateTime.now - 1).year, (DateTime.now - 1).month, (DateTime.now - 1).day, 8, 0, 0, '+10')
-  ELEVEN_PM_YESTERDAY_PROG ||= DateTime.new((DateTime.now - 1).year, (DateTime.now - 1).month, (DateTime.now - 1).day, 9, 0, 0, '+10')
-  
-  TEN_PM_TOMORROW_UTC_PROG ||= DateTime.new((DateTime.now + 1).year, (DateTime.now + 1).month, (DateTime.now + 1).day, 8, 0, 0)
-  ELEVEN_PM_TOMORROW_UTC_PROG ||= DateTime.new((DateTime.now + 1).year, (DateTime.now + 1).month, (DateTime.now + 1).day, 9, 0, 0)
-  TEN_PM_YESTERDAY_UTC_PROG ||= DateTime.new((DateTime.now - 1).year, (DateTime.now - 1).month, (DateTime.now - 1).day, 8, 0, 0)
-  ELEVEN_PM_YESTERDAY_UTC_PROG ||= DateTime.new((DateTime.now - 1).year, (DateTime.now - 1).month, (DateTime.now - 1).day, 9, 0, 0)
-  
-  
+    
   factory :program do
     title "Some title"
     subtitle "Some subtitle"
-    category "The category"
     description "A show"
-    start_datetime TEN_PM_TOMORROW_UTC_PROG
-    end_datetime TEN_PM_TOMORROW_UTC_PROG
+    program_hash "#A hash"
+    start_datetime Time.new((Date.today + 1).year, (Date.today + 1).month, (Date.today + 1).day, 22, 00, 00)
+    end_datetime Time.new((Date.today + 1).year, (Date.today + 1).month, (Date.today + 1).day, 23, 30, 00)
     region
     sport
     channel
     keyword
+    category
   end
    
   factory :valid_program, parent: :program do |f|
     f.title "AFL Grand Final"
     f.subtitle "In September"
-    f.category "Sport/AFL"
   end
   
   factory :invalid_program, parent: :program do |f|
@@ -57,8 +46,8 @@ FactoryGirl.define do
   end
    
   factory :historic_program, parent: :valid_program do |f|
-    f.start_datetime TEN_PM_YESTERDAY_UTC_PROG
-    f.end_datetime ELEVEN_PM_YESTERDAY_UTC_PROG
+    start_datetime Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 22, 00, 00)
+    end_datetime Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 23, 30, 00)
   end
 
 end

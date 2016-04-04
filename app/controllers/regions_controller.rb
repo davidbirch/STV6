@@ -1,5 +1,16 @@
+# == Schema Information
+#
+# Table name: regions
+#
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  url_friendly_name :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class RegionsController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
   before_action :set_region, only: [:show, :edit, :update, :destroy]
 
   # GET /regions
@@ -55,6 +66,6 @@ class RegionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def region_params
-      params.require(:region).permit(:name, :timezone_adjustment)
+      params.require(:region).permit(:name)
     end
 end

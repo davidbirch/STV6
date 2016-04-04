@@ -2,9 +2,26 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 text-center">
-      
+        
+        <ul class="list-inline small">
+          <li><%= link_to "Home", root_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "Contact", contact_path %></li>
+          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+          <li><%= link_to "Privacy", privacy_path %></li>
+        </ul>
+        
+        <ul class="list-inline small">
+          <% if @region %>
+            <% Sport.all.each do |sport| %>
+            <li><%= link_to sport.name, ("/"+@region.friendly_id+"/"+sport.friendly_id) %></li>
+            <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+            <% end %>
+          <% end %>
+        </ul>
+         
 <% if current_user && admin_user? %>
-  
+         
         <ul class="list-inline small">
           <li><%= link_to "Scrapers", scrapers_path %></li>
           <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
@@ -12,7 +29,7 @@
           <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
           <li><%= link_to "Migrators", migrators_path %></li>
         </ul>
-        
+                 
         <ul class="list-inline small">
           <li><%= link_to "Regions", regions_path %></li>
           <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
@@ -39,16 +56,6 @@
           <li><%= link_to "By Region And Channel", program_regions_channels_path %></li>
           <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
           <li><%= link_to "By Region And Day", program_regions_days_path %></li>  
-        </ul>
-        
-<% else %>
-  
-        <ul class="list-inline small">
-          <li><%= link_to "Home", root_path %></li>
-          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
-          <li><%= link_to "Contact", contact_path %></li>
-          <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
-          <li><%= link_to "Privacy", privacy_path %></li>
         </ul>
      
 <% end %>

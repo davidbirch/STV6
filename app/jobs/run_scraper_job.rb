@@ -11,7 +11,8 @@ class RunScraperJob < ActiveJob::Base
           @log.error("Scraper was nil")
       else
         scraper.log ||= ""
-        scraper.log.concat("#{Time.now.strftime("%F %T %Z")}: Scraper started (id:#{scraper.id})")
+        scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: Scraper started (id:#{scraper.id})")
+        scraper.started_at = Time.now
         scraper.status = "Started"
         scraper.save
           
@@ -64,6 +65,7 @@ class RunScraperJob < ActiveJob::Base
           
           # completed
           scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: Scraper completed")
+          scraper.completed_at = Time.now
           scraper.status = "Completed"
           scraper.save
           @log.info("Scraper completed")
@@ -73,25 +75,28 @@ class RunScraperJob < ActiveJob::Base
           scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: JSON Parse Error")
           scraper.status = "Error"
           scraper.save
-          scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: file.read: #{file.read}")
-          scraper.save
           
           @log.error("#{e.message}")
           @log.error("#{e.backtrace}")
           
         rescue => e
           # generic error once the scraper exists
+          @log.error("#{e.message}")
+          @log.error("#{e.backtrace}")
+          
           scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: Error (#{e.message})")
           scraper.status = "Error"
           scraper.save
-          @log.error("#{e.message}")
-          @log.error("#{e.backtrace}")
         end
       end     
     rescue => e
       # generic error if the scraper doesn't exist
       @log.error("#{e.message}")
       @log.error("#{e.backtrace}")
+      
+      scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: Error (#{e.message})")
+      scraper.status = "Error"
+      scraper.save
     end
   end
   

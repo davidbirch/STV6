@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  # regular resource routes
   resources :categories do
     member do
       put 'set_black_flag_on'
@@ -30,7 +31,7 @@ Rails.application.routes.draw do
   resources :scrapers
   resources :sports
   resources :users
-  
+    
   # special routes for sessions 
   get 'auth/:provider/callback',      to: 'sessions#create'
   get 'auth/failure',                 to: 'sessions#failure'
@@ -40,11 +41,13 @@ Rails.application.routes.draw do
   # special routes for pages
   get 'contact',                        to: 'pages#contact'
   get 'privacy',                        to: 'pages#privacy'
-    
-  # special routes for /region and /region/sport
+  get 'dashboard',                      to: 'pages#dashboard'
+  
+    # special routes for /region and /region/sport
   get ':region_name',                 to: 'guides#show'
   get ':region_name/:sport_name',     to: 'guides#show'
   
-  root "guides#index"
-  
+  root 'guides#index'
+  #root 'pages#unavailable'
+
 end

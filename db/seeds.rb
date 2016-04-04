@@ -10,9 +10,7 @@ require "csv"
 
 # import the data for regions
 CSV.open("db/data/regions.csv", "r").each do |row|
-  Region.find_or_create_by(name: row[0]) do |r|
-    r.timezone_adjustment = row[1]
-  end
+  Region.find_or_create_by(name: row[0]) 
 end
 
 # import the data for sports
@@ -32,8 +30,7 @@ end
 CSV.open("db/data/channels.csv", "r").each do |row|
   Channel.find_or_create_by(name: row[0]) do |c|
     c.short_name = row[1]
-    c.xmltv_id = row[2]
-    c.black_flag = row[3]
+    c.black_flag = row[2]
   end
 end
 

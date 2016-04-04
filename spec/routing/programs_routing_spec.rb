@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: programs
+#
+#  id                       :integer          not null, primary key
+#  title                    :string(255)
+#  subtitle                 :string(255)
+#  description              :text(65535)
+#  program_hash             :text(65535)
+#  start_datetime           :datetime
+#  end_datetime             :datetime
+#  start_date_display       :string(255)
+#  local_start_date_display :string(255)
+#  region_id                :integer
+#  channel_id               :integer
+#  sport_id                 :integer
+#  keyword_id               :integer
+#  category_id              :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+
 require "rails_helper"
 
 RSpec.describe ProgramsController, type: :routing do

@@ -1,9 +1,31 @@
+# == Schema Information
+#
+# Table name: programs
+#
+#  id                       :integer          not null, primary key
+#  title                    :string(255)
+#  subtitle                 :string(255)
+#  description              :text(65535)
+#  program_hash             :text(65535)
+#  start_datetime           :datetime
+#  end_datetime             :datetime
+#  start_date_display       :string(255)
+#  local_start_date_display :string(255)
+#  region_id                :integer
+#  channel_id               :integer
+#  sport_id                 :integer
+#  keyword_id               :integer
+#  category_id              :integer
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe ProgramsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:valid_user)
-    session[:user_id] = @user.id
+    @admin_user = FactoryGirl.create(:valid_admin_user)
+    session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
@@ -62,22 +84,23 @@ RSpec.describe ProgramsController, type: :controller do
         @sport = FactoryGirl.create(:sport)
         @channel = FactoryGirl.create(:channel)
         @keyword = FactoryGirl.create(:keyword)
+        @category = FactoryGirl.create(:category)
       end
       
       it "creates a new Program" do
         expect {
-          post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id)
+          post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id, category_id: @category.id)
         }.to change(Program, :count).by(1)
       end
 
       it "assigns a newly created program as @program" do
-        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id)
+        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id, category_id: @category.id)
         expect(assigns(:program)).to be_a(Program)
         expect(assigns(:program)).to be_persisted
       end
 
       it "redirects to the created program" do
-        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id)
+        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id, category_id: @category.id)
         expect(response).to redirect_to(Program.last)
       end
     end

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: scrapers
+#
+#  id                 :integer          not null, primary key
+#  target_region_list :text(65535)
+#  log                :text(65535)
+#  status             :string(255)
+#  days_to_gather     :float(24)
+#  requested_by       :string(255)
+#  requested_at       :datetime
+#  started_at         :datetime
+#  completed_at       :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
 require "rails_helper"
 
 RSpec.describe ScrapersController, type: :routing do

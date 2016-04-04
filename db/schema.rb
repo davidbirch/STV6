@@ -11,25 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313103457) do
+ActiveRecord::Schema.define(version: 20160328101731) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",              limit: 255
-    t.boolean  "black_flag",        limit: 1
+    t.string   "url_friendly_name", limit: 255
+    t.boolean  "black_flag"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.string   "url_friendly_name", limit: 255
   end
 
   create_table "channels", force: :cascade do |t|
-    t.string   "free_or_pay",             limit: 255
-    t.string   "name",                    limit: 255
-    t.string   "short_name",              limit: 255
-    t.boolean  "black_flag",              limit: 1
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "url_friendly_name",       limit: 255
-    t.string   "url_friendly_short_name", limit: 255
+    t.string  "name",                    limit: 255
+    t.string  "url_friendly_name",       limit: 255
+    t.string  "short_name",              limit: 255
+    t.string  "url_friendly_short_name", limit: 255
+    t.boolean "black_flag"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -50,18 +47,22 @@ ActiveRecord::Schema.define(version: 20160313103457) do
 
   create_table "keywords", force: :cascade do |t|
     t.string   "value",              limit: 255
+    t.string   "url_friendly_value", limit: 255
     t.integer  "sport_id",           limit: 4
     t.integer  "priority",           limit: 4
-    t.boolean  "black_flag",         limit: 1
+    t.boolean  "black_flag"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.string   "url_friendly_value", limit: 255
   end
 
   create_table "migrators", force: :cascade do |t|
     t.text     "target_region_list", limit: 65535
     t.text     "log",                limit: 65535
     t.string   "status",             limit: 255
+    t.string   "requested_by",       limit: 255
+    t.datetime "requested_at"
+    t.datetime "started_at"
+    t.datetime "completed_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -106,11 +107,10 @@ ActiveRecord::Schema.define(version: 20160313103457) do
   end
 
   create_table "regions", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.integer  "timezone_adjustment", limit: 4
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "url_friendly_name",   limit: 255
+    t.string   "name",              limit: 255
+    t.string   "url_friendly_name", limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "scrapers", force: :cascade do |t|
@@ -118,15 +118,19 @@ ActiveRecord::Schema.define(version: 20160313103457) do
     t.text     "log",                limit: 65535
     t.string   "status",             limit: 255
     t.float    "days_to_gather",     limit: 24
+    t.string   "requested_by",       limit: 255
+    t.datetime "requested_at"
+    t.datetime "started_at"
+    t.datetime "completed_at"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
 
   create_table "sports", force: :cascade do |t|
     t.string   "name",              limit: 255
+    t.string   "url_friendly_name", limit: 255
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.string   "url_friendly_name", limit: 255
   end
 
   create_table "users", force: :cascade do |t|
@@ -137,7 +141,7 @@ ActiveRecord::Schema.define(version: 20160313103457) do
     t.string   "image",      limit: 255
     t.string   "email",      limit: 255
     t.text     "source",     limit: 65535
-    t.boolean  "admin",      limit: 1
+    t.boolean  "admin"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end

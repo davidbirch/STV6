@@ -18,7 +18,11 @@
         </tr>
         <tr>
           <td><%= f.label :value %></td>
+          <% if params[:value] %>
           <td><%= f.text_field :value, :value=>params[:value], :placeholder=>"Keyword Value ..." %></td>
+          <% else %>
+          <td><%= f.text_field :value, :placeholder=>"Keyword Value ..." %></td>  
+          <% end %>
           <td></td>
         </tr>
          <tr>

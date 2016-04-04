@@ -1,40 +1,42 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
-<% end %>    
-<table class="table table-condensed">
-  <thead>
-    <tr>
-        <th>Sport</th>
-        <% @regions.each do |region| %>
-        <th><%= link_to region.name, region %></th>
-        <% end %>
-        <th>Total</th>
-    </tr>
-  </thead>
-  
-  <tbody>
-    <tr class="info">
-        <td><strong>Total</strong></td>
-        <% @regions.each do |region| %>
-        <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
-        <% end %>
-        <td><strong><%= Program.count %></strong></td>
-    </tr>
-    <% @sports.each do |sport| %>
-    <tr>
-        <td><%= link_to sport.name, sport %></td>
-        <% @regions.each do |region| %>
-        <td><%= Program.where(region_id: region.id, sport_id: sport.id).count %></td>
-        <% end %>
-        <td><%= Program.where(sport_id: sport.id).count %></td>
-    </tr>
-    <% end %>
-    <tr class="info">
-        <td><strong>Total</strong></td>
-        <% @regions.each do |region| %>
-        <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
-        <% end %>
-        <td><strong><%= Program.count %></strong></td>
-    </tr>
-  </tbody>
-</table>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+          <th>Sport</th>
+          <% @regions.each do |region| %>
+          <th><%= link_to region.name, region %></th>
+          <% end %>
+          <th>Total</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr class="info">
+          <td><strong>Total</strong></td>
+          <% @regions.each do |region| %>
+          <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
+          <% end %>
+          <td><strong><%= Program.count %></strong></td>
+      </tr>
+      <% @sports.each do |sport| %>
+      <tr>
+          <td><%= link_to sport.name, sport %></td>
+          <% @regions.each do |region| %>
+          <td><%= Program.where(region_id: region.id, sport_id: sport.id).count %></td>
+          <% end %>
+          <td><%= Program.where(sport_id: sport.id).count %></td>
+      </tr>
+      <% end %>
+      <tr class="info">
+          <td><strong>Total</strong></td>
+          <% @regions.each do |region| %>
+          <td><strong><%= Program.where(region_id: region.id).count %></strong></td>
+          <% end %>
+          <td><strong><%= Program.count %></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

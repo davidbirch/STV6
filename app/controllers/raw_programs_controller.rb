@@ -1,6 +1,25 @@
+# == Schema Information
+#
+# Table name: raw_programs
+#
+#  id                  :integer          not null, primary key
+#  program_hash        :text(65535)
+#  title               :string(255)
+#  subtitle            :string(255)
+#  category            :string(255)
+#  description         :text(65535)
+#  start_datetime      :datetime
+#  end_datetime        :datetime
+#  region_name         :string(255)
+#  channel_name        :string(255)
+#  channel_free_or_pay :string(255)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
 class RawProgramsController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
-  before_action :set_raw_program, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_action :set_raw_program, only: [:show]
 
   # GET /raw_programs
   def index
@@ -9,41 +28,6 @@ class RawProgramsController < ApplicationController
 
   # GET /raw_programs/1
   def show
-  end
-
-  # GET /raw_programs/new
-  def new
-    @raw_program = RawProgram.new
-  end
-
-  # GET /raw_programs/1/edit
-  def edit
-  end
-
-  # POST /raw_programs
-  def create
-    @raw_program = RawProgram.new(raw_program_params)
-
-    if @raw_program.save
-      redirect_to @raw_program, notice: 'Raw program was successfully created.'
-    else
-      render :new
-    end
-  end
-
-  # PATCH/PUT /raw_programs/1
-  def update
-    if @raw_program.update(raw_program_params)
-      redirect_to @raw_program, notice: 'Raw program was successfully updated.'
-    else
-      render :edit
-    end
-  end
-
-  # DELETE /raw_programs/1
-  def destroy
-    @raw_program.destroy
-    redirect_to raw_programs_url, notice: 'Raw program was successfully destroyed.'
   end
 
   private

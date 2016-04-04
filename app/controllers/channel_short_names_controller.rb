@@ -1,5 +1,5 @@
 class ChannelShortNamesController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
 
   # GET /channels_by_short_name      
   def index

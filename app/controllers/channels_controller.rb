@@ -1,5 +1,17 @@
+# == Schema Information
+#
+# Table name: channels
+#
+#  id                      :integer          not null, primary key
+#  name                    :string(255)
+#  url_friendly_name       :string(255)
+#  short_name              :string(255)
+#  url_friendly_short_name :string(255)
+#  black_flag              :boolean
+#
+
 class ChannelsController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
   before_action :set_channel, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /channels
@@ -69,6 +81,6 @@ class ChannelsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def channel_params
-      params.require(:channel).permit(:xmltv_id, :free_or_pay, :name, :short_name, :black_flag)
+      params.require(:channel).permit(:xmltv_id, :name, :short_name, :black_flag)
     end
 end

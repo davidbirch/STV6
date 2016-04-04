@@ -8,7 +8,13 @@ class SessionsController < ApplicationController
     user = User.from_omniauth(env["omniauth.auth"])
     reset_session
     session[:user_id] = user.id
-    redirect_to root_url, notice: "Signed in!"
+    if user.admin?
+      redirect_to dashboard_url, notice: "Signed in with 'admin' privileges!"
+    else
+      redirect_to root_url, notice: "Signed in!"
+    end
+    
+    
   end
   
   def destroy

@@ -4,10 +4,10 @@
 #
 #  id                :integer          not null, primary key
 #  name              :string(255)
+#  url_friendly_name :string(255)
 #  black_flag        :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  url_friendly_name :string(255)
 #
 
 class Category < ActiveRecord::Base
@@ -36,7 +36,6 @@ class Category < ActiveRecord::Base
           c.black_flag = false
         end
       end
-      
 
     end
     

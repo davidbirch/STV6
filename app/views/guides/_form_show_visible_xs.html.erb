@@ -1,18 +1,22 @@
+<% displayed_program_count = 0 %>
 <% @start_dates.each do |start_date| %>
+  <% displayed_program_day_count = 0 %>  
   <% close_table = false %>
-     <% last_program = nil %>
-       <% @programs.where(local_start_date_display: start_date).each do |program| %>
-          <% if program.current? %>
-              <% if last_program.nil? %>
-               <% close_table = true %>    
-               <div class="panel panel-primary">
-   <div class="panel-heading stv-panel-primary"><strong><%= start_date.to_time.strftime("%A, %e %b %y")%></strong></div>
-     <table class="table table-condensed table-hover">
+  <% last_program = nil %>
+  <% @programs.where(local_start_date_display: start_date).each do |program| %>
+    <% if program.current? %>
+      <% displayed_program_count += 1 %>
+      <% displayed_program_day_count += 1 %>
+      <% if last_program.nil? %>
+        <% close_table = true %>    
+  <div class="panel panel-primary">
+    <div class="panel-heading stv-panel-primary"><strong><%= start_date.to_time.strftime("%A, %e %b %y")%></strong></div>
+      <table class="table table-condensed table-hover">
         <colgroup>
            <col class="col_sport">
          </colgroup>
          <tbody>
-              <tr id="program_<%= program.id %>"></tr>
+              <tr id="program_<%= program.id %>">
                 <td class="mobile-program">
                  <h5 class="no-bottom-margin"><%= program.full_title %></h5>
                  <p class="small no-bottom-margin"><%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %></p>
@@ -21,7 +25,7 @@
                  </p>
                 </td>
               </tr>
-              <tr id="program_<%= program.id %>"></tr>
+              <tr id="program_<%= program.id %>">
                 <td class="mobile-program">
                  <h5 class="no-bottom-margin"><%= program.full_title %></h5>
                  <p class="small no-bottom-margin"><%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %></p>
@@ -39,5 +43,8 @@
          </tbody>
        </table>
    </div>
-   <% end %>
- <% end %>    
+  <% end %>
+<% end %>
+<% if displayed_program_count == 0 %>
+<p>There are currently no results.</p>
+<% end %>

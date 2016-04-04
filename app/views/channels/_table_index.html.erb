@@ -1,49 +1,51 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
-<% end %>    
-<table class="table table-condensed">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Short name</th>
-      <th>Black Flag</th>
-      <th>Program Count</th>
-      <th>Edit</th>
-      <th>Delete</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @channels.each do |channel| %>
-      <tr id="channel_<%= channel.id %>">
-        <td><%= channel.id %></td>
-        <td><%= link_to channel.name, channel %></td>
-        <td><%= channel.short_name %></td>
-        <td>
-        <% if channel.black_flag? %>
-          <%= link_to set_black_flag_off_channel_path(channel), :method => :put do %>
-            <i class="fa fa-circle"></i> 
-          <% end %>
-        <% else %>
-          <%= link_to set_black_flag_on_channel_path(channel), :method => :put do %>
-            <i class="fa fa-circle-o"></i> 
-          <% end %>
-        <% end %>
-        </td>
-        <td><%= channel.programs.count %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_channel_path(channel)} %></td>
-        <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: channel} %></td>    
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Short name</th>
+        <th>Black Flag</th>
+        <th>Program Count</th>
+        <th>Edit</th>
+        <th>Delete</th>
       </tr>
-    <% end %>
-    <tr class="info">
-      <td></td>
-      <td><strong>Total</strong></td>
-      <td></td>
-      <td></td>
-      <td><strong><%= Program.count %></strong></td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
+    </thead>
+  
+    <tbody>
+      <% @channels.each do |channel| %>
+        <tr id="channel_<%= channel.id %>">
+          <td><%= channel.id %></td>
+          <td><%= link_to channel.name, channel %></td>
+          <td><%= channel.short_name %></td>
+          <td>
+          <% if channel.black_flag? %>
+            <%= link_to set_black_flag_off_channel_path(channel), :method => :put do %>
+              <i class="fa fa-circle"></i> 
+            <% end %>
+          <% else %>
+            <%= link_to set_black_flag_on_channel_path(channel), :method => :put do %>
+              <i class="fa fa-circle-o"></i> 
+            <% end %>
+          <% end %>
+          </td>
+          <td><%= channel.programs.count %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_channel_path(channel)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: channel} %></td>    
+        </tr>
+      <% end %>
+      <tr class="info">
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td></td>
+        <td></td>
+        <td><strong><%= Program.count %></strong></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

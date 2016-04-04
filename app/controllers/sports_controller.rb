@@ -1,5 +1,16 @@
+# == Schema Information
+#
+# Table name: sports
+#
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  url_friendly_name :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 class SportsController < ApplicationController
-  before_filter :authenticate_user! && :check_admin_user!
+  before_filter :authenticate_user!
   before_action :set_sport, only: [:show, :edit, :update, :destroy]
 
   # GET /sports

@@ -1,9 +1,20 @@
+# == Schema Information
+#
+# Table name: sports
+#
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  url_friendly_name :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe SportsController, type: :controller do
   before(:each) do
-    @user = FactoryGirl.create(:valid_user)
-    session[:user_id] = @user.id
+    @admin_user = FactoryGirl.create(:valid_admin_user)
+    session[:user_id] = @admin_user.id
   end
     
   describe "GET #index" do

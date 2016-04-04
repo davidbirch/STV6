@@ -1,7 +1,23 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer          not null, primary key
+#  provider   :string(255)
+#  uid        :string(255)
+#  name       :string(255)
+#  nickname   :string(255)
+#  image      :string(255)
+#  email      :string(255)
+#  source     :text(65535)
+#  admin      :boolean
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :check_admin_user!, except: [:show]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show]
 
   # GET /users
   def index

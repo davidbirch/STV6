@@ -21,12 +21,21 @@ FactoryGirl.define do
     uid "MyString"
     name "MyString"
     email "MyString"
+    admin false
   end
   
   factory :valid_user, parent: :user do |f|
     f.provider "twitter"
     f.uid "123545"
-    f.name "mockuser"   
+    f.name "mockuser"
+    f.admin false
+  end
+  
+  factory :valid_admin_user, parent: :user do |f|
+    f.provider "twitter"
+    f.uid "123545"
+    f.name "mockuser"
+    f.admin true
   end
 
 end

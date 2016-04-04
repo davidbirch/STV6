@@ -1,5 +1,4 @@
-<small>
-<table class="table">
+<table class="table", id="form-show">
   <tbody>
     <tr>
       <td>ID</td>
@@ -10,6 +9,22 @@
       <td><%= @migrator.target_region_list %></td>
     </tr>
     <tr>
+      <td>Requested By</td>
+      <td><%= @migrator.requested_by %></td>
+    </tr>
+    <tr>
+      <td>Requested At</td>
+      <td><%= @migrator.requested_at %></td>
+    </tr>
+    <tr>
+      <td>Started At</td>
+      <td><%= @migrator.started_at %></td>
+    </tr>
+    <tr>
+      <td>Completed At</td>
+      <td><%= @migrator.completed_at %></td>
+    </tr>
+     <tr>
       <td>Log</td>
       <td><%= simple_format @migrator.log %></td>
     </tr>
@@ -27,7 +42,6 @@
     </tr>
   </tbody>
 </table>
-<p>
+<p id="form-actions">
   <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_migrator_path(@migrator), delete_path: @migrator} %>  
 </p>
-</small>
