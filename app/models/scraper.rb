@@ -33,7 +33,7 @@ class Scraper < ActiveRecord::Base
       if self.target_region_list.nil? || self.target_region_list == ""
         self.target_region_list = [["Adelaide","81"],["Brisbane","75"],["Melbourne","94"],["Perth","101"],["Sydney","73"]]
       end
-      self.days_to_gather ||= 5
+      self.days_to_gather ||= 6
       self.requested_at ||= Time.now
     end
     
