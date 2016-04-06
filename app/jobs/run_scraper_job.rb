@@ -52,6 +52,15 @@ class RunScraperJob < ActiveJob::Base
                 retry unless get_file_count > 10
                 scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: Tried #{get_file_count} times and couldn't get #{file}: #{e}")
                 scraper.save
+                @log.error("#{e.message}")
+                @log.error("#{e.backtrace}")
+              rescue OpenSSL::SSL::SSLError => e
+                get_file_count += 1
+                retry unless get_file_count > 10
+                scraper.log.concat("\n#{Time.now.strftime("%F %T %Z")}: Tried #{get_file_count} times and couldn't get #{file}: #{e}")
+                scraper.save
+                @log.error("#{e.message}")
+                @log.error("#{e.backtrace}")
               end
               # populate a sorted array of times from the tv shows
               data_hash["tv"][0]["item"].each {|tv|

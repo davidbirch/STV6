@@ -16,7 +16,7 @@
            <col class="col_sport">
          </colgroup>
          <tbody>
-              <tr id="program_<%= program.id %>">
+              <tr id="program-visible-xs-<%= program.id %>">
                 <td class="mobile-program">
                  <h5 class="no-bottom-margin"><%= program.full_title %></h5>
                  <p class="small no-bottom-margin"><%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %></p>
@@ -25,7 +25,7 @@
                  </p>
                 </td>
               </tr>
-              <tr id="program_<%= program.id %>">
+              <tr id="program-visible-xs-<%= program.id %>">
                 <td class="mobile-program">
                  <h5 class="no-bottom-margin"><%= program.full_title %></h5>
                  <p class="small no-bottom-margin"><%= program.local_start_datetime.strftime("%H:%M") %> to <%= program.local_end_datetime.strftime("%H:%M") %></p>
