@@ -12,6 +12,36 @@ module ApplicationHelper
       site_variables["default_title"]
     end
   end
+  
+  def meta_author(meta_author = nil)
+    if meta_author.present?
+      meta_author
+    elsif @meta_author.present?
+      @meta_author
+    else
+      site_variables["default_meta_author"]
+    end
+  end
+  
+  def meta_keywords(meta_keywords = nil)
+    if meta_keywords.present?
+      meta_keywords
+    elsif @meta_keywords.present?
+      @meta_keywords
+    else
+      site_variables["default_meta_keywords"]
+    end
+  end
+  
+  def meta_description(meta_description = nil)
+    if meta_description.present?
+      meta_description
+    elsif @meta_description.present?
+      @meta_description
+    else
+      site_variables["default_meta_description"]
+    end
+  end
     
   def website_plain_english_formatted_name(website_plain_english_formatted_name = nil)
     if website_plain_english_formatted_name.present?
