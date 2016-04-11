@@ -20,28 +20,22 @@
       <% if locals[:level_1_name] %>
       <% if locals[:active_level] == 1 %>
         <li class="active">
+          <%= locals[:level_1_name] %>
       <% else %>
         <li>
-      <% end %>  
-        <% if locals[:level_1_link].nil? %>
-          <%= locals[:level_1_name] %>
-        <% else %>
           <%= link_to locals[:level_1_name], locals[:level_1_link] %>
-        <% end %>
+      <% end %>  
         </li>
       <% end %>
     
       <% if locals[:level_2_name] %>
       <% if locals[:active_level] == 2 %>
         <li class="active">
+          <%= locals[:level_2_name] %>
       <% else %>
         <li>
-      <% end %>
-        <% if locals[:level_2_link].nil? %>
-          <%= locals[:level_2_name] %>
-        <% else %>
           <%= link_to locals[:level_2_name], locals[:level_2_link] %>
-        <% end %>
+      <% end %>
         </li>
       <% end %>
 
