@@ -29,7 +29,7 @@ RSpec.describe Scraper, type: :model do
    
   it "sets a default days_to_gather" do
     @scraper = FactoryGirl.create(:scraper, days_to_gather: nil)
-    expect(@scraper.days_to_gather).to eq(5)
+    expect(@scraper.days_to_gather).to eq(6)
   end
   
   it "sets a default target_region_list" do

@@ -7,8 +7,7 @@ describe "users: " do
       mock_auth_hash
       visit signin_path
       click_link('View details')
-      expect(page).to have_content("User")
-      expect(page).to have_content("mockuser")
+      expect(page).to have_content("Signed in as mockuser")
       expect(page.status_code).to be(200)  
     end
     
