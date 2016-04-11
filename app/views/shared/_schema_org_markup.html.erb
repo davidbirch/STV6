@@ -10,12 +10,13 @@
     {
     "@type": "WebPage",
     "name": "<%= title %>",
-    "description": "<%= meta_description %>",
+    "description": "<%= meta_description %>"
+    <% if locals[:level_1_name] %>
+    ,
    "breadcrumb":{
         "@type": "BreadcrumbList",
         "itemListElement":
         [
-        <% if locals[:level_1_name] %>
           {
           "@type": "ListItem",
           "position": 1,
@@ -25,7 +26,6 @@
             "name": "<%= locals[:level_1_name] %>"
             }
           }
-        <% end %>
         <% if locals[:level_2_name] %>
           ,
           {
@@ -33,13 +33,14 @@
           "position": 2,
           "item":
             {
-            "@id": <%= locals[:level_2_link] %>,
+            "@id": "<%= locals[:level_2_link] %>",
             "name": "<%= locals[:level_2_name] %>"
             }
           }
         <% end %>
         ]
       }
+    <% end %>
     }
   ]
 }
