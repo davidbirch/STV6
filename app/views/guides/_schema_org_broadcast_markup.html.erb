@@ -1,0 +1,110 @@
+<script type="application/ld+json">
+    {
+    "@context": "http://schema.org",
+    "@graph":
+        [
+                {
+                "@type" : "WebSite",
+                "name" : "<%= website_plain_english_formatted_name %>",
+                "url" : "<%= root_url %>",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "<%= locals[:level_2_link] %>?utf8=✓&search={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                    }
+                },
+                {
+                "@type": "WebPage",
+                "name": "<%= title %>",
+                "description": "<%= meta_description %>",
+                 "breadcrumb":{
+                    "@type": "BreadcrumbList",
+                    "itemListElement":
+                    [
+                      {
+                      "@type": "ListItem",
+                      "position": 0,
+                      "item":
+                        {
+                        "@id": "<%= root_url %>",
+                        "name": "<%= website_plain_english_formatted_name %>"
+                        }
+                      }
+                
+                <% if locals[:level_1_name] %>
+                      ,
+                      {
+                      "@type": "ListItem",
+                      "position": 1,
+                      "item":
+                        {
+                        "@id": "<%= locals[:level_1_link] %>",
+                        "name": "<%= locals[:level_1_name] %>"
+                        }
+                      }
+                <% end %>
+                <% if locals[:level_2_name] %>
+                      ,
+                      {
+                      "@type": "ListItem",
+                      "position": 2,
+                      "item":
+                        {
+                        "@id": "<%= locals[:level_2_link] %>",
+                        "name": "<%= locals[:level_2_name] %>"
+                        }
+                      }
+                <% end %>
+                    ]
+                  }
+                }
+    
+        <% @start_dates.each do |start_date| %>
+            <% close_table = false %>
+            <% last_program = nil %>
+            <% @programs.where(local_start_date_display: start_date).each do |program| %>
+                <% if program.current? %>
+                    <% if last_program.nil? %>
+                        <% close_table = true %>
+                ,
+                {
+                "@type":"BroadcastEvent",
+                "startDate":"<%= program.local_start_datetime.strftime("%FT%R") %>",
+                "endDate":"<%= program.local_end_datetime.strftime("%FT%R") %>",
+                "name":"<%= program.full_title %>",
+                "publishedOn":[
+                    {
+                    "@type":"BroadcastService",
+                    "name": "<%= program.channel.name %>"
+                    }
+                    <% elsif !(program.sport.name == last_program.sport.name && program.channel.short_name == last_program.channel.short_name && program.start_datetime == last_program.start_datetime && program.end_datetime == last_program.end_datetime) %>
+                ]
+                },
+                {
+                "@type":"BroadcastEvent",
+                "startDate":"<%= program.local_start_datetime.strftime("%FT%R") %>",
+                "endDate":"<%= program.local_end_datetime.strftime("%FT%R") %>",
+                "name":"<%= program.full_title %>",
+                "publishedOn":[
+                    {
+                    "@type":"BroadcastService",
+                    "name": "<%= program.channel.name %>"
+                    }
+                    <% elsif !(program.channel.name == last_program.channel.name) %>
+                    ,
+                    {
+                    "@type":"BroadcastService",
+                    "name": "<%= program.channel.name %>"
+                    }
+                    <% end %>
+                    <% last_program = program %>
+                <% end %>
+            <% end %>
+            <% if close_table %>
+                ]
+                }           
+            <% end %>
+        <% end %>
+        ]
+    }
+</script>
