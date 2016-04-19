@@ -21,7 +21,7 @@ class ScrapersController < ApplicationController
 
   # GET /scrapers
   def index
-    @scrapers = Scraper.all.by_requested_at
+    @scrapers = Scraper.by_requested_at.paginate(:page => params[:page])
   end
 
   # GET /scrapers/1

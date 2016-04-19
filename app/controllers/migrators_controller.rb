@@ -20,7 +20,7 @@ class MigratorsController < ApplicationController
 
   # GET /migrators
   def index
-    @migrators = Migrator.all.by_requested_at
+    @migrators = Migrator.by_requested_at.paginate(:page => params[:page])
   end
 
   # GET /migrators/1
