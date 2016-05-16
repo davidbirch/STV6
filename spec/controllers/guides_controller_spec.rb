@@ -30,7 +30,7 @@ RSpec.describe GuidesController, type: :controller do
     end  
   end
   
-  describe "GET #show, {:region_name = ?}" do
+  describe "GET #show, {:region_name = ?} with all lowercase" do
     before :each do
       @sport_cricket = FactoryGirl.create(:cricket_sport)
       @sport_tennis = FactoryGirl.create(:tennis_sport)
@@ -49,7 +49,6 @@ RSpec.describe GuidesController, type: :controller do
       expect(response.status).to eq 200
     end
     
-    
     it "populates a region" do
       expect(assigns(:region)).to eq(@region_melbourne)
     end
@@ -66,8 +65,32 @@ RSpec.describe GuidesController, type: :controller do
       expect(response).to render_template :show
     end
   end
+  
+  describe "GET #show, {:region_name = ?} with an uppercase character" do
+    before :each do
+      @sport_cricket = FactoryGirl.create(:cricket_sport)
+      @sport_tennis = FactoryGirl.create(:tennis_sport)
+      @channel_nine = FactoryGirl.create(:channel_nine)
+      @channel_seven = FactoryGirl.create(:channel_seven)
+      @region_melbourne = FactoryGirl.create(:region_melbourne)
+      @region_brisbane = FactoryGirl.create(:region_brisbane)
+      @keyword = FactoryGirl.create(:keyword)
+      @category = FactoryGirl.create(:sport_category)
+      @program_1 = FactoryGirl.create(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id)
+      
+      get :show, {:region_name => @region_melbourne.name}
+    end
+    
+    it "should return a 301 status" do
+      expect(response.status).to eq 301
+    end
+        
+    it "redirects to the lowercase path" do
+      expect(response).to redirect_to("/" + @region_melbourne.name.downcase)
+    end
+  end
 
-  describe "GET #show, {:region_name = ?, sport_name = ?}" do
+  describe "GET #show, {:region_name = ?, sport_name = ?} with all lowercase" do
     before :each do
       @sport_cricket = FactoryGirl.create(:cricket_sport)
       @sport_tennis = FactoryGirl.create(:tennis_sport)
@@ -100,6 +123,31 @@ RSpec.describe GuidesController, type: :controller do
         
     it "renders the :show template" do
       expect(response).to render_template :show
+    end
+  end
+
+
+  describe "GET #show, {:region_name = ?, sport_name = ?} with an uppercase character" do
+    before :each do
+      @sport_cricket = FactoryGirl.create(:cricket_sport)
+      @sport_tennis = FactoryGirl.create(:tennis_sport)
+      @channel_nine = FactoryGirl.create(:channel_nine)
+      @channel_seven = FactoryGirl.create(:channel_seven)
+      @region_melbourne = FactoryGirl.create(:region_melbourne)
+      @region_brisbane = FactoryGirl.create(:region_brisbane)
+      @keyword = FactoryGirl.create(:keyword)
+      @category = FactoryGirl.create(:sport_category)
+      @program_1 = FactoryGirl.create(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id)
+      
+      get :show, {:region_name => @region_melbourne.name, :sport_name => @sport_tennis.name}
+    end
+    
+    it "should return a 301 status" do
+      expect(response.status).to eq 301
+    end
+        
+    it "redirects to the lowercase path" do
+      expect(response).to redirect_to("/" + @region_melbourne.name.downcase + "/" + @sport_tennis.name.downcase)
     end
   end
 
