@@ -45,7 +45,7 @@ RSpec.describe UsersController, type: :controller do
   describe "GET #show" do
     before :each do
       @user = FactoryGirl.create(:user)
-      get :show, id: @user
+      get :show, params: {id: @user}
     end
         
     it "assigns the requested user to @user" do
@@ -75,18 +75,18 @@ RSpec.describe UsersController, type: :controller do
     context "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, user: FactoryGirl.attributes_for(:valid_user)
+          post :create, params: {user: FactoryGirl.attributes_for(:valid_user)}
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created region as user" do
-        post :create, user: FactoryGirl.attributes_for(:valid_user)
+        post :create, params: {user: FactoryGirl.attributes_for(:valid_user)}
         expect(assigns(:user)).to be_a(User)
         expect(assigns(:user)).to be_persisted
       end
 
       it "redirects to the created user" do
-        post :create, user: FactoryGirl.attributes_for(:valid_user)
+        post :create, params: {user: FactoryGirl.attributes_for(:valid_user)}
         expect(response).to redirect_to(User.last)
       end
     end

@@ -1,0 +1,26 @@
+<table class="table", id="form-show">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @provider.id %></td>
+    </tr>
+    <tr>
+      <td>Name</td>
+      <td><%= @provider.name %></td>
+    </tr><tr>
+      <td>Service Tier</td>
+      <td><%= @provider.service_tier %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @provider.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @provider.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+<p id="form-actions">
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_provider_path(@provider), delete_path: @provider} %>  
+</p>

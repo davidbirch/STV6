@@ -1,0 +1,55 @@
+<% if @broadcast_event.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@broadcast_event.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @broadcast_event.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @broadcast_event do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :program_id %></td>
+          <td><%= f.collection_select(:program_id, Program.all, :id, :id, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :broadcast_service_id %></td>
+          <td><%= f.collection_select(:broadcast_service_id, BroadcastService.all, :id, :id, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :epoch_scheduled_date %></td>
+          <td><%= f.number_field :epoch_scheduled_date %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :formatted_scheduled_date %></td>
+          <td><%= f.text_field :formatted_scheduled_date %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :formatted_end_date %></td>
+          <td><%= f.text_field :formatted_end_date %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :broadcast_event_hash %></td>
+          <td><%= f.text_field :broadcast_event_hash, :placeholder=>"Broadcast Event Hash ..." %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: broadcast_events_path} %>
+  </p>
+<% end %>
+ 

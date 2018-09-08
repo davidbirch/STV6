@@ -4,24 +4,19 @@
 #
 #  id                 :integer          not null, primary key
 #  target_region_list :text(65535)
-#  log                :text(65535)
-#  status             :string(255)
 #  days_to_gather     :float(24)
-#  requested_by       :string(255)
-#  requested_at       :datetime
-#  started_at         :datetime
-#  completed_at       :datetime
+#  job_id             :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
 
 class ScrapersController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_scraper, only: [:show, :edit, :update, :destroy]
 
   # GET /scrapers
   def index
-    @scrapers = Scraper.by_requested_at.paginate(:page => params[:page])
+    @scrapers = Scraper.by_created_at.paginate(:page => params[:page])
   end
 
   # GET /scrapers/1
@@ -41,7 +36,7 @@ class ScrapersController < ApplicationController
   def create
     @scraper = Scraper.new(scraper_params)
     @scraper.requested_by = @current_user.name
-
+    
     if @scraper.save
       redirect_to @scraper, notice: 'Scraper was successfully created.'
     else

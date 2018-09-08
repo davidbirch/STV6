@@ -2,22 +2,12 @@
 #
 # Table name: programs
 #
-#  id                       :integer          not null, primary key
-#  title                    :string(255)
-#  subtitle                 :string(255)
-#  description              :text(65535)
-#  program_hash             :text(65535)
-#  start_datetime           :datetime
-#  end_datetime             :datetime
-#  start_date_display       :string(255)
-#  local_start_date_display :string(255)
-#  region_id                :integer
-#  channel_id               :integer
-#  sport_id                 :integer
-#  keyword_id               :integer
-#  category_id              :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id            :integer          not null, primary key
+#  title         :string(255)
+#  episode_title :string(255)
+#  program_hash  :text(65535)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 require 'rails_helper'
@@ -27,7 +17,7 @@ RSpec.describe ProgramsController, type: :controller do
     @admin_user = FactoryGirl.create(:valid_admin_user)
     session[:user_id] = @admin_user.id
   end
-
+    
   describe "GET #index" do
     before :each do
       @program = FactoryGirl.create(:program)
@@ -51,7 +41,7 @@ RSpec.describe ProgramsController, type: :controller do
   describe "GET #show" do
     before :each do
       @program = FactoryGirl.create(:program)
-      get :show, id: @program
+      get :show, params:{id: @program}
     end
         
     it "assigns the requested program to @program" do
@@ -79,40 +69,32 @@ RSpec.describe ProgramsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      before :each do
-        @region = FactoryGirl.create(:region)
-        @sport = FactoryGirl.create(:sport)
-        @channel = FactoryGirl.create(:channel)
-        @keyword = FactoryGirl.create(:keyword)
-        @category = FactoryGirl.create(:category)
-      end
-      
       it "creates a new Program" do
         expect {
-          post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id, category_id: @category.id)
+          post :create, params:{program: FactoryGirl.attributes_for(:program)}
         }.to change(Program, :count).by(1)
       end
 
       it "assigns a newly created program as @program" do
-        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id, category_id: @category.id)
+        post :create, params:{program: FactoryGirl.attributes_for(:program)}
         expect(assigns(:program)).to be_a(Program)
         expect(assigns(:program)).to be_persisted
       end
 
       it "redirects to the created program" do
-        post :create, program: FactoryGirl.attributes_for(:program, region_id: @region.id, sport_id: @sport.id, channel_id: @channel.id, keyword_id: @keyword.id, category_id: @category.id)
+        post :create, params:{program: FactoryGirl.attributes_for(:program)}
         expect(response).to redirect_to(Program.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved program as @program" do
-        post :create, program: FactoryGirl.attributes_for(:invalid_program)
+        post :create, params:{program: FactoryGirl.attributes_for(:invalid_program)}
         expect(assigns(:program)).to be_a_new(Program)
       end
 
       it "re-renders the 'new' template" do
-        post :create, program: FactoryGirl.attributes_for(:invalid_program)
+        post :create, params:{program: FactoryGirl.attributes_for(:invalid_program)}
         expect(response).to render_template("new")
       end
     end
@@ -123,13 +105,14 @@ RSpec.describe ProgramsController, type: :controller do
 
       it "assigns the requested program as @program" do
         program = FactoryGirl.create(:program)
-        put :update, {:id => program.to_param, :program => FactoryGirl.attributes_for(:valid_program)}
+        put :update, params:{:id => program.to_param, :program => FactoryGirl.attributes_for(:another_program)}
         expect(assigns(:program)).to eq(program)
       end
 
       it "redirects to the program" do
         program = FactoryGirl.create(:program)
-        put :update, {:id => program.to_param, :program => FactoryGirl.attributes_for(:valid_program)}
+        put :update, params:{:id => program.to_param, :program => FactoryGirl.attributes_for(:another_program)}
+        program.reload
         expect(response).to redirect_to(program)
       end
     end
@@ -137,13 +120,13 @@ RSpec.describe ProgramsController, type: :controller do
     context "with invalid params" do
       it "assigns the raw_program as @raw_program" do
         program = FactoryGirl.create(:program)
-        put :update, {:id => program.to_param, :program => FactoryGirl.attributes_for(:invalid_program)}
+        put :update, params:{:id => program.to_param, :program => FactoryGirl.attributes_for(:invalid_program)}
         expect(assigns(:program)).to eq(program)
       end
 
       it "re-renders the 'edit' template" do
         program = FactoryGirl.create(:program)
-        put :update, {:id => program.to_param, :program => FactoryGirl.attributes_for(:invalid_program)}
+        put :update, params:{:id => program.to_param, :program => FactoryGirl.attributes_for(:invalid_program)}
         expect(response).to render_template("edit")
       end
     end
@@ -153,13 +136,45 @@ RSpec.describe ProgramsController, type: :controller do
     it "destroys the requested program" do
       program = FactoryGirl.create(:program)
       expect {
-        delete :destroy, {:id => program.to_param}
+        delete :destroy, params:{:id => program.to_param}
       }.to change(Program, :count).by(-1)
     end
 
     it "redirects to the programs list" do
       program = FactoryGirl.create(:program)
-      delete :destroy, {:id => program.to_param}
+      delete :destroy, params:{:id => program.to_param}
+      expect(response).to redirect_to(programs_url)
+    end
+  end
+  
+   describe "PUT #set_black_flag_on" do
+    it "sets the black_flag field to true" do
+      program = FactoryGirl.create(:program)
+      put :set_black_flag_on, params:{:id => program.to_param}
+      program.reload
+      expect(program.black_flag?).to be true
+    end
+    
+    it "redirects to the programs index" do
+      program = FactoryGirl.create(:program)
+      put :set_black_flag_on, params:{:id => program.to_param}
+      program.reload
+      expect(response).to redirect_to(programs_url)
+    end
+  end
+  
+  describe "PUT #set_black_flag_off" do
+    it "sets the black_flag field to false" do
+      program = FactoryGirl.create(:program)
+      put :set_black_flag_off, params:{:id => program.to_param}
+      program.reload
+      expect(program.black_flag?).to be false
+    end
+    
+    it "redirects to the programs index" do
+      program = FactoryGirl.create(:program)
+      put :set_black_flag_off, params:{:id => program.to_param}
+      program.reload
       expect(response).to redirect_to(programs_url)
     end
   end

@@ -26,6 +26,7 @@ describe "sports: " do
       within('ul#nav-reference') {click_link('Sports')}
       click_link('New')
       fill_in('sport[name]', :with => 'Chess')
+      check('sport[black_flag]')
       click_button('Save')
       
       expect(page).to have_content("Sport was successfully created.")
@@ -36,9 +37,11 @@ describe "sports: " do
       within('ul#nav-reference') {click_link('Sport')}
       click_link('New')
       fill_in('sport[name]', :with => 'Chess')
+      check('sport[black_flag]')
       click_button('Save')
       click_link('Edit')
       fill_in('sport[name]', :with => 'Draughts')
+      uncheck('sport[black_flag]')
       click_button('Save')
       
       expect(page).to have_content("Sport was successfully updated.")

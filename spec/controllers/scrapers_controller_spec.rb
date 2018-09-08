@@ -47,7 +47,7 @@ RSpec.describe ScrapersController, type: :controller do
   describe "GET #show" do
     before :each do
       @scraper = FactoryGirl.create(:scraper)
-      get :show, id: @scraper
+      get :show, params:{id: @scraper}
     end
         
     it "assigns the requested scraper to @scraper" do
@@ -77,18 +77,18 @@ RSpec.describe ScrapersController, type: :controller do
     context "with valid params" do
       it "creates a new scraper" do
         expect {
-          post :create, scraper: FactoryGirl.attributes_for(:scraper)
+          post :create, params:{scraper: FactoryGirl.attributes_for(:scraper)}
         }.to change(Scraper, :count).by(1)
       end
 
       it "assigns a newly created scraper as @scraper" do
-        post :create, scraper: FactoryGirl.attributes_for(:scraper)
+        post :create, params:{scraper: FactoryGirl.attributes_for(:scraper)}
         expect(assigns(:scraper)).to be_a(Scraper)
         expect(assigns(:scraper)).to be_persisted
       end
 
       it "redirects to the created scraper" do
-        post :create, scraper: FactoryGirl.attributes_for(:scraper)
+        post :create, params:{scraper: FactoryGirl.attributes_for(:scraper)}
         expect(response).to redirect_to(Scraper.last)
       end
     end
@@ -112,13 +112,13 @@ RSpec.describe ScrapersController, type: :controller do
 
       it "assigns the requested scraper as @scraper" do
         scraper = FactoryGirl.create(:scraper)
-        put :update, {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:empty_region_scraper)}
+        put :update, params: {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:empty_region_scraper)}
         expect(assigns(:scraper)).to eq(scraper)
       end
 
       it "redirects to the scraper" do
         scraper = FactoryGirl.create(:scraper)
-        put :update, {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:empty_region_scraper)}
+        put :update, params: {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:empty_region_scraper)}
         scraper.reload
         expect(response).to redirect_to(scraper)
       end
@@ -144,13 +144,13 @@ RSpec.describe ScrapersController, type: :controller do
     it "destroys the requested scraper" do
       scraper = FactoryGirl.create(:scraper)
       expect {
-        delete :destroy, {:id => scraper.to_param}
+        delete :destroy, params: {:id => scraper.to_param}
       }.to change(Scraper, :count).by(-1)
     end
 
     it "redirects to the scrapers list" do
       scraper = FactoryGirl.create(:scraper)
-      delete :destroy, {:id => scraper.to_param}
+      delete :destroy, params: {:id => scraper.to_param}
       expect(response).to redirect_to(scrapers_url)
     end
   end

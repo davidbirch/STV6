@@ -16,14 +16,19 @@
       <td>Black Flag</td>
       <td><%= @keyword.black_flag %></td>
     </tr>
-     <tr>
+    <tr>
       <td>Sport</td>
       <td><%= @keyword.sport.name unless @keyword.sport.nil? %></td>
     </tr>
-     <tr>
-      <td>Program Count</td>
-      <td><%= @programs.count %></td>
+    <tr>
+      <td>Created At</td>
+      <td><%= @keyword.created_at %></td>
     </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @keyword.updated_at %></td>
+    </tr>
+
   </tbody>
 </table>
 <p id="form-actions">

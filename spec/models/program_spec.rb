@@ -2,22 +2,14 @@
 #
 # Table name: programs
 #
-#  id                       :integer          not null, primary key
-#  title                    :string(255)
-#  subtitle                 :string(255)
-#  description              :text(65535)
-#  program_hash             :text(65535)
-#  start_datetime           :datetime
-#  end_datetime             :datetime
-#  start_date_display       :string(255)
-#  local_start_date_display :string(255)
-#  region_id                :integer
-#  channel_id               :integer
-#  sport_id                 :integer
-#  keyword_id               :integer
-#  category_id              :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id            :integer          not null, primary key
+#  title         :string(255)
+#  episode_title :string(255)
+#  keyword_id    :integer
+#  duration      :integer
+#  black_flag    :boolean
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 require 'rails_helper'
@@ -31,198 +23,53 @@ RSpec.describe Program, type: :model do
   it "is invalid without a title" do
     expect(FactoryGirl.build(:program, title: nil)).to validate_presence_of(:title)
   end
-    
-  it "is invalid without a start date/time" do
-    expect(FactoryGirl.build(:program, start_datetime: nil)).to validate_presence_of(:start_datetime)
-  end
   
-  it "is invalid without an end date/time" do
-    expect(FactoryGirl.build(:program, end_datetime: nil)).to validate_presence_of(:end_datetime)
-  end
-  
-  it "is invalid without a region_id" do
-    expect(FactoryGirl.build(:program, region_id: nil)).to validate_presence_of(:region_id)
-  end
-  
-  it "is invalid without a sport_id" do
-    expect(FactoryGirl.build(:program, sport_id: nil)).to validate_presence_of(:sport_id)
+  it "is invalid without a duration" do
+    expect(FactoryGirl.build(:program, duration: nil)).to validate_presence_of(:duration)
   end
 
   it "is invalid without a keyword_id" do
     expect(FactoryGirl.build(:program, keyword_id: nil)).to validate_presence_of(:keyword_id)
   end
   
-  it "is invalid without a channel_id" do
-    expect(FactoryGirl.build(:program, channel_id: nil)).to validate_presence_of(:channel_id)
-  end
-  
-  it "is invalid without a channel_id" do
-    expect(FactoryGirl.build(:program, category_id: nil)).to validate_presence_of(:category_id)
-  end
-    
-  it "should belong to a region" do
-    expect(FactoryGirl.build(:program)).to belong_to(:region)
-  end  
-  
-  it "should belong to a channel" do
-    expect(FactoryGirl.build(:program)).to belong_to(:channel)
-  end
-  
-  it "should belong to a sport" do
-    expect(FactoryGirl.build(:program)).to belong_to(:sport)
-  end
-
   it "should belong to a keyword" do
     expect(FactoryGirl.build(:program)).to belong_to(:keyword)
   end
-
-  it "should belong to a category" do
-    expect(FactoryGirl.build(:program)).to belong_to(:category)
+  
+  it "should have many broadcast_events" do
+    expect(FactoryGirl.build(:program)).to have_many(:broadcast_events)
   end
   
-  it "should set the start_date_display" do
-    @program = FactoryGirl.create(:program)
-    expect(@program.start_date_display).to eq(@program.start_datetime.strftime("%F"))
+  it "is invalid without a unique title scope to episode_title and duration" do
+    expect(FactoryGirl.build(:program)).to validate_uniqueness_of(:title).scoped_to(:episode_title, :duration)
   end
-  
-  it "is invalid without a unique channel/region/sport/start/end" do
-    expect(FactoryGirl.build(:program)).to validate_uniqueness_of(:channel_id).scoped_to(:region_id, :title, :sport_id, :start_datetime, :end_datetime)
-  end
-  
-  describe "should validate the uniqueness of channel for a specified region, title, sport, start_datetime, and end_datetime" do
+    
+  describe "should validate the uniqueness of title for a specified episode_title" do
     
     before :each do
-      @sport_cricket = FactoryGirl.create(:cricket_sport)
-      @sport_tennis = FactoryGirl.create(:tennis_sport)
-      @channel_nine = FactoryGirl.create(:channel_nine)
-      @channel_seven = FactoryGirl.create(:channel_seven)
-      @region_melbourne = FactoryGirl.create(:region_melbourne)
-      @region_brisbane = FactoryGirl.create(:region_brisbane)
-      @keyword = FactoryGirl.create(:keyword)
-      @category = FactoryGirl.create(:sport_category)
+      @region = FactoryGirl.create(:region_adelaide) # Adelaide
+      @provider = FactoryGirl.create(:freeview_provider) # Freeview
+      @raw_channel = FactoryGirl.create(:raw_channel_including_hash)
+      @channel = Channel.create_from_raw_channel(@raw_channel) # Adelaide / NIA / Channel Nine Adelaide / 20480
+      @broadcast_service = BroadcastService.create_from_raw_channel(@raw_channel) 
       
-      @program_1 = FactoryGirl.create(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id)
-      
-    end
-    
-    context "where they all match" do
-      it "does not create a duplicate program" do 
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be false
-      end
-    end
-    
-    context "where the channel is different" do
-      it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_seven.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be true
-      end
-    end
-    
-    context "where the sport is different" do
-      it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_tennis.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be true
-      end
-    end
-        
-    context "where the region is different" do
-      it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_brisbane.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id).valid?).to be true
-      end
-    end
-    
-    context "where the title is different" do
-      it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id, title: "Some other title").valid?).to be true
-      end
-    end
-   
-    context "where the start_datetime is different" do
-      it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id, start_datetime: Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 22, 00, 00)).valid?).to be true
-      end
-    end
-   
-    context "where the end_datetime is different" do
-      it "creates a program" do
-        expect(FactoryGirl.build(:valid_program, channel_id: @channel_nine.id, region_id: @region_melbourne.id, sport_id: @sport_cricket.id, keyword_id: @keyword.id, category_id: @category.id, end_datetime: Time.new((Date.today - 1).year, (Date.today - 1).month, (Date.today - 1).day, 23, 30, 00)).valid?).to be true  
-      end
-    end
-    
-  end
-   
-  describe "can create a program based on a raw program" do
-    
-    before :each do
-      ["Cricket","Tennis","Rugby League","Soccer","Rugby Union","Other Sport"].each {|e|
+      ["Cricket", "Golf", "Tennis","Rugby League","Soccer","Rugby Union","Other Sport"].each {|e|
         FactoryGirl.create(:sport, name: e)
         }
-      ["Cricket","Tennis","Rugby League","Soccer","Rugby Union","Other Sport"].each {|e|
+      ["Cricket", "Golf", "Tennis","Rugby League","Soccer","Rugby Union","Other Sport"].each {|e|
         FactoryGirl.create(:keyword, value: e, sport_id: Sport.find_by_name(e).id)
-        }
-      FactoryGirl.create(:channel_seven)
-      FactoryGirl.create(:channel_nine)
-      FactoryGirl.create(:region_brisbane)
-      FactoryGirl.create(:region_melbourne)
-     end
-    
-    context "where the program already exists" do
-      it "does not create a duplicate program" do
-        raw_program_cricket = FactoryGirl.create(:cricket_raw_program)
-        program_1 = Program.create_from_raw_program(raw_program_cricket)
-        expect(Program.create_from_raw_program(raw_program_cricket).new_record?).to be true
+        }        
+      @raw_program = FactoryGirl.create(:raw_program_including_hash) # Adelaide / NIA / Golf: The Players: 2008 Garcia
+    end
+  
+    context "where they all match" do
+      it "does not create a program" do
+        Program.create_from_raw_program(@raw_program)    
+        Program.create_from_raw_program(@raw_program)    
+        expect(Program.count).to be(1)
       end
     end
-        
-    context "where the program does not exist" do
-      it "creates a new program" do
-        raw_program_tennis = FactoryGirl.create(:cricket_raw_program, region_name: "Melbourne", channel_name: "Nine", category: "Tennis")
-        expect(Program.create_from_raw_program(raw_program_tennis).new_record?).to be false
-      end 
-    end
-    
-    context "where the sport needs to match the ruleset" do
-      it "sets the sport to 'Cricket'" do
-        raw_program_cricket = FactoryGirl.create(:cricket_raw_program)
-        program = Program.create_from_raw_program(raw_program_cricket)
-        expect(program.sport).to eq(Sport.find_by_name("Cricket"))
-      end
-
-      it "sets the sport to 'Rugby League'" do
-        raw_program_rugby_league = FactoryGirl.create(:rugby_league_raw_program)
-        program = Program.create_from_raw_program(raw_program_rugby_league)
-        expect(program.sport).to eq(Sport.find_by_name("Rugby League"))
-      end
-      
-      it "sets the sport to 'Tennis'" do
-        raw_program_tennis = FactoryGirl.create(:tennis_raw_program)
-        program = Program.create_from_raw_program(raw_program_tennis)
-        expect(program.sport).to eq(Sport.find_by_name("Tennis"))
-      end
-      
-       it "sets the sport to 'Tennis' when the category contains punctuation" do
-        raw_program_tennis = FactoryGirl.create(:valid_raw_program, category: 'Sports, Tennis, Sports Group')
-        program = Program.create_from_raw_program(raw_program_tennis)
-        expect(program.sport).to eq(Sport.find_by_name("Tennis"))
-      end
-      
-      it "sets the sport to 'Other Sport'" do
-        other_sport_raw_program = FactoryGirl.create(:other_sport_raw_program)
-        program = Program.create_from_raw_program(other_sport_raw_program)
-        expect(program.sport).to eq(Sport.find_by_name("Other Sport"))
-      end
-      
-      it "doesn't create a program because it is a Sport/News program" do
-        news_raw_program = FactoryGirl.create(:news_raw_program)
-        program = Program.create_from_raw_program(news_raw_program)
-        expect(program).not_to be_valid
-      end
-      
-      it "doesn't create a program because it is a non-sport program" do
-        non_sport_raw_program = FactoryGirl.create(:non_sport_raw_program)
-        program = Program.create_from_raw_program(non_sport_raw_program)
-        expect(program).not_to be_valid
-      end 
-    end
-      
+  
   end
- 
+
 end

@@ -4,12 +4,8 @@
 #
 #  id                 :integer          not null, primary key
 #  target_region_list :text(65535)
-#  log                :text(65535)
-#  status             :string(255)
 #  requested_by       :string(255)
-#  requested_at       :datetime
-#  started_at         :datetime
-#  completed_at       :datetime
+#  job_id             :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
@@ -25,16 +21,11 @@ RSpec.describe Migrator, type: :model do
   it "is invalid without a requested_by" do
     expect(FactoryGirl.build(:migrator, requested_by: nil)).to_not be_valid
   end
-  
+      
   it "sets a default target_region_list" do
+    @region = FactoryGirl.create(:region_melbourne)
     @migrator = FactoryGirl.create(:migrator, target_region_list: nil)
-    expect(@migrator.target_region_list).to eq('["Adelaide", "Brisbane", "Melbourne", "Perth", "Sydney"]')
+    expect(@migrator.target_region_list).to eq(Region.pluck(:name).to_s)
   end
-  
-  it "sets a default requested_at" do
-    @migrator = FactoryGirl.create(:migrator)
-    expect(@migrator.requested_at).not_to be_nil
-  end
-
   
 end

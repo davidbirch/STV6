@@ -1,0 +1,46 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Region</th>
+        <th>Channel</th>
+        <th>Sport</th>
+        <th>Keyword</th>
+        <th>Program</th>
+        <th>Broadcast Service</th>
+        <th>Scheduled Date/Time</th>
+        <th>End Date/Time</th>
+        <th>Local Start Date</th>
+        <th>Duration</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @broadcast_events.each do |broadcast_event| %>
+        <tr id="broadcast_event_<%= broadcast_event.id %>">
+          <td><%= link_to broadcast_event.id, broadcast_event %></td>
+          <td><%= broadcast_event.region.name %></td>
+          <td><%= broadcast_event.channel.name %></td>
+          <td><%= broadcast_event.sport.name %></td>
+          <td><%= broadcast_event.keyword.value %></td>
+          <td><%= (link_to broadcast_event.program.formatted_full_title, broadcast_event.program) unless broadcast_event.program.nil? %></td>
+          <td><%= (link_to broadcast_event.broadcast_service.formatted_full_title, broadcast_event.broadcast_service) unless broadcast_event.broadcast_service.nil? %></td>
+          <td><%= broadcast_event.formatted_scheduled_date %></td>
+          <td><%= broadcast_event.formatted_end_date %></td>
+          <td><%= broadcast_event.formatted_local_start_date %></td>
+          <td><%= broadcast_event.program.duration.to_s %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_broadcast_event_path(broadcast_event)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: broadcast_event} %></td> 
+        </tr>      
+      <% end %>
+    </tbody>
+    
+  </table>
+</div>
+<%= will_paginate @broadcast_events, renderer: BootstrapPagination::Rails %>

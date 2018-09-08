@@ -7,8 +7,10 @@
       <tr>
         <th>#</th>
         <th>Name</th>
+        <th>Black Flag</th>
         <th>Keyword Count</th>
         <th>Program Count</th>
+        <th>Broadcast Event Count</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -19,20 +21,25 @@
         <tr id="sport_<%= sport.id %>">
           <td><%= sport.id %></td>
           <td><%= link_to sport.name, sport %></td>
-          <td><%= sport.keywords.count(:all) %></td>
+          <td>
+          <% if sport.black_flag? %>
+            <%= link_to set_black_flag_off_sport_path(sport), :method => :put do %>
+              <i class="glyphicon glyphicon-star"></i>
+            <% end %>
+          <% else %>
+            <%= link_to set_black_flag_on_sport_path(sport), :method => :put do %>
+              <i class="glyphicon glyphicon-star-empty"></i>
+            <% end %>
+          <% end %>
+          </td>
+          <td><%= sport.keywords.count %></td>
           <td><%= sport.programs.count %></td>
+          <td><%= sport.broadcast_events.count %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_sport_path(sport)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: sport} %></td> 
         </tr>      
       <% end %>
-      <tr class="info">
-        <td></td>
-        <td><strong>Total</strong></td>
-        <td><strong><%= Keyword.count(:all) %></strong></td>
-        <td><strong><%= Program.count %></strong></td>
-        <td></td>
-        <td></td>
-      </tr>
     </tbody>
+    
   </table>
 </div>

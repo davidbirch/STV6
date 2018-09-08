@@ -1,0 +1,35 @@
+<% if @provider.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@provider.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @provider.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @provider do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :name %></td>
+          <td><%= f.text_field :name, :placeholder=>"Provider Name ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :service_tier %></td>
+          <td><%= f.text_field :service_tier %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: providers_path} %>
+  </p>
+<% end %>
+ 

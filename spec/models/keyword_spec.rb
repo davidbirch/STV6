@@ -43,6 +43,10 @@ RSpec.describe Keyword, type: :model do
   it "should have many programs" do
     expect(FactoryGirl.build(:keyword)).to have_many(:programs)
   end
+
+  it "should have many broadcast events through programs" do
+    expect(FactoryGirl.build(:keyword)).to have_many(:broadcast_events).through(:programs)
+  end
   
   it "sets a url friendly value" do
     @keyword = FactoryGirl.create(:keyword)

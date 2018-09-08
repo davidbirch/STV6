@@ -5,6 +5,7 @@
 #  id                :integer          not null, primary key
 #  name              :string(255)
 #  url_friendly_name :string(255)
+#  black_flag        :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -29,13 +30,17 @@ RSpec.describe Sport, type: :model do
     @sport = FactoryGirl.create(:sport)
     expect(@sport.url_friendly_name).to eq(@sport.name.parameterize)
   end
-    
-  it "should have many programs" do
-    expect(FactoryGirl.build(:sport)).to have_many(:programs)
-  end
   
   it "should have many keywords" do
     expect(FactoryGirl.build(:sport)).to have_many(:keywords)
+  end
+  
+  it "should have many programs through keywords" do
+    expect(FactoryGirl.build(:sport)).to have_many(:programs).through(:keywords)
+  end
+
+  it "should have many broadcast events through programs" do
+    expect(FactoryGirl.build(:sport)).to have_many(:broadcast_events).through(:programs)
   end
   
   it "can be found by the friendly id" do

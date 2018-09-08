@@ -1,0 +1,27 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tag</th>
+        <th>Region Name</th>
+        <th>Region Lookup</th>          
+      </tr>    
+    </thead>
+  
+    <tbody>
+      <% @raw_channels.each do |raw_channel| %>
+        <tr id="raw_channel_<%= raw_channel.id %>">
+          <td><%= link_to raw_channel.id, raw_channel %></td>
+          <td><%= raw_channel.channel_tag %></td>
+          <td><%= raw_channel.region_name %></td>
+          <td><%= raw_channel.region_lookup %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= will_paginate @raw_channels, renderer: BootstrapPagination::Rails %>

@@ -1,0 +1,21 @@
+<% active_level = 1 %>
+<% level_0_name = "Home Icon" %>
+<% level_0_link = root_url %>
+<% level_1_name = "Home Page" %>
+<% level_1_link = contact_url %>
+<% level_2_name = nil %>
+<% level_2_link = nil %>
+<% header = "Home Page" %>
+<%= render "shared/breadcrumb", locals: {active_level: active_level, level_0_name: level_0_name, level_0_link: level_0_link, level_1_name: level_1_name, level_1_link: level_1_link, level_2_name: level_2_name, level_2_link: level_2_link} %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-md-1 col-lg-2"></div>
+    <div class="col-xs-12 col-md-10 col-lg-8">        
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: header}  %>
+      <p>The home page</p>
+    </div><!-- /col-xs-12 col-md-10 col-lg-8 -->
+    <div class="col-xs-12 col-md-1 col-lg-2"></div>
+  </div><!-- /row -->
+</div> <!-- /container -->
+<%= render "schema_org_markup", locals: {active_level: active_level, level_0_name: level_0_name, level_0_link: level_0_link, level_1_name: level_1_name, level_1_link: level_1_link, level_2_name: level_2_name, level_2_link: level_2_link} %>

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: channels
+#
+#  id                      :integer          not null, primary key
+#  name                    :string(255)
+#  url_friendly_name       :string(255)
+#  short_name              :string(255)
+#  url_friendly_short_name :string(255)
+#  region_id               :integer
+#  provider_id             :integer
+#  black_flag              :boolean
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe ChannelShortNamesController, type: :controller do
@@ -28,7 +44,7 @@ RSpec.describe ChannelShortNamesController, type: :controller do
    describe "GET #show where the short name does match" do
     before :each do
       @channel = FactoryGirl.create(:channel)
-      get :show, id: @channel.url_friendly_short_name
+      get :show, params:{id: @channel.url_friendly_short_name}
     end
     
     it "should return a 200 status" do
@@ -47,7 +63,7 @@ RSpec.describe ChannelShortNamesController, type: :controller do
   describe "GET #show where the short name doesn't match" do
     before :each do
       @channel = FactoryGirl.create(:channel)
-      get :show, id: "diff"
+      get :show, params:{id: "diff"}
     end
     
     it "should return a 200 status" do

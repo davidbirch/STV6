@@ -1,19 +1,45 @@
-<table class="table", id="form-show">
-  <tbody>
-    <tr>
-      <td>ID</td>
-      <td><%= @region.id %></td>
-    </tr>
-    <tr>
-      <td>Name</td>
-      <td><%= @region.name %></td>
-    </tr>
-    <tr>
-      <td>Program Count</td>
-      <td><%= @programs.count %></td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched", id="form-show">
+    <tbody>
+      <tr>
+        <td>ID</td>
+        <td><%= @region.id %></td>
+      </tr>
+      <tr>
+        <td>Name</td>
+        <td><%= @region.name %></td>
+      </tr>
+      <tr>
+        <td>Time Zone Name</td>
+        <td><%= @region.time_zone_name %></td>
+      </tr>
+      <tr>
+        <td>Time In Time Zone</td>
+        <td><%= Time.now.in_time_zone(@region.time_zone_name) %></td>
+      </tr>
+      <tr>
+        <td>Region Lookup</td>
+        <td><%= @region.region_lookup %></td>
+      </tr>
+      <tr>
+        <td>Black Flag</td>
+        <td><%= @region.black_flag %></td>
+      </tr>
+      <tr>
+        <td>Channel Count</td>
+        <td><%= @region.channels.count(:all) %></td>
+      </tr>
+      <tr>
+        <td>Created At</td>
+        <td><%= @region.created_at %></td>
+      </tr>
+      <tr>
+        <td>Updated At</td>
+        <td><%= @region.updated_at %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <p id="form-actions">
   <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_region_path(@region), delete_path: @region} %>  
 </p>

@@ -2,27 +2,17 @@
 #
 # Table name: programs
 #
-#  id                       :integer          not null, primary key
-#  title                    :string(255)
-#  subtitle                 :string(255)
-#  description              :text(65535)
-#  program_hash             :text(65535)
-#  start_datetime           :datetime
-#  end_datetime             :datetime
-#  start_date_display       :string(255)
-#  local_start_date_display :string(255)
-#  region_id                :integer
-#  channel_id               :integer
-#  sport_id                 :integer
-#  keyword_id               :integer
-#  category_id              :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id            :integer          not null, primary key
+#  title         :string(255)
+#  episode_title :string(255)
+#  program_hash  :text(65535)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 class ProgramsController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :set_program, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_program, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /programs
   def index
@@ -31,7 +21,7 @@ class ProgramsController < ApplicationController
 
   # GET /programs/1
   def show
-    @programs = Program.where(title: @program.title).paginate(:page => params[:page])
+    @broadcast_events = @program.broadcast_events.paginate(:page => params[:page]) unless @program.nil?
   end
 
   # GET /programs/new
@@ -62,6 +52,20 @@ class ProgramsController < ApplicationController
       render :edit
     end
   end
+  
+   # PATCH/PUT /programs/1/set_black_flag_on
+  def set_black_flag_on
+    if @program.update(black_flag: true)
+      redirect_to programs_url, notice: 'Program ' + @program.id.to_s + ' was successfully updated.'
+    end
+  end
+  
+  # PATCH/PUT /programs/1/set_black_flag_off
+  def set_black_flag_off
+    if @program.update(black_flag: false)
+      redirect_to programs_url, notice: 'Program ' + @program.id.to_s + ' was successfully updated.'
+    end
+  end
 
   # DELETE /programs/1
   def destroy
@@ -77,6 +81,6 @@ class ProgramsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def program_params
-      params.require(:program).permit(:title, :subtitle, :description, :start_datetime, :end_datetime, :keyword_id, :region_id, :channel_id, :sport_id, :category_id)
+      params.require(:program).permit(:title, :episode_title, :duration, :black_flag, :keyword_id)
     end
 end

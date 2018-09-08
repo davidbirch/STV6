@@ -1,48 +1,53 @@
 <ul class="nav navbar-nav navbar-right">
 <% if current_user && admin_user? %>
-  
+   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Importer<span class="caret"></span></a>
     <ul class="dropdown-menu" id="nav-importer">
+      <li class="dropdown-header">Importer</li>
+      <li><%= link_to "Jobs", jobs_path %></li>
       <li><%= link_to "Scrapers", scrapers_path %></li>
-      <li role="separator" class="divider"></li>
-      <li><%= link_to "Raw Programs", raw_programs_path %></li>
-      <li role="separator" class="divider"></li>
       <li><%= link_to "Migrators", migrators_path %></li>
-      <li role="separator" class="divider"></li>         
+      <li><%= link_to "Cleaners", cleaners_path %></li>
+      <li role="separator" class="divider"></li>
+      <li class="dropdown-header">Raw Data</li>
+      <li><%= link_to "Raw Channels", raw_channels_path %></li>
+      <li><%= link_to "Raw Programs", raw_programs_path %></li>
+      <li role="separator" class="divider"></li> 
      </ul>
   </li> <!-- /dropdown -->
   
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reference<span class="caret"></span></a>
     <ul class="dropdown-menu" id="nav-reference">
+      <li class="dropdown-header">Reference Data</li>
       <li><%= link_to "Regions", regions_path %></li>
-      <li role="separator" class="divider"></li>
       <li><%= link_to "Sports", sports_path %></li>
-      <li role="separator" class="divider"></li>
       <li><%= link_to "Keywords", keywords_path %></li>
+      <li><%= link_to "Providers", providers_path %></li>
       <li role="separator" class="divider"></li>
-      <li><%= link_to "Categories", categories_path %></li>
+      <li class="dropdown-header">Channels</li>
+      <li><%= link_to "All Channels", channels_path %></li>
+      <li><%= link_to "By Short Name", channel_short_names_path %></li>
+      <li role="separator" class="divider"></li>
+      <li class="dropdown-header">Programs</li>
+      <li><%= link_to "All Programs", programs_path %></li>
+      <li role="separator" class="divider"></li>
+    </ul>
+  </li> <!-- /dropdown -->
+    
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Broadcast Guide<span class="caret"></span></a>
+    <ul class="dropdown-menu" id="nav-broadcast-guide">
+      <li class="dropdown-header">Broadcast Services</li>
+      <li><%= link_to "All Broadcast Services", broadcast_services_path %></li>
+      <li role="separator" class="divider"></li>
+      <li class="dropdown-header">Broadcast Events</li>
+      <li><%= link_to "All Broadcast Events", broadcast_events_path %></li>
       <li role="separator" class="divider"></li>
     </ul>
   </li> <!-- /dropdown -->
   
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guide<span class="caret"></span></a>
-    <ul class="dropdown-menu" id="nav-guide">
-      <li><%= link_to "Channels", channels_path %></li>
-      <li><%= link_to "By Short Name", channel_short_names_path %></li>
-      <li role="separator" class="divider"></li>
-      <li><%= link_to "Programs", programs_path %></li>
-      <li><%= link_to "By Day", program_days_path %></li>
-      <li><%= link_to "By Region And Sport", program_regions_sports_path %></li>
-      <li><%= link_to "By Region And Channel", program_regions_channels_path %></li>
-      <li><%= link_to "By Region And Day", program_regions_days_path %></li>
-      <li role="separator" class="divider"></li>
-
-    </ul>
-  </li> <!-- /dropdown -->
-    
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag(current_user.image.insert(4,"s").html_safe, size: "40x40", class: "img-circle") %></a>
     <ul class="dropdown-menu" id="nav-user">
@@ -55,7 +60,7 @@
   </li> <!-- /dropdown -->
       
 <% else %>
-  
+
   <% Region.all.order(:name).each do |region| %>
     <% if @region && @region.name == region.name %>
       <li class="active"><%= link_to (region.name+"<span class=\"sr-only\">(current)</span>").html_safe, ("/"+region.friendly_id) %></li>
@@ -63,9 +68,8 @@
       <li><%= link_to region.name, ("/"+region.friendly_id) %></li>
     <% end %>
   <% end %>
-  
+
   <% if current_user %>
-  
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= image_tag(current_user.image.insert(4,"s").html_safe, size: "40x40", class: "img-circle") %></a>
     <ul class="dropdown-menu" id="nav-user">
@@ -74,8 +78,7 @@
       <li><%= link_to "View details", user_path(current_user) %></li>
       <li role="separator" class="divider"></li>
     </ul>
-  </li> <!-- /dropdown -->
-    
+  </li> <!-- /dropdown -->  
   <% end %>
 
 <% end %>

@@ -27,8 +27,28 @@
           <td></td>
         </tr>
         <tr>
+          <td><%= f.label :tag %></td>
+          <td><%= f.text_field :tag, :placeholder=>"Channel Tag ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
           <td><%= f.label :black_flag %></td>
           <td><%= f.check_box :black_flag %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :default_sport %></td>
+          <td><%= f.text_field :default_sport, :placeholder=>"Default Sport ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :provider_id %></td>
+          <td><%= f.collection_select(:provider_id, Provider.all, :id, :name, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :channel_hash %></td>
+          <td><%= f.text_field :channel_hash, :placeholder=>"Channel Hash ..." %></td>
           <td></td>
         </tr>
       </tbody>

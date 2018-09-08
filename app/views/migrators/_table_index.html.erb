@@ -6,12 +6,9 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Status</th>
         <th>Target Regions</th>
         <th>Requested By</th>
-        <th>Requested At</th>
-        <th>Started At</th>
-        <th>Completed At</th>
+        <th>Job ID</th>
         <th>Created At</th>
         <th>Updated At</th>
         <th>Edit</th>
@@ -23,22 +20,9 @@
       <% @migrators.each do |migrator| %>
         <tr id="migrator_<%= migrator.id %>">
           <td><%= link_to migrator.id, migrator %></td>
-          <td>
-          <% if migrator.status == "Completed"  %>
-            <i class="glyphicon glyphicon-ok text-success"></i>
-          <% elsif migrator.status == "Started" %>
-            <i class="glyphicon glyphicon-flash text-primary"></i>
-          <% elsif migrator.status == "Error" %>
-            <i class="glyphicon glyphicon-remove text-danger"></i>
-          <% else %>
-            <i class="glyphicon glyphicon-time text-warning"></i>
-          <% end %>
-          </td>
           <td><%= truncate(migrator.target_region_list, length: 20) %></td>
           <td><%= migrator.requested_by %></td>
-          <td><%= time_ago_in_words(migrator.requested_at)+" ago" unless migrator.requested_at.blank? %></td>
-          <td><%= time_ago_in_words(migrator.started_at)+" ago" unless migrator.started_at.blank? %></td>
-          <td><%= time_ago_in_words(migrator.completed_at)+" ago" unless migrator.completed_at.blank? %></td>   
+          <td><%= link_to migrator.job_id, migrator.job %></td>
           <td><%= time_ago_in_words(migrator.created_at)+" ago" unless migrator.created_at.blank? %></td>   
           <td><%= time_ago_in_words(migrator.updated_at)+" ago" unless migrator.updated_at.blank? %></td>   
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_migrator_path(migrator)} %></td>

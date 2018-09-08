@@ -5,6 +5,7 @@
 #  id                :integer          not null, primary key
 #  name              :string(255)
 #  url_friendly_name :string(255)
+#  black_flag        :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -15,8 +16,9 @@ class Sport < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url_friendly_name
   
-  has_many :programs
   has_many :keywords
+  has_many :programs, through: :keywords
+  has_many :broadcast_events, through: :programs
   
   validates_presence_of :name
   

@@ -5,22 +5,22 @@
 #  id                :integer          not null, primary key
 #  name              :string(255)
 #  url_friendly_name :string(255)
+#  black_flag        :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
 
 class SportsController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :set_sport, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_sport, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /sports
   def index
-    @sports = Sport.all
+    @sports = Sport.includes(:keywords)
   end
 
   # GET /sports/1
   def show
-    @programs = @sport.programs.paginate(:page => params[:page]) unless @sport.nil?
     @keywords = @sport.keywords.order("priority DESC, length(value) DESC") unless @sport.nil?
   end
 
@@ -52,6 +52,20 @@ class SportsController < ApplicationController
       render :edit
     end
   end
+    
+  # PATCH/PUT /sports/1/set_black_flag_on
+  def set_black_flag_on
+    if @sport.update(black_flag: true)
+      redirect_to sports_url, notice: 'Sport ' + @sport.url_friendly_name + ' was successfully updated.'
+    end
+  end
+  
+  # PATCH/PUT /sports/1/set_black_flag_off
+  def set_black_flag_off
+    if @sport.update(black_flag: false)
+      redirect_to sports_url, notice: 'Sport ' + @sport.url_friendly_name + ' was successfully updated.'
+    end
+  end
 
   # DELETE /sports/1
   def destroy
@@ -67,6 +81,6 @@ class SportsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def sport_params
-      params.require(:sport).permit(:name)
+      params.require(:sport).permit(:name, :black_flag)
     end
 end

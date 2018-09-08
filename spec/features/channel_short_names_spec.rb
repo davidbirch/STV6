@@ -16,7 +16,7 @@ describe "channels-by-short-name: " do
   
   describe "navigate to the channels-by-short-name page" do
     it "should display the channels-by-short-name page" do
-      within('ul#nav-guide') {click_link('By Short Name')}
+      within('ul#nav-reference') {click_link('By Short Name')}
       
       expect(page).to have_content("Signed in as mockuser")
       expect(page).to have_content("Channels By Short Name")
@@ -26,7 +26,7 @@ describe "channels-by-short-name: " do
   
   describe "navigate to the channel-short-name page" do
     it "should display the channel-short-name page" do
-      within('ul#nav-guide') {click_link('By Short Name')}
+      within('ul#nav-reference') {click_link('By Short Name')}
       click_link(@channel.short_name)
       
       expect(page).to have_content("Short Name: #{@channel.url_friendly_short_name}")

@@ -11,11 +11,11 @@ locals: {
 %>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">          
+    <div class="col-lg-12">          
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Channel"}  %>
       <%= render "form_show" %>
-      <%= render "programs/table_index", locals: {header: "Listing Programs", field_list: ["id", "title", "subtitle", "sport", "region", "keyword", "category", "start_datetime", "end_datetime"]} %>
-    </div><!-- /col-xs-12 -->
+      <%= render "regions/table_index", locals: {header: "Listing Regions"} %>
+    </div><!-- /col-lg-12 -->
   </div><!-- /row -->
 </div> <!-- /container -->

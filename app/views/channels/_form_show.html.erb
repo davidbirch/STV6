@@ -9,17 +9,58 @@
       <td><%= @channel.name %></td>
     </tr>
     <tr>
+      <td>Tag</td>
+      <td><%= @channel.tag %></td>
+    </tr>
+    <tr>
+      <td>Region Count</td>
+      <td><%= @channel.regions.count(:all) %></td>
+    </tr>
+    <tr>
+      <td>Regions</td>
+      <td><%= @channel.regions.pluck(:name) %></td>
+    </tr>
+    <tr>
+      <td>Image 65x30</td>
+      <td><%= image_tag("/images/channels/" + @channel.tag + "_65x30.png", size: "65x30", alt: "channel " + @channel.name + " image") %></td>
+    </tr>
+    <tr>
+      <td>Image 290x170</td>
+      <td><%= image_tag("/images/channels/" + @channel.tag + "_290x170.png", size: "290x170", alt: "channel " + @channel.name + " image") %></td>
+    </tr>
+    <tr>
+      <td>Image 425x243</td>
+      <td><%= image_tag("/images/channels/" + @channel.tag + "_425x243.png", size: "425x243", alt: "channel " + @channel.name + " image") %></td>
+    </tr>
+    <tr>
       <td>Short Name</td>
       <td><%= @channel.short_name %></td>
+    </tr>
+    <tr>
+      <td>Default Sport</td>
+      <td><%= @channel.default_sport %></td>
     </tr>
     <tr>
       <td>Black Flag</td>
       <td><%= @channel.black_flag %></td>
     </tr>
     <tr>
-      <td>Program Count</td>
-      <td><%= @programs.count %></td>
+      <td>Provider</td>
+      <td><%= @channel.provider.name unless @channel.provider.nil? %></td>
     </tr>
+    <tr>
+      <td>Channel Hash</td>
+      <td><%= @channel.channel_hash %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @channel.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @channel.updated_at %></td>
+    </tr>
+
   </tbody>
 </table>
 <p id="form-actions">

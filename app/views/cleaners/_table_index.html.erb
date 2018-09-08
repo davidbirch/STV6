@@ -1,0 +1,31 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Requested By</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @cleaners.each do |cleaner| %>
+        <tr id="cleaner_<%= cleaner.id %>">
+          <td><%= link_to cleaner.id, cleaner %></td>
+          <td><%= cleaner.requested_by %></td>
+          <td><%= time_ago_in_words(cleaner.created_at)+" ago" unless cleaner.created_at.blank? %></td>   
+          <td><%= time_ago_in_words(cleaner.updated_at)+" ago" unless cleaner.updated_at.blank? %></td>   
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_cleaner_path(cleaner)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: cleaner} %></td>    
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= will_paginate @cleaners, renderer: BootstrapPagination::Rails %>

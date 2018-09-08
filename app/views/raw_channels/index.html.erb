@@ -1,0 +1,20 @@
+<%= render "shared/breadcrumb",
+locals: {
+   active_level: 1,
+   level_0_name: "Home Icon",
+   level_0_link: root_path,
+   level_1_name: "Raw Channels",
+   level_1_link: nil,
+   level_2_name: nil,
+   level_2_link: nil
+   }
+%>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">          
+      <%= render "shared/flash" %>
+      <%= render "shared/content_header", locals: {header: "Raw Channels"}  %>
+      <%= render "table_index" %>
+    </div><!-- /col-lg-12 -->
+  </div><!-- /row -->
+</div> <!-- /container -->

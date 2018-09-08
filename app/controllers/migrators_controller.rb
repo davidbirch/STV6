@@ -4,23 +4,18 @@
 #
 #  id                 :integer          not null, primary key
 #  target_region_list :text(65535)
-#  log                :text(65535)
-#  status             :string(255)
-#  requested_by       :string(255)
-#  requested_at       :datetime
-#  started_at         :datetime
-#  completed_at       :datetime
+#  job_id             :integer
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #
 
 class MigratorsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_migrator, only: [:show, :edit, :update, :destroy]
 
   # GET /migrators
   def index
-    @migrators = Migrator.by_requested_at.paginate(:page => params[:page])
+    @migrators = Migrator.by_created_at.paginate(:page => params[:page])
   end
 
   # GET /migrators/1
@@ -41,7 +36,7 @@ class MigratorsController < ApplicationController
     @migrator = Migrator.new(migrator_params)
     @migrator.requested_by = @current_user.name
 
-
+    
     if @migrator.save
       redirect_to @migrator, notice: 'Migrator was successfully created.'
     else

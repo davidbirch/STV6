@@ -16,6 +16,7 @@ class Keyword < ActiveRecord::Base
   
   belongs_to :sport
   has_many :programs
+  has_many :broadcast_events, through: :programs
   
   extend FriendlyId
   friendly_id :url_friendly_value
@@ -28,63 +29,34 @@ class Keyword < ActiveRecord::Base
   
   class << self
     
-    def find_for_raw_program(raw_program)
+    def find_based_on_title(attr_program_title,attr_episode_title)
       
-      # pseudocode for finding the sport based on a raw program
-      #
-      # - if a black keyword is present return no sport
-      # - else if there is a sport keyword match return the Sport
-      # - else check for a generic 'sport' keyword match and return 'Other Sport' unless there is a news or weather match
+      # if there is a sport keyword match return the Sport
+      sport_keyword = check_sport_keyword_match(attr_program_title,attr_episode_title)
+      return sport_keyword unless sport_keyword.nil?
       
-      # check for a black keyword
-      if black_keyword_match(raw_program)
-        # black keyword match so return nil
-        return nil
-      else
-        # check for a sport keyword match
-        sport_keyword = check_sport_keyword_match(raw_program)
-        return sport_keyword unless sport_keyword.nil?
-        # check for a generic sport match ex news/weather
-        sport_keyword = check_generic_sport_match(raw_program)
-        return sport_keyword unless sport_keyword.nil?
-      end
-      return nil
-    end
-    
-    def black_keyword_match(raw_program)
-      # no black keywords yet so return false
-      return false
+      # else check for a generic 'sport' keyword match and return 'Other Sport'
+      sport_keyword = check_generic_sport_match(attr_program_title,attr_episode_title)
+      return sport_keyword unless sport_keyword.nil?
+   
     end
         
-    def check_sport_keyword_match(raw_program)
-      raw_program_title = raw_program["title"].downcase
-      raw_program_subtitle = raw_program["subtitle"].downcase
-      raw_program_category = raw_program["category"].downcase
+    def check_sport_keyword_match(attr_program_title,attr_episode_title)
       list_of_sport_keywords = Keyword.order("priority DESC, length(value) DESC").pluck(:value).map(&:downcase)
          
       list_of_sport_keywords.each do |sport_keyword|
-        if raw_program_title.include? sport_keyword
+        if attr_program_title.downcase.include? sport_keyword
           return Keyword.find_by_value(sport_keyword)
-        elsif raw_program_subtitle.include? sport_keyword
-          return Keyword.find_by_value(sport_keyword)
-        elsif raw_program_category.include? sport_keyword
+        elsif attr_episode_title.downcase.include? sport_keyword
           return Keyword.find_by_value(sport_keyword)
         end  
       end
       return nil
     end
      
-    def check_generic_sport_match(raw_program)
-      raw_program_title = raw_program["title"].downcase
-      raw_program_subtitle = raw_program["subtitle"].downcase
-      raw_program_category = raw_program["category"].downcase
-      
-      if raw_program_title.include?("sport") || raw_program_subtitle.include?("sport") || raw_program_category.include?("sport")
-        if raw_program_category.include?("news") || raw_program_category.include?("weather")
-          return nil
-        else
-          return Keyword.find_by_value("Other Sport")
-        end
+    def check_generic_sport_match(attr_program_title,attr_episode_title)
+      if attr_program_title.downcase.include?("sport") || attr_episode_title.downcase.include?("sport")
+        return Keyword.find_by_value("Other Sport")
       end
       return nil
     end
@@ -94,6 +66,6 @@ class Keyword < ActiveRecord::Base
   protected
     def set_url_friendly_value
       self.url_friendly_value = value.parameterize
-    end 
+    end
   
 end

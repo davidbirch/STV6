@@ -7,7 +7,12 @@
       <tr>
         <th>#</th>
         <th>Name</th>
-        <th>Program Count</th>
+        <th>Time Zone Name</th>
+        <th>Time In Time Zone</th>
+        <th>Black Flag</th>
+        <th>Lookup</th>
+        <th>Channel Count</th>
+        <th>Broadcast Event Count</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -18,18 +23,27 @@
         <tr id="region_<%= region.id %>">
           <td><%= region.id %></td>
           <td><%= link_to region.name, region %></td>
-          <td><%= region.programs.count %></td>
+          <td><%= region.time_zone_name %></td>
+          <td><%= Time.now.in_time_zone(region.time_zone_name) %></td>
+          <td>
+          <% if region.black_flag? %>
+            <%= link_to set_black_flag_off_region_path(region), :method => :put do %>
+              <i class="glyphicon glyphicon-star"></i>
+            <% end %>
+          <% else %>
+            <%= link_to set_black_flag_on_region_path(region), :method => :put do %>
+              <i class="glyphicon glyphicon-star-empty"></i>
+            <% end %>
+          <% end %>
+          </td>
+          <td><%= region.region_lookup %></td>
+          <td><%= region.channels.count %></td>
+          <td><%= region.broadcast_events.count %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_region_path(region)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: region} %></td> 
         </tr>      
       <% end %>
-      <tr class="info">
-        <td></td>
-        <td><strong>Total</strong></td>
-        <td><strong><%= Program.count %></strong></td>
-        <td></td>
-        <td></td>
-      </tr>
     </tbody>
+    
   </table>
 </div>

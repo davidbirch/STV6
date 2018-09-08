@@ -5,17 +5,17 @@ locals: {
    level_0_link: root_path,
    level_1_name: "Programs",
    level_1_link: programs_path,
-   level_2_name: @program.id.to_s + ": "+ @program.title,
+   level_2_name: @program.title,
    level_2_link: nil
    }
 %>
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">          
+    <div class="col-lg-12">          
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Program"}  %>
       <%= render "form_show" %>
-      <%= render "programs/table_index", locals: {field_list: ["id", "title", "subtitle", "category", "region", "sport", "local_start_datetime", "local_end_datetime"]} %>
-    </div><!-- /col-xs-12 -->
+      <%= render "broadcast_events/table_index", locals: {header: "Listing Broadcast Events"} %>
+    </div><!-- /col-lg-12 -->
   </div><!-- /row -->
 </div> <!-- /container -->

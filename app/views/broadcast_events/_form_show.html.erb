@@ -1,0 +1,48 @@
+<table class="table", id="form-show">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @broadcast_event.id %></td>
+    </tr>
+    <tr>
+      <td>Program</td>
+      <td><%= (link_to @broadcast_event.program.formatted_full_title, @broadcast_event.program) unless @broadcast_event.program.nil? %></td>
+    </tr>
+    <tr>
+      <td>Broadcast Service</td>
+      <td><%= (link_to @broadcast_event.broadcast_service.formatted_full_title, @broadcast_event.broadcast_service) unless @broadcast_event.broadcast_service.nil? %></td>
+    </tr>
+    <tr>
+      <td>Epoch Scheduled Date</td>
+      <td><%= @broadcast_event.epoch_scheduled_date %></td>
+    </tr>
+    <tr>
+      <td>Formatted Scheduled Date</td>
+      <td><%= @broadcast_event.formatted_scheduled_date %></td>
+    </tr>
+    <tr>
+      <td>Formatted End Date</td>
+      <td><%= @broadcast_event.formatted_end_date %></td>
+    </tr>
+    <tr>
+      <td>Formatted Local Start Date</td>
+      <td><%= @broadcast_event.formatted_local_start_date %></td>
+    </tr>
+    <tr>
+      <td>Braodcast Event Hash</td>
+      <td><%= @broadcast_event.broadcast_event_hash %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @broadcast_event.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @broadcast_event.updated_at %></td>
+    </tr>
+
+  </tbody>
+</table>
+<p id="form-actions">
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_broadcast_event_path(@broadcast_event), delete_path: @broadcast_event} %>  
+</p>

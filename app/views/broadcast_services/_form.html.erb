@@ -1,0 +1,35 @@
+<% if @broadcast_service.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@broadcast_service.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @broadcast_service.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @broadcast_service do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :region_id %></td>
+          <td><%= f.collection_select(:region_id, Region.all, :id, :name, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :channel_id %></td>
+          <td><%= f.collection_select(:channel_id, Channel.all, :id, :name, {include_blank: true}) %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: broadcast_services_path} %>
+  </p>
+<% end %>
+ 

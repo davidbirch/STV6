@@ -6,13 +6,10 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Status</th>
         <th>Target Regions</th>
         <th>Days</th>
         <th>Requested By</th>
-        <th>Requested At</th>
-        <th>Started At</th>
-        <th>Completed At</th>
+        <th>Job ID</th>
         <th>Created At</th>
         <th>Updated At</th>
         <th>Edit</th>
@@ -24,23 +21,10 @@
       <% @scrapers.each do |scraper| %>
         <tr id="scraper_<%= scraper.id %>">
           <td><%= link_to scraper.id, scraper %></td>
-          <td>
-          <% if scraper.status == "Completed"  %>
-            <i class="glyphicon glyphicon-ok text-success"></i>
-          <% elsif scraper.status == "Started" %>
-            <i class="glyphicon glyphicon-flash text-primary"></i>
-          <% elsif scraper.status == "Error" %>
-            <i class="glyphicon glyphicon-remove text-danger"></i>
-          <% else %>
-            <i class="glyphicon glyphicon-time text-warning"></i>
-          <% end %>
-          </td>
           <td><%= truncate(scraper.target_region_list, length: 20) %></td>
           <td><%= scraper.days_to_gather %></td>
           <td><%= scraper.requested_by %></td>
-          <td><%= time_ago_in_words(scraper.requested_at)+" ago" unless scraper.requested_at.blank? %></td>   
-          <td><%= time_ago_in_words(scraper.started_at)+" ago" unless scraper.started_at.blank? %></td>   
-          <td><%= time_ago_in_words(scraper.completed_at)+" ago" unless scraper.completed_at.blank? %></td>       
+          <td><%= link_to scraper.job_id, scraper.job %></td>
           <td><%= time_ago_in_words(scraper.created_at)+" ago" unless scraper.created_at.blank? %></td>   
           <td><%= time_ago_in_words(scraper.updated_at)+" ago" unless scraper.updated_at.blank? %></td>   
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_scraper_path(scraper)} %></td>

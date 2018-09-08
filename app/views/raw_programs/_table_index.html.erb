@@ -6,14 +6,13 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Title</th>
-        <th>Subtitle</th>
-        <th>Category</th>
-        <th>Start Date/Time</th>
-        <th>End Date/Time</th>
+        <th>Tag</th>
         <th>Region Name</th>
-        <th>Channel Name</th>
-        <th>Channel Free Or Pay</th>
+        <th>Region Lookup</th>
+        <th>Channel Tag</th>
+        <th>Placeholder</th>
+        <th>Title</th>
+        <th>Event Lookup</th>     
       </tr>    
     </thead>
   
@@ -21,14 +20,13 @@
       <% @raw_programs.each do |raw_program| %>
         <tr id="raw_program_<%= raw_program.id %>">
           <td><%= link_to raw_program.id, raw_program %></td>
-          <td><%= raw_program.title %></td>
-          <td><%= raw_program.subtitle %></td>
-          <td><%= raw_program.category %></td>
-          <td><%= raw_program.start_datetime %></td>
-          <td><%= raw_program.end_datetime %></td>
+          <td><%= raw_program.channel_tag %></td>
           <td><%= raw_program.region_name %></td>
-          <td><%= raw_program.channel_name %></td>
-          <td><%= raw_program.channel_free_or_pay %></td>
+          <td><%= raw_program.region_lookup %></td>
+          <td><%= raw_program.channel_tag %></td>
+          <td><%= raw_program.placeholder %></td>
+          <td><%= raw_program.title %></td>
+          <td><%= raw_program.event_lookup %></td>
         </tr>
       <% end %>
     </tbody>

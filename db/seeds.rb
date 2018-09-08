@@ -10,42 +10,49 @@ require "csv"
 
 # import the data for regions
 CSV.open("db/data/regions.csv", "r").each do |row|
-  Region.find_or_create_by(name: row[0]) 
+  Region.find_or_create_by(name: row[0]) do |region|
+    region.time_zone_name = row[1]
+    region.region_lookup  = row[2]
+    region.black_flag     = row[3]
+  end 
 end
 
 # import the data for sports
 CSV.open("db/data/sports.csv", "r").each do |row|
-  sport = Sport.find_or_create_by(name: row[0])
-  Keyword.find_or_create_by(value: row[0]) do |k|
-      k.sport_id = sport.id
-      if row[0] == "Other Sport"
-		k.priority = 0
-      else      
-        k.priority = 20
-      end
-    end
-end
-
-# import the data for channels
-CSV.open("db/data/channels.csv", "r").each do |row|
-  Channel.find_or_create_by(name: row[0]) do |c|
-    c.short_name = row[1]
-    c.black_flag = row[2]
-  end
-end
-
-# import the data for categories
-CSV.open("db/data/categories.csv", "r").each do |row|
-  Category.find_or_create_by(name: row[0]) do |c|
-    c.black_flag = row[1]
+  Sport.find_or_create_by(name: row[0]) do |sport|
+    sport.black_flag    = row[1]
   end
 end
 
 # import the data for keywords
 CSV.open("db/data/keywords.csv", "r").each do |row|
-  Keyword.find_or_create_by(value: row[0]) do |k|
-    k.sport_id = Sport.find_by(name: row[1]).id
-    k.priority = row[2]
+  Keyword.find_or_create_by(value: row[0]) do |keyword|
+    keyword.sport_id         = Sport.find_by(name: row[1]).id
+    keyword.priority         = row[2]
+    keyword.black_flag       = row[3]
   end
 end
 
+# import the data for sports
+CSV.open("db/data/providers.csv", "r").each do |row|
+  Provider.find_or_create_by(name: row[0]) do |provider|
+    provider.service_tier       = row[1]
+  end
+end
+
+# import the data for channels
+CSV.open("db/data/channels.csv", "r").each do |row|
+  Channel.find_or_create_by(tag: row[2]) do |channel|
+    channel.name             = row[0]
+    channel.short_name       = row[1]
+    channel.black_flag       = row[3]
+    channel.default_sport    = row[4]
+    channel.provider_id      = Provider.find_by(name: row[5]).id
+    channel.channel_hash     = row[6]
+  end
+end
+
+# import the data for broadcast services
+CSV.open("db/data/broadcast_services.csv", "r").each do |row|
+  BroadcastService.find_or_create_by(region_id: Region.find_by(name: row[0]).id, channel_id: Channel.find_by(tag: row[1]).id)
+end

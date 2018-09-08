@@ -1,0 +1,60 @@
+<% if @cleaner.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@cleaner.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @cleaner.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @cleaner do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_raw_programs %></td>
+          <td><%= f.check_box :clean_raw_programs %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_raw_channels %></td>
+          <td><%= f.check_box :clean_raw_channels %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_broadcast_events %></td>
+          <td><%= f.check_box :clean_broadcast_events %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_historic_broadcast_events %></td>
+          <td><%= f.check_box :clean_historic_broadcast_events %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_programs %></td>
+          <td><%= f.check_box :clean_programs %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_broadcast_services %></td>
+          <td><%= f.check_box :clean_broadcast_services %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :clean_channels %></td>
+          <td><%= f.check_box :clean_channels %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: cleaners_path} %>
+  </p>
+<% end %>
+ 

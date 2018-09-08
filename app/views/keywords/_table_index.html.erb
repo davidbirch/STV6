@@ -11,6 +11,7 @@
         <th>Priority</th>
         <th>Black Flag</th>
         <th>Program Count</th>
+        <th>Broadcast Event Count</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -18,7 +19,7 @@
   
     <tbody>
       <% @keywords.each do |keyword| %>
-        <tr id="keyword_<%= keyword.id %>">
+      <tr id="keyword_<%= keyword.id %>">
           <td><%= keyword.id %></td>
           <td><%= link_to keyword.value, keyword %></td>
           <td><%= keyword.sport.name unless keyword.sport.nil? %></td>
@@ -26,28 +27,21 @@
           <td>
           <% if keyword.black_flag? %>
             <%= link_to set_black_flag_off_keyword_path(keyword), :method => :put do %>
-              <i class="fa fa-circle"></i> 
+              <i class="glyphicon glyphicon-star"></i>
             <% end %>
           <% else %>
             <%= link_to set_black_flag_on_keyword_path(keyword), :method => :put do %>
-              <i class="fa fa-circle-o"></i> 
+              <i class="glyphicon glyphicon-star-empty"></i>
             <% end %>
           <% end %>
           </td>
           <td><%= keyword.programs.count %></td>
+          <td><%= keyword.broadcast_events.count %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_keyword_path(keyword)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: keyword} %></td> 
-        </tr>      
+      </tr>      
       <% end %>
-      <tr class="info">
-        <td></td>
-        <td><strong>Total</strong></td>
-        <td></td>
-        <td></td>
-        <td><strong><%= Program.count %></strong></td>
-        <td></td>
-        <td></td>
-      </tr>
     </tbody>
+    
   </table>
 </div>

@@ -18,57 +18,27 @@
         </tr>
         <tr>
           <td><%= f.label :title %></td>
-          <td><%= f.text_field :title, :placeholder=>"Title ..." %></td>
+          <td><%= f.text_field :title, :placeholder=>"Program Title ..." %></td>
           <td></td>
         </tr>
         <tr>
-          <td><%= f.label :subtitle %></td>
-          <td><%= f.text_field :subtitle, :placeholder=>"Subtitle ..." %></td>
-          <td></td>
-        </tr>
-         <tr>
-          <td><%= f.label :description %></td>
-          <td><%= f.text_field :description, :placeholder=>"Description ..." %></td>
-          <td></td>
-        </tr> 
-        <tr>
-          <td><%= f.label :program_hash %></td>
-          <td><%= f.text_field :program_hash, :placeholder=>"Program Hash ..." %></td>
+          <td><%= f.label :episode_title %></td>
+          <td><%= f.text_field :episode_title, :placeholder=>"Episode Title ..." %></td>
           <td></td>
         </tr>
         <tr>
-          <td><%= f.label :start_datetime %></td>
-          <td><%= f.datetime_select :start_datetime %></td>
+          <td><%= f.label :duration %></td>
+          <td><%= f.number_field :duration %></td>
           <td></td>
         </tr>
         <tr>
-          <td><%= f.label :end_datetime %></td>
-          <td><%= f.datetime_select :end_datetime %></td>
+          <td><%= f.label :black_flag %></td>
+          <td><%= f.check_box :black_flag %></td>
           <td></td>
         </tr>
         <tr>
           <td><%= f.label :keyword_id %></td>
           <td><%= f.collection_select(:keyword_id, Keyword.all, :id, :value, {include_blank: true}) %></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><%= f.label :region_id %></td>
-          <td><%= f.collection_select(:region_id, Region.all, :id, :name, {include_blank: true}) %></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><%= f.label :channel_id %></td>
-          <td><%= f.collection_select(:channel_id, Channel.all, :id, :name, {include_blank: true}) %></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><%= f.label :sport_id %></td>
-          <td><%= f.collection_select(:sport_id, Sport.all, :id, :name, {include_blank: true}) %></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><%= f.label :category_id %></td>
-          <td><%= f.collection_select(:category_id, Category.all, :id, :name, {include_blank: true}) %></td>
           <td></td>
         </tr>
       </tbody>

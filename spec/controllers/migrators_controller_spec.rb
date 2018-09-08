@@ -46,7 +46,7 @@ RSpec.describe MigratorsController, type: :controller do
   describe "GET #show" do
     before :each do
       @migrator = FactoryGirl.create(:migrator)
-      get :show, id: @migrator
+      get :show, params:{id: @migrator}
     end
         
     it "assigns the requested migrator to @migrator" do
@@ -76,18 +76,18 @@ RSpec.describe MigratorsController, type: :controller do
     context "with valid params" do
       it "creates a new Migrator" do
         expect {
-          post :create, migrator: FactoryGirl.attributes_for(:migrator)
+          post :create, params:{migrator: FactoryGirl.attributes_for(:migrator)}
         }.to change(Migrator, :count).by(1)
       end
 
       it "assigns a newly created migrator as @migrator" do
-        post :create, migrator: FactoryGirl.attributes_for(:migrator)
+        post :create, params:{migrator: FactoryGirl.attributes_for(:migrator)}
         expect(assigns(:migrator)).to be_a(Migrator)
         expect(assigns(:migrator)).to be_persisted
       end
 
       it "redirects to the created migrator" do
-        post :create, migrator: FactoryGirl.attributes_for(:migrator)
+        post :create, params:{migrator: FactoryGirl.attributes_for(:migrator)}
         expect(response).to redirect_to(Migrator.last)
       end
     end
@@ -111,13 +111,13 @@ RSpec.describe MigratorsController, type: :controller do
 
       it "assigns the requested migrator as @migrator" do
         migrator = FactoryGirl.create(:migrator)
-        put :update, {:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:empty_region_migrator)}
+        put :update, params:{:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:empty_region_migrator)}
         expect(assigns(:migrator)).to eq(migrator)
       end
 
       it "redirects to the migrator" do
         migrator = FactoryGirl.create(:migrator)
-        put :update, {:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:empty_region_migrator)}
+        put :update, params:{:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:empty_region_migrator)}
         migrator.reload
         expect(response).to redirect_to(migrator)
       end
@@ -143,13 +143,13 @@ RSpec.describe MigratorsController, type: :controller do
     it "destroys the requested migrator" do
       migrator = FactoryGirl.create(:migrator)
       expect {
-        delete :destroy, {:id => migrator.to_param}
+        delete :destroy, params:{:id => migrator.to_param}
       }.to change(Migrator, :count).by(-1)
     end
 
     it "redirects to the migrators list" do
       migrator = FactoryGirl.create(:migrator)
-      delete :destroy, {:id => migrator.to_param}
+      delete :destroy, params:{:id => migrator.to_param}
       expect(response).to redirect_to(migrators_url)
     end
   end

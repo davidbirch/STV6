@@ -1,14 +1,22 @@
 Rails.application.routes.draw do
-  
+ 
   # regular resource routes
-  resources :categories do
+  resources :channel_short_names, :path => '/channels-by-short-name', only: [:index, :show]
+  resources :broadcast_events, :path => '/broadcast-events'
+  resources :broadcast_services, :path => '/broadcast-services'
+  resources :channels do
     member do
       put 'set_black_flag_on'
       put 'set_black_flag_off'
     end
   end
-  resources :channel_short_names, :path => '/channels-by-short-name', only: [:index, :show]
-  resources :channels do
+  resources :regions do
+    member do
+      put 'set_black_flag_on'
+      put 'set_black_flag_off'
+    end
+  end
+  resources :sports do
     member do
       put 'set_black_flag_on'
       put 'set_black_flag_off'
@@ -20,16 +28,19 @@ Rails.application.routes.draw do
       put 'set_black_flag_off'
     end
   end
+  resources :cleaners
+  resources :jobs, only: [:index, :show]
   resources :migrators
-  resources :program_days, :path => '/programs-by-day', only: [:index, :show]
-  resources :program_regions_sports, :path => '/programs-by-region-and-sport', only: [:index]
-  resources :program_regions_days, :path => '/programs-by-region-and-day', only: [:index]
-  resources :program_regions_channels, :path => '/programs-by-region-and-channel', only: [:index]
-  resources :programs
-  resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
-  resources :regions
   resources :scrapers
-  resources :sports
+  resources :providers
+  resources :programs do
+    member do
+      put 'set_black_flag_on'
+      put 'set_black_flag_off'
+    end
+  end
+  resources :raw_channels, :path => '/raw-channels', only: [:index, :show]
+  resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
   resources :users
     
   # special routes for sessions 
@@ -39,14 +50,15 @@ Rails.application.routes.draw do
   get 'signin',                       to: 'sessions#new', as: 'signin'
   
   # special routes for pages
-  get 'contact',                        to: 'pages#contact'
-  get 'privacy',                        to: 'pages#privacy'
-  get 'dashboard',                      to: 'pages#dashboard'
+  get 'contact',                      to: 'pages#contact'
+  get 'privacy',                      to: 'pages#privacy'
+  get 'dashboard',                    to: 'pages#dashboard'
+  get 'home',                         to: 'pages#home'
   
-    # special routes for /region and /region/sport
+  # special routes for /region and /region/sport
   get ':region_name',                 to: 'guides#show'
   get ':region_name/:sport_name',     to: 'guides#show'
-  
+
   root 'guides#index'
   #root 'pages#unavailable'
 

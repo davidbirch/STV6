@@ -26,6 +26,9 @@ describe "regions: " do
       within('ul#nav-reference') {click_link('Regions')}
       click_link('New')
       fill_in('region[name]', :with => 'Hobart')
+      fill_in('region[time_zone_name]', :with => 'Australia/Hobart')
+      fill_in('region[region_lookup]', :with => '23456')
+      check('region[black_flag]')
       click_button('Save')
       
       expect(page).to have_content("Region was successfully created.")
@@ -36,9 +39,15 @@ describe "regions: " do
       within('ul#nav-reference') {click_link('Regions')}
       click_link('New')
       fill_in('region[name]', :with => 'Hobart')
+      fill_in('region[time_zone_name]', :with => 'Australia/Hobart')
+      fill_in('region[region_lookup]', :with => '23456')
+      check('region[black_flag]')
       click_button('Save')
       click_link('Edit')
       fill_in('region[name]', :with => 'Canberra')
+      fill_in('region[time_zone_name]', :with => 'Australia/Sydney')
+      fill_in('region[region_lookup]', :with => '34567')
+      uncheck('region[black_flag]')
       click_button('Save')
       
       expect(page).to have_content("Region was successfully updated.")
@@ -49,6 +58,8 @@ describe "regions: " do
       within('ul#nav-reference') {click_link('Regions')}
       click_link('New')
       fill_in('region[name]', :with => 'Hobart')
+      fill_in('region[time_zone_name]', :with => 'Australia/Hobart')
+      fill_in('region[region_lookup]', :with => '23456')
       click_button('Save')
       click_link('Delete')
       

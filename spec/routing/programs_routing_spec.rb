@@ -2,22 +2,12 @@
 #
 # Table name: programs
 #
-#  id                       :integer          not null, primary key
-#  title                    :string(255)
-#  subtitle                 :string(255)
-#  description              :text(65535)
-#  program_hash             :text(65535)
-#  start_datetime           :datetime
-#  end_datetime             :datetime
-#  start_date_display       :string(255)
-#  local_start_date_display :string(255)
-#  region_id                :integer
-#  channel_id               :integer
-#  sport_id                 :integer
-#  keyword_id               :integer
-#  category_id              :integer
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id            :integer          not null, primary key
+#  title         :string(255)
+#  episode_title :string(255)
+#  program_hash  :text(65535)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 require "rails_helper"
@@ -51,6 +41,14 @@ RSpec.describe ProgramsController, type: :routing do
 
     it "routes to #destroy" do
       expect(:delete => "/programs/1").to route_to("programs#destroy", :id => "1")
+    end
+    
+     it "routes to #set_black_flag_on" do
+      expect(:put => "/programs/1/set_black_flag_on").to route_to("programs#set_black_flag_on", :id => "1")
+    end
+    
+    it "routes to #set_black_flag_off" do
+      expect(:put => "/programs/1/set_black_flag_off").to route_to("programs#set_black_flag_off", :id => "1")
     end
 
   end

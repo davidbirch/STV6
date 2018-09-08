@@ -9,12 +9,16 @@
       <td><%= @sport.name %></td>
     </tr>
     <tr>
-      <td>Keyword Count</td>
-      <td><%= @keywords.count(:all) %></td>
+      <td>Black Flag</td>
+      <td><%= @sport.black_flag %></td>
     </tr>
     <tr>
-      <td>Program Count</td>
-      <td><%= @programs.count %></td>
+      <td>Created At</td>
+      <td><%= @sport.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @sport.updated_at %></td>
     </tr>
   </tbody>
 </table>

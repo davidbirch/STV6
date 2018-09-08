@@ -10,7 +10,7 @@ describe "raw-programs: " do
     @user.assign_admin
     visit root_path
     
-    @raw_program = FactoryGirl.create(:valid_raw_program)
+    @raw_program = FactoryGirl.create(:raw_program)
     
   end
   

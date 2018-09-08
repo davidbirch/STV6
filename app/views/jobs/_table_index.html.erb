@@ -1,0 +1,51 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Status</th>
+        <th>Type</th>
+        <th>Detail ID</th>
+        <th>Requested By</th>
+        <th>Requested At</th>
+        <th>Started At</th>
+        <th>Completed At</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @jobs.each do |job| %>
+        <tr id="job_<%= job.id %>">
+          <td><%= link_to job.id, job %></td>
+          <td>
+          <% if job.status == "Completed"  %>
+            <i class="glyphicon glyphicon-ok text-success"></i>
+          <% elsif job.status == "Started" %>
+            <i class="glyphicon glyphicon-flash text-primary"></i>
+          <% elsif job.status == "Failed" %>
+            <i class="glyphicon glyphicon-warning-sign text-danger"></i>
+          <% elsif job.status == "Error" %>
+            <i class="glyphicon glyphicon-remove text-danger"></i>
+          <% else %>
+            <i class="glyphicon glyphicon-time text-warning"></i>
+          <% end %>
+          </td>
+          <td><%= job.detail_type %></td>
+          <td><%= link_to job.detail_id, job.detail %></td>
+          <td><%= job.requested_by %></td>
+          <td><%= time_ago_in_words(job.requested_at)+" ago" unless job.requested_at.blank? %></td>   
+          <td><%= time_ago_in_words(job.started_at)+" ago" unless job.started_at.blank? %></td>   
+          <td><%= time_ago_in_words(job.completed_at)+" ago" unless job.completed_at.blank? %></td>       
+          <td><%= time_ago_in_words(job.created_at)+" ago" unless job.created_at.blank? %></td>   
+          <td><%= time_ago_in_words(job.updated_at)+" ago" unless job.updated_at.blank? %></td>   
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= will_paginate @jobs, renderer: BootstrapPagination::Rails %>

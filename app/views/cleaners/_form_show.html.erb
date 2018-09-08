@@ -1,0 +1,51 @@
+<table class="table", id="form-show">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @cleaner.id %></td>
+    </tr>
+    <tr>
+      <td>Requested By</td>
+      <td><%= @cleaner.requested_by %></td>
+    </tr>
+    <tr>
+      <td>Clean Raw Programs</td>
+      <td><%= @cleaner.clean_raw_programs %></td>
+    </tr>
+    <tr>
+      <td>Clean Raw Channels</td>
+      <td><%= @cleaner.clean_raw_channels %></td>
+    </tr>
+     <tr>
+      <td>Clean Broadcast Events</td>
+      <td><%= @cleaner.clean_broadcast_events %></td>
+    </tr>
+    <tr>
+      <td>Clean Historic Broadcast Events</td>
+      <td><%= @cleaner.clean_historic_broadcast_events %></td>
+    </tr>
+    <tr>
+      <td>Clean Programs</td>
+      <td><%= @cleaner.clean_programs %></td>
+    </tr>
+    <tr>
+      <td>Clean Broadcast Services</td>
+      <td><%= @cleaner.clean_broadcast_services %></td>
+    </tr>
+    <tr>
+      <td>Clean Channels</td>
+      <td><%= @cleaner.clean_channels %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @cleaner.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @cleaner.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+<p id="form-actions">
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_cleaner_path(@cleaner), delete_path: @cleaner} %>  
+</p>

@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   def title(title = nil)
     #log = Logger.new(File.expand_path("#{Rails.root}/log/application_helper.log", __FILE__))
     #log.info("#{site_variables.inspect}")

@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: channels
+#
+#  id                      :integer          not null, primary key
+#  name                    :string(255)
+#  url_friendly_name       :string(255)
+#  short_name              :string(255)
+#  url_friendly_short_name :string(255)
+#  region_id               :integer
+#  provider_id             :integer
+#  black_flag              :boolean
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#
+
 require "rails_helper"
 
 RSpec.describe ChannelShortNamesController, type: :routing do

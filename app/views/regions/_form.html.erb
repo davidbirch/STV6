@@ -21,6 +21,21 @@
           <td><%= f.text_field :name, :placeholder=>"Region Name ..." %></td>
           <td></td>
         </tr>
+        <tr>
+          <td><%= f.label :time_zone_name %></td>
+          <td><%= f.text_field :time_zone_name, :placeholder=>"Region Time Zone Name ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :region_lookup %></td>
+          <td><%= f.text_field :region_lookup, :placeholder=>"Region Lookup ..." %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :black_flag %></td>
+          <td><%= f.check_box :black_flag %></td>
+          <td></td>
+        </tr>
       </tbody>
   </table>
   <p>

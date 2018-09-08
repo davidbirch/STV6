@@ -10,17 +10,17 @@
 #
 
 class RegionsController < ApplicationController
-  before_filter :authenticate_user!
-  before_action :set_region, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_region, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /regions
   def index
-    @regions = Region.all
+    @regions =  Region.includes(:channels)
   end
 
   # GET /regions/1
   def show
-    @programs = @region.programs.paginate(:page => params[:page]) unless @region.nil?
+    @channels = @region.channels unless @region.nil?
   end
 
   # GET /regions/new
@@ -51,6 +51,20 @@ class RegionsController < ApplicationController
       render :edit
     end
   end
+  
+  # PATCH/PUT /regions/1/set_black_flag_on
+  def set_black_flag_on
+    if @region.update(black_flag: true)
+      redirect_to regions_url, notice: 'Region ' + @region.url_friendly_name + ' was successfully updated.'
+    end
+  end
+  
+  # PATCH/PUT /regions/1/set_black_flag_off
+  def set_black_flag_off
+    if @region.update(black_flag: false)
+      redirect_to regions_url, notice: 'Region ' + @region.url_friendly_name + ' was successfully updated.'
+    end
+  end
 
   # DELETE /regions/1
   def destroy
@@ -66,6 +80,6 @@ class RegionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def region_params
-      params.require(:region).permit(:name)
+      params.require(:region).permit(:name, :black_flag, :region_lookup, :time_zone_name)
     end
 end

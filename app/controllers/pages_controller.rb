@@ -1,5 +1,10 @@
 class PagesController < ApplicationController
-  before_filter :authenticate_user!, except: [:privacy, :contact, :unavailable]
+  before_action :authenticate_user!, except: [:home, :privacy, :contact, :unavailable]
+  
+  # GET /
+  def home
+    @title = "SPORT ON TV | Home"    
+  end
   
   # GET /dashboard   
   def dashboard

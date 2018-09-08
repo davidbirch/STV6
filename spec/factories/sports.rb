@@ -5,6 +5,7 @@
 #  id                :integer          not null, primary key
 #  name              :string(255)
 #  url_friendly_name :string(255)
+#  black_flag        :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
@@ -28,6 +29,11 @@ FactoryGirl.define do
   
   factory :tennis_sport, parent: :sport do |f|
     f.name "Tennis"
+  end
+  
+  factory :sport_with_black_flag, parent: :sport do |f|
+    f.name "Other Sport"
+    f.black_flag true
   end
 
 end

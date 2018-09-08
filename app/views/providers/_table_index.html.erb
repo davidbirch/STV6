@@ -1,0 +1,29 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>    
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Service Tier</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @providers.each do |provider| %>
+        <tr id="provider_<%= provider.id %>">
+          <td><%= provider.id %></td>
+          <td><%= link_to provider.name, provider %></td>
+          <td><%= provider.service_tier %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_provider_path(provider)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: provider} %></td> 
+        </tr>      
+      <% end %>
+    </tbody>
+    
+  </table>
+</div>

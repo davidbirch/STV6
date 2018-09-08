@@ -1,0 +1,28 @@
+<table class="table", id="form-show">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @broadcast_service.id %></td>
+    </tr>
+    <tr>
+      <td>Region</td>
+      <td><%= (link_to @broadcast_service.region.name, @broadcast_service.region) unless @broadcast_service.region.nil? %></td>
+    </tr>
+    <tr>
+      <td>Channel</td>
+      <td><%= (link_to @broadcast_service.channel.name, @broadcast_service.channel) unless @broadcast_service.channel.nil? %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @broadcast_service.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @broadcast_service.updated_at %></td>
+    </tr>
+
+  </tbody>
+</table>
+<p id="form-actions">
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_broadcast_service_path(@broadcast_service), delete_path: @broadcast_service} %>  
+</p>

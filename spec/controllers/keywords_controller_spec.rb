@@ -43,13 +43,17 @@ RSpec.describe KeywordsController, type: :controller do
   describe "GET #show" do
     before :each do
       @keyword = FactoryGirl.create(:keyword)
-      get :show, id: @keyword
+      get :show, params:{id: @keyword}
     end
         
     it "assigns the requested keyword to @keyword" do
       expect(assigns(:keyword)).to eq(@keyword)
     end
-        
+
+    it "populates an array of programs" do
+      expect(assigns(:programs)).to eq(@keyword.programs)
+    end
+    
     it "renders the :show template" do
       expect(response).to render_template :show
     end
@@ -73,30 +77,30 @@ RSpec.describe KeywordsController, type: :controller do
     context "with valid params" do
       it "creates a new Keyword" do
         expect {
-          post :create, keyword: FactoryGirl.attributes_for(:keyword)
+          post :create, params:{keyword: FactoryGirl.attributes_for(:keyword)}
         }.to change(Keyword.unscoped, :count).by(1)
       end
 
       it "assigns a newly created keyword as @keyword" do
-        post :create, keyword: FactoryGirl.attributes_for(:keyword)
+        post :create, params:{keyword: FactoryGirl.attributes_for(:keyword)}
         expect(assigns(:keyword)).to be_a(Keyword)
         expect(assigns(:keyword)).to be_persisted
       end
 
       it "redirects to the created keyword" do
-        post :create, keyword: FactoryGirl.attributes_for(:keyword)
+        post :create, params:{keyword: FactoryGirl.attributes_for(:keyword)}
         expect(response).to redirect_to(Keyword.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved keyword as @keyword" do
-        post :create, keyword: FactoryGirl.attributes_for(:invalid_keyword)
+        post :create, params:{keyword: FactoryGirl.attributes_for(:invalid_keyword)}
         expect(assigns(:keyword)).to be_a_new(Keyword)
       end
 
       it "re-renders the 'new' template" do
-        post :create, keyword: FactoryGirl.attributes_for(:invalid_keyword)
+        post :create, params:{keyword: FactoryGirl.attributes_for(:invalid_keyword)}
         expect(response).to render_template("new")
       end
     end
@@ -107,13 +111,13 @@ RSpec.describe KeywordsController, type: :controller do
 
       it "assigns the requested keyword as @keyword" do
         keyword = FactoryGirl.create(:keyword)
-        put :update, {:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:ashes_keyword)}
+        put :update, params:{:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:ashes_keyword)}
         expect(assigns(:keyword)).to eq(keyword)
       end
 
       it "redirects to the keyword" do
         keyword = FactoryGirl.create(:keyword)
-        put :update, {:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:ashes_keyword)}
+        put :update, params:{:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:ashes_keyword)}
         keyword.reload
         expect(response).to redirect_to(keyword)
       end
@@ -122,13 +126,13 @@ RSpec.describe KeywordsController, type: :controller do
     context "with invalid params" do
       it "assigns the raw_program as @raw_program" do
         keyword = FactoryGirl.create(:keyword)
-        put :update, {:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:invalid_keyword)}
+        put :update, params:{:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:invalid_keyword)}
         expect(assigns(:keyword)).to eq(keyword)
       end
 
       it "re-renders the 'edit' template" do
         keyword = FactoryGirl.create(:keyword)
-        put :update, {:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:invalid_keyword)}
+        put :update, params:{:id => keyword.to_param, :keyword => FactoryGirl.attributes_for(:invalid_keyword)}
         expect(response).to render_template("edit")
       end
     end
@@ -138,13 +142,13 @@ RSpec.describe KeywordsController, type: :controller do
     it "destroys the requested keyword" do
       keyword = FactoryGirl.create(:keyword)
       expect {
-        delete :destroy, {:id => keyword.to_param}
+        delete :destroy, params:{:id => keyword.to_param}
       }.to change(Keyword.unscoped, :count).by(-1)
     end
 
     it "redirects to the keywords list" do
       keyword = FactoryGirl.create(:keyword)
-      delete :destroy, {:id => keyword.to_param}
+      delete :destroy, params:{:id => keyword.to_param}
       expect(response).to redirect_to(keywords_url)
     end
   end
@@ -152,14 +156,14 @@ RSpec.describe KeywordsController, type: :controller do
   describe "PUT #set_black_flag_on" do
     it "sets the black_flag field to true" do
       keyword = FactoryGirl.create(:keyword)
-      put :set_black_flag_on, {:id => keyword.to_param}
+      put :set_black_flag_on, params:{:id => keyword.to_param}
       keyword.reload
       expect(keyword.black_flag?).to be true
     end
     
     it "redirects to the keywords index" do
       keyword = FactoryGirl.create(:keyword)
-      put :set_black_flag_on, {:id => keyword.to_param}
+      put :set_black_flag_on, params:{:id => keyword.to_param}
       keyword.reload
       expect(response).to redirect_to(keywords_url)
     end
@@ -168,14 +172,14 @@ RSpec.describe KeywordsController, type: :controller do
   describe "PUT #set_black_flag_off" do
     it "sets the black_flag field to false" do
       keyword = FactoryGirl.create(:keyword)
-      put :set_black_flag_off, {:id => keyword.to_param}
+      put :set_black_flag_off, params:{:id => keyword.to_param}
       keyword.reload
       expect(keyword.black_flag?).to be false
     end
     
     it "redirects to the keywords index" do
       keyword = FactoryGirl.create(:keyword)
-      put :set_black_flag_off, {:id => keyword.to_param}
+      put :set_black_flag_off, params:{:id => keyword.to_param}
       keyword.reload
       expect(response).to redirect_to(keywords_url)
     end

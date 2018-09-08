@@ -1,0 +1,48 @@
+<table class="table", id="form-show">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @job.id %></td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td><%= @job.status %></td>
+    </tr>
+    <tr>
+      <td>Detail ID</td>
+      <td><%= @job.detail_id %></td>
+    </tr>
+    <tr>
+      <td>Detail Type</td>
+      <td><%= @job.detail_type %></td>
+    </tr>
+    <tr>
+      <td>Requested By</td>
+      <td><%= @job.requested_by %></td>
+    </tr>
+    <tr>
+      <td>Requested At</td>
+      <td><%= @job.requested_at %></td>
+    </tr>
+    <tr>
+      <td>Started At</td>
+      <td><%= @job.started_at %></td>
+    </tr>
+    <tr>
+      <td>Completed At</td>
+      <td><%= @job.completed_at %></td>
+    </tr>
+    <tr>
+      <td>Log</td>
+      <td><%= simple_format @job.log %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @job.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @job.updated_at %></td>
+    </tr>
+  </tbody>
+</table>

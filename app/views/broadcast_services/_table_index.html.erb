@@ -1,0 +1,32 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Region</th>
+        <th>Channel</th>
+        <th>Broadcast Event Count</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @broadcast_services.each do |broadcast_service| %>
+        <tr id="broadcast_service_<%= broadcast_service.id %>">
+          <td><%= link_to broadcast_service.id, broadcast_service %></td>
+          <td><%= broadcast_service.region.name unless broadcast_service.region.nil? %></td>
+          <td><%= broadcast_service.channel.name unless broadcast_service.channel.nil? %></td>
+          <td><%= broadcast_service.broadcast_events.count(:all) %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_broadcast_service_path(broadcast_service)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: broadcast_service} %></td> 
+        </tr>      
+      <% end %>
+    </tbody>
+    
+  </table>
+</div>
+<%= will_paginate @broadcast_services, renderer: BootstrapPagination::Rails %>

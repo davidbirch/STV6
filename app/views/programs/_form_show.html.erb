@@ -5,83 +5,33 @@
       <td><%= @program.id %></td>
     </tr>
     <tr>
-      <td>Title
-      <%= link_to ("https://www.google.com/search?q=" + @program.title), :target => "_blank" do %>
-            <i class="fa fa-search"></i> 
-      <% end %>
-      </td>
-      <td><%= @program.title %>
-       <%= link_to new_keyword_path(:value => @program.title), :target => "_blank" do %>
-            <i class="fa fa-bookmark-o"></i> 
-      <% end %>
-      
-      </td>
+      <td>Title</td>
+      <td><%= @program.title %></td>
     </tr>
     <tr>
-      <td>Subtitle
-      <%= link_to ("https://www.google.com/search?q=" + @program.title + " " + @program.subtitle), :target => "_blank" do %>
-            <i class="fa fa-search"></i> 
-      <% end %>
-      </td>
-      <td><%= @program.subtitle %></td>
+      <td>Episode Title</td>
+      <td><%= @program.episode_title %></td>
     </tr>
     <tr>
-      <td>Description</td>
-      <td><%= @program.description %></td>
+      <td>Duration</td>
+      <td><%= @program.duration %></td>
     </tr>
     <tr>
-      <td>Program Hash</td>
-      <td><%= @program.program_hash %></td>
-    </tr>
-    <tr>
-      <td>Category</td>
-      <td><%= link_to(@program.category.name, @program.category) unless @program.category.nil? %></td>
+      <td>Black Flag</td>
+      <td><%= @program.black_flag %></td>
     </tr>
     <tr>
       <td>Keyword</td>
       <td><%= link_to(@program.keyword.value, @program.keyword) unless @program.keyword.nil? %></td>
     </tr>
     <tr>
-      <td>Region</td>
-      <td><%= link_to(@program.region.name, @program.region) unless @program.region.nil? %></td>
+      <td>Created At</td>
+      <td><%= @program.created_at %></td>
     </tr>
     <tr>
-      <td>Sport</td>
-      <td><%= link_to(@program.sport.name, @program.sport) unless @program.sport.nil? %></td>
+      <td>Updated At</td>
+      <td><%= @program.updated_at %></td>
     </tr>
-    <tr>
-      <td>Channel</td>
-      <td><%= link_to(@program.channel.name, @program.channel) unless @program.channel.nil? %></td>
-    </tr>
-    <tr>
-      <td>Start Date Display</td>
-      <td><%= @program.start_date_display %></td>
-    </tr>
-    <tr>
-      <td>Start Date/Time</td>
-      <td><%= @program.start_datetime %></td>
-    </tr>
-    <tr>
-      <td>End Date/Time</td>
-      <td><%= @program.end_datetime %></td>
-    </tr>
-    <tr>
-      <td>Local Start Date Display</td>
-      <td><%= @program.local_start_date_display %></td>
-    </tr>
-    <tr>
-      <td>Local Start Date/Time</td>
-      <td><%= @program.local_start_datetime %></td>
-    </tr>
-    <tr>
-      <td>Local End Date/Time</td>
-      <td><%= @program.local_end_datetime %></td>
-    </tr>
-    <tr>
-      <td>Local Time Zone</td>
-      <td><%= @program.local_time_zone %></td>
-    </tr>
-    
   </tbody>
 </table>
 <p id="form-actions">

@@ -22,6 +22,18 @@ FactoryGirl.define do
   factory :invalid_keyword, parent: :keyword do |f|
     f.value ""
   end
+  
+  factory :black_flag_keyword, parent: :keyword do |f|
+    f.black_flag true
+  end 
+
+  factory :cricket_keyword, parent: :keyword do |f|
+    f.value "Cricket"
+  end 
+
+  factory :golf_keyword, parent: :keyword do |f|
+    f.value "Golf"
+  end 
  
   factory :ashes_keyword, parent: :keyword do |f|
     f.value "The Ashes"

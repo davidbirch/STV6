@@ -7,21 +7,25 @@
 #  url_friendly_name       :string(255)
 #  short_name              :string(255)
 #  url_friendly_short_name :string(255)
+#  region_id               :integer
+#  provider_id             :integer
 #  black_flag              :boolean
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
 #
 
 class ChannelsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_channel, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
 
   # GET /channels
   def index
-    @channels = Channel.all
+    @channels = Channel.all.order(:name)
   end
 
   # GET /channels/1
   def show
-    @programs = @channel.programs.paginate(:page => params[:page]) unless @channel.nil?
+    @regions = @channel.regions unless @channel.nil?
   end
 
   # GET /channels/new
@@ -81,6 +85,6 @@ class ChannelsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def channel_params
-      params.require(:channel).permit(:xmltv_id, :name, :short_name, :black_flag)
+      params.require(:channel).permit(:name, :short_name, :tag, :black_flag, :default_sport, :provider_id, :channel_hash)
     end
 end

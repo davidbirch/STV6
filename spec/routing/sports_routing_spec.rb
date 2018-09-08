@@ -41,6 +41,15 @@ RSpec.describe SportsController, type: :routing do
     it "routes to #destroy" do
       expect(:delete => "/sports/1").to route_to("sports#destroy", :id => "1")
     end
+    
+    it "routes to #set_black_flag_on" do
+      expect(:put => "/sports/1/set_black_flag_on").to route_to("sports#set_black_flag_on", :id => "1")
+    end
+    
+    it "routes to #set_black_flag_off" do
+      expect(:put => "/sports/1/set_black_flag_off").to route_to("sports#set_black_flag_off", :id => "1")
+    end
+
 
   end
 end
