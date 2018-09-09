@@ -20,5 +20,13 @@ module App
   
     # Use Delayed Job
     config.active_job.queue_adapter = :delayed_job
+
+    # Change the default security headers
+    config.action_dispatch.default_headers = {
+      'Referrer-Policy' => 'strict-origin-when-cross-origin',
+      'X-Content-Type-Options' => 'nosniff',
+      'X-Frame-Options' => 'SAMEORIGIN',
+      'X-XSS-Protection' => '1; mode=block'
+    }
   end
 end
