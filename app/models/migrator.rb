@@ -122,9 +122,9 @@ class Migrator < ActiveRecord::Base
           #if raw_program_count > 0
           #  job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Deleting #{raw_program_count} raw programs for #{broadcast_service.region.name} / #{broadcast_service.channel.tag}.")
           #  job.save    
-          #  RawProgram.where(region_name: broadcast_service.region.name, channel_tag: broadcast_service.channel.tag).delete_all
           #end
-   
+          
+          RawProgram.where(region_name: broadcast_service.region.name, channel_tag: broadcast_service.channel.tag).delete_all
         end
       else
         # no region
