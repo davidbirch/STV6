@@ -16,7 +16,7 @@
       <div class="col-xs-12 col-md-1 col-lg-2"></div>
       <div class="col-xs-12 col-md-10 col-lg-8">   
          <div class="row">
-            <% Region.all.each do |region| %>
+            <% Region.whitelisted.each do |region| %>
             <div class="col-xs-12 col-sm-4">
               <div class="thumbnail">
                <%= link_to ("/"+region.friendly_id) do %>

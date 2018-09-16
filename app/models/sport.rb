@@ -25,7 +25,8 @@ class Sport < ActiveRecord::Base
   validates_uniqueness_of :name
   
   default_scope { order(:name) }
-
+  scope :whitelisted, ->{where(black_flag: false)}
+  
   before_save :set_url_friendly_name
     
   protected

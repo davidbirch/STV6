@@ -61,7 +61,7 @@
       
 <% else %>
 
-  <% Region.all.order(:name).each do |region| %>
+  <% Region.whitelisted.order(:name).each do |region| %>
     <% if @region && @region.name == region.name %>
       <li class="active"><%= link_to (region.name+"<span class=\"sr-only\">(current)</span>").html_safe, ("/"+region.friendly_id) %></li>
     <% else %>
