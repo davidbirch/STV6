@@ -1,46 +1,53 @@
 Rails.application.routes.draw do
  
   # regular resource routes
-  resources :channel_short_names, :path => '/channels-by-short-name', only: [:index, :show]
-  resources :broadcast_events, :path => '/broadcast-events'
-  resources :broadcast_services, :path => '/broadcast-services'
-  resources :channels do
-    member do
-      put 'set_black_flag_on'
-      put 'set_black_flag_off'
-    end
-  end
-  resources :regions do
-    member do
-      put 'set_black_flag_on'
-      put 'set_black_flag_off'
-    end
-  end
-  resources :sports do
-    member do
-      put 'set_black_flag_on'
-      put 'set_black_flag_off'
-    end
-  end
-  resources :keywords do
-    member do
-      put 'set_black_flag_on'
-      put 'set_black_flag_off'
-    end
-  end
-  resources :cleaners
   resources :jobs, only: [:index, :show]
+  resources :cleaners
   resources :migrators
   resources :scrapers
+
+  resources :raw_channels, :path => '/raw-channels', only: [:index, :show]
+  resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
+  
+  resources :regions do
+      member do
+        put 'set_black_flag_on'
+        put 'set_black_flag_off'
+      end
+    end
+  resources :sports do
+      member do
+        put 'set_black_flag_on'
+        put 'set_black_flag_off'
+      end
+    end
   resources :providers
+  resources :channels do
+      member do
+        put 'set_black_flag_on'
+        put 'set_black_flag_off'
+      end
+    end
+  resources :channel_short_names, :path => '/channels-by-short-name', only: [:index, :show]
+  resources :keywords do
+      member do
+        put 'set_black_flag_on'
+        put 'set_black_flag_off'
+      end
+    end
+
   resources :programs do
     member do
       put 'set_black_flag_on'
       put 'set_black_flag_off'
     end
   end
-  resources :raw_channels, :path => '/raw-channels', only: [:index, :show]
-  resources :raw_programs, :path => '/raw-programs', only: [:index, :show]
+  
+  resources :broadcast_events, :path => '/broadcast-events'
+  
+  resources :broadcast_services, :path => '/broadcast-services'
+  resources :broadcast_service_regions, :path => '/broadcast-services-by-region', only: [:index, :show]
+  
   resources :users
     
   # special routes for sessions 
