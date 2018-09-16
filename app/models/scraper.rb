@@ -175,7 +175,7 @@ class Scraper < ActiveRecord::Base
       if self.target_region_list.nil? || self.target_region_list == ""
         self.target_region_list =  Region.pluck(:name, :region_lookup)
       end
-      self.days_to_gather ||= 4
+      self.days_to_gather ||= 6
     end
     
     def create_new_job
