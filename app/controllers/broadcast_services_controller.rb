@@ -15,7 +15,7 @@ class BroadcastServicesController < ApplicationController
 
   # GET /broadcast-services
   def index
-    @broadcast_services = BroadcastService.includes(:region, :channel).paginate(:page => params[:page])
+    @broadcast_services = BroadcastService.includes(:region, :channel, :provider).paginate(:page => params[:page])
   end
 
   # GET /broadcast-services/1

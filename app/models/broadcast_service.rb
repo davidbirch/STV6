@@ -13,6 +13,7 @@ class BroadcastService < ActiveRecord::Base
   
   belongs_to :region
   belongs_to :channel
+  has_one :provider, through: :channel
   has_many :broadcast_events
   
   validates_presence_of :region_id

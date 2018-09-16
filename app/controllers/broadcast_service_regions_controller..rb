@@ -14,13 +14,13 @@ class BroadcastServiceRegionsController < ApplicationController
 
   # GET /broadcast_services_by_region      
   def index
-    @broadcast_services = BroadcastService.all
+    @broadcast_services = BroadcastService.includes(:region, :channel, :provider)
   end
 
   # GET /broadcast_services_by_region/:id
   def show
     @region = Region.friendly.find(params[:id])
-    @broadcast_services = @region.broadcast_services.includes(:region, :channel).paginate(:page => params[:page]) unless @region.nil?
+    @broadcast_services = @region.broadcast_services.includes(:region, :channel, :provider).paginate(:page => params[:page]) unless @region.nil?
   end
 
 end

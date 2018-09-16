@@ -20,7 +20,8 @@ class ChannelsController < ApplicationController
 
   # GET /channels
   def index
-    @channels = Channel.all.order(:name)
+    @channels = Channel.includes(:provider)
+  
   end
 
   # GET /channels/1

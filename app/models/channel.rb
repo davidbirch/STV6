@@ -32,7 +32,9 @@ class Channel < ActiveRecord::Base
   validates_presence_of :provider_id
   
   validates_uniqueness_of :tag
-    
+
+  default_scope { order(:name) }
+      
   before_save :set_computed_columns
   
   class << self
