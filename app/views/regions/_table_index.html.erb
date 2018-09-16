@@ -11,8 +11,10 @@
         <th>Time In Time Zone</th>
         <th>Black Flag</th>
         <th>Lookup</th>
-        <th>Channel Count</th>
-        <th>Broadcast Event Count</th>
+        <th>Broadcast Services</th>
+        <th>Broadcast Events</th>
+        <th>Earliest</th>
+        <th>Latest</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -37,8 +39,10 @@
           <% end %>
           </td>
           <td><%= region.region_lookup %></td>
-          <td><%= region.channels.count %></td>
+          <td><%= region.broadcast_services.count %></td>
           <td><%= region.broadcast_events.count %></td>
+          <td><%= region.earliest_broadcast_event_date %></td>
+          <td><%= region.latest_broadcast_event_date %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_region_path(region)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: region} %></td> 
         </tr>      

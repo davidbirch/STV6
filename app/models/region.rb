@@ -33,6 +33,14 @@ class Region < ActiveRecord::Base
     
   before_save :set_url_friendly_name
   
+  def earliest_broadcast_event_date
+    self.broadcast_events.chronological.first.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F")
+  end
+
+  def latest_broadcast_event_date
+    self.broadcast_events.chronological.last.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F")
+  end
+
   protected
     def set_url_friendly_name
       self.url_friendly_name = name.parameterize
