@@ -20,7 +20,7 @@ class RegionsController < ApplicationController
 
   # GET /regions/1
   def show
-    @channels = @region.channels unless @region.nil?
+    @broadcast_services = @region.broadcast_services.paginate(:page => params[:page]) unless @region.nil?
   end
 
   # GET /regions/new
