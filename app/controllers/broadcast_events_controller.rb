@@ -2,11 +2,16 @@
 #
 # Table name: broadcast_events
 #
-#  id         :integer          not null, primary key
-#  region_id  :integer
-#  channel_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                         :integer          not null, primary key
+#  program_id                 :integer
+#  broadcast_service_id       :integer
+#  broadcast_event_hash       :text(65535)
+#  epoch_scheduled_date       :integer
+#  formatted_local_start_date :string(255)
+#  formatted_scheduled_date   :datetime
+#  formatted_end_date         :datetime
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
 #
 
 class BroadcastEventsController < ApplicationController

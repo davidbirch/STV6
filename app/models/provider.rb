@@ -17,6 +17,7 @@ class Provider < ActiveRecord::Base
   friendly_id :url_friendly_name
   
   has_many :channels
+  has_many :broadcast_services, through: :channels
     
   validates_presence_of :name
   
