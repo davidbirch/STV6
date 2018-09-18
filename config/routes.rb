@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   
   resources :broadcast_services, :path => '/broadcast-services'
   resources :broadcast_service_regions, :path => '/broadcast-services-by-region', only: [:index, :show]
+  resources :broadcast_service_region_and_providers, :path => '/broadcast-services-by-region-and-provider', only: [:index, :show]
   
   resources :users
     

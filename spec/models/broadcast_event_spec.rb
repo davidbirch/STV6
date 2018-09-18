@@ -8,6 +8,8 @@
 #  broadcast_event_hash       :text(65535)
 #  epoch_scheduled_date       :integer
 #  formatted_local_start_date :string(255)
+#  formatted_scheduled_date   :datetime
+#  formatted_end_date         :datetime
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #
