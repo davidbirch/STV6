@@ -11,6 +11,15 @@
           <li><%= link_to "Privacy", privacy_path %></li>
         </ul>
 
+        <ul class="list-inline small">
+          <% if @region %>
+            <% Sport.whitelisted.each do |sport| %>
+            <li><%= link_to sport.name, ("/"+@region.friendly_id+"/"+sport.friendly_id) %></li>
+            <li><span class="glyphicon glyphicon-star" aria-hidden="true"></span></li>
+            <% end %>
+          <% end %>
+        </ul>
+
       </div> 
     </div>    
   </div>
