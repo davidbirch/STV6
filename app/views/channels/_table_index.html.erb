@@ -16,6 +16,7 @@
         <th>Region Count</th>
         <th>Broadcast Service Count</th>
         <th>Broadcast Event Count</th>
+        <th>Created Date</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
@@ -45,6 +46,7 @@
           <td class="vert-align"><%= channel.regions.count %></td>
           <td class="vert-align"><%= channel.broadcast_services.count %></td>
           <td class="vert-align"><%= channel.broadcast_events.count %></td>
+          <td class="vert-align"><%= channel.created_at.strftime("%F") %></td>
           <td class="vert-align"><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_channel_path(channel)} %></td>
           <td class="vert-align"><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: channel} %></td>    
         </tr>
