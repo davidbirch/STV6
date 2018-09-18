@@ -15,7 +15,7 @@
 class Keyword < ActiveRecord::Base
   
   belongs_to :sport
-  has_many :programs
+  has_many :programs, dependent: :destroy
   has_many :broadcast_events, through: :programs
   
   extend FriendlyId

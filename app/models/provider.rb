@@ -16,7 +16,7 @@ class Provider < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url_friendly_name
   
-  has_many :channels
+  has_many :channels, dependent: :destroy
   has_many :broadcast_services, through: :channels
     
   validates_presence_of :name

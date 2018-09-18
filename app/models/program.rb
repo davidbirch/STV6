@@ -15,7 +15,7 @@
 class Program < ActiveRecord::Base
   
   belongs_to :keyword
-  has_many :broadcast_events
+  has_many :broadcast_events, dependent: :destroy
     
   validates_presence_of :title
   validates_presence_of :keyword_id

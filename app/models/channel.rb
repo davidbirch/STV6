@@ -22,7 +22,7 @@ class Channel < ActiveRecord::Base
   friendly_id :url_friendly_name
   
   belongs_to :provider
-  has_many :broadcast_services
+  has_many :broadcast_services, dependent: :destroy
   has_many :regions, through: :broadcast_services
   has_many :broadcast_events, through: :broadcast_services
   

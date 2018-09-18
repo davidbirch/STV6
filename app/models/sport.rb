@@ -16,7 +16,7 @@ class Sport < ActiveRecord::Base
   extend FriendlyId
   friendly_id :url_friendly_name
   
-  has_many :keywords
+  has_many :keywords, dependent: :destroy
   has_many :programs, through: :keywords
   has_many :broadcast_events, through: :programs
   
