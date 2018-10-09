@@ -2,7 +2,7 @@
 #
 # Table name: jobs
 #
-#  id           :integer          not null, primary key
+#  id           :bigint(8)        not null, primary key
 #  log          :text(65535)
 #  status       :string(255)
 #  requested_by :string(255)
@@ -15,11 +15,11 @@
 #  updated_at   :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :job do
-    requested_by "Some User"
-    detail_id 1
-    detail_type "Scraper"
+    requested_by { "Some User" }
+    association :detail, factory: :scraper
+    detail_type { "Scraper" }
   end
 
 end

@@ -2,7 +2,7 @@
 #
 # Table name: migrators
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint(8)        not null, primary key
 #  target_region_list :text(65535)
 #  requested_by       :string(255)
 #  job_id             :integer

@@ -2,7 +2,7 @@
 #
 # Table name: regions
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  name              :string(255)
 #  time_zone_name    :string(255)
 #  url_friendly_name :string(255)
@@ -12,40 +12,40 @@
 #  updated_at        :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :region do 
-    name "Melbourne"
-    time_zone_name "Australia/Melbourne"
-    region_lookup 12345
+    name { "Melbourne" }
+    time_zone_name { "Australia/Melbourne" }
+    region_lookup { 12345 }
   end
   
   factory :invalid_region, parent: :region do |f|
-    f.name ""
+    f.name { "" }
   end
   
   factory :region_brisbane, parent: :region do |f|
-    f.name "Brisbane"
-    f.time_zone_name "Australia/Brisbane"
+    f.name { "Brisbane" }
+    f.time_zone_name { "Australia/Brisbane" }
   end
  
   factory :region_melbourne, parent: :region do |f|
-    f.name "Melbourne"
-    f.time_zone_name "Australia/Melbourne"
+    f.name { "Melbourne" }
+    f.time_zone_name { "Australia/Melbourne" }
   end
 
   factory :region_hobart, parent: :region do |f|
-    f.name "Hobart"
-    f.time_zone_name "Australia/Hobart"
+    f.name { "Hobart" }
+    f.time_zone_name { "Australia/Hobart" }
   end
   
   factory :region_adelaide, parent: :region do |f|
-    f.name "Adelaide"
-    f.time_zone_name "Australia/Adelaide"
+    f.name { "Adelaide" }
+    f.time_zone_name { "Australia/Adelaide" }
   end
   
   factory :region_with_black_flag, parent: :region do |f|
-    f.name "Ballarat"
-    f.black_flag true
+    f.name { "Ballarat" }
+    f.black_flag { true }
   end 
 
 end

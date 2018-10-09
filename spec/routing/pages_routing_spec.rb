@@ -16,7 +16,7 @@ RSpec.describe PagesController, type: :routing do
     end
     
     it "routes to #home" do
-      expect(:get => "/").to route_to("pages#home")
+      expect(:get => "/").to route_to("guides#index")
     end
      
   end

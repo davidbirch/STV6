@@ -2,7 +2,7 @@
 #
 # Table name: keywords
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint(8)        not null, primary key
 #  value              :string(255)
 #  url_friendly_value :string(255)
 #  sport_id           :integer

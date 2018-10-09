@@ -19,13 +19,13 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
   before(:each) do
-    @admin_user = FactoryGirl.create(:valid_admin_user)
+    @admin_user = FactoryBot.create(:valid_admin_user)
     session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       get :index
     end
       
@@ -44,7 +44,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       get :show, params: {id: @user}
     end
         
@@ -75,18 +75,18 @@ RSpec.describe UsersController, type: :controller do
     context "with valid params" do
       it "creates a new User" do
         expect {
-          post :create, params: {user: FactoryGirl.attributes_for(:valid_user)}
+          post :create, params: {user: FactoryBot.attributes_for(:valid_user)}
         }.to change(User, :count).by(1)
       end
 
       it "assigns a newly created region as user" do
-        post :create, params: {user: FactoryGirl.attributes_for(:valid_user)}
+        post :create, params: {user: FactoryBot.attributes_for(:valid_user)}
         expect(assigns(:user)).to be_a(User)
         expect(assigns(:user)).to be_persisted
       end
 
       it "redirects to the created user" do
-        post :create, params: {user: FactoryGirl.attributes_for(:valid_user)}
+        post :create, params: {user: FactoryBot.attributes_for(:valid_user)}
         expect(response).to redirect_to(User.last)
       end
     end

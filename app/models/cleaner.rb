@@ -2,7 +2,7 @@
 #
 # Table name: cleaners
 #
-#  id                              :integer          not null, primary key
+#  id                              :bigint(8)        not null, primary key
 #  requested_by                    :string(255)
 #  clean_raw_programs              :boolean
 #  clean_raw_channels              :boolean

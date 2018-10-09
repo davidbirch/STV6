@@ -2,7 +2,7 @@
 #
 # Table name: broadcast_services
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  region_id  :integer
 #  channel_id :integer
 #  created_at :datetime         not null

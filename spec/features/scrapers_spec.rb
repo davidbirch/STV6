@@ -33,7 +33,7 @@ describe "scrapers: " do
       expect(page.status_code).to be(200)
     end
     
-    it "should create, edit, and display a new category" do
+    it "should create, edit, and display a new scraper" do
       within('ul#nav-importer') {click_link('Scrapers')}
       click_link('New')
       fill_in('scraper[days_to_gather]', :with => '1')
@@ -47,7 +47,7 @@ describe "scrapers: " do
       expect(page.status_code).to be(200)
     end
     
-    it "should create, delete, and display the Categories page" do
+    it "should create, delete, and display the Scrapers page" do
       within('ul#nav-importer') {click_link('Scrapers')}
       click_link('New')
       fill_in('scraper[days_to_gather]', :with => '1')

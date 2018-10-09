@@ -32,7 +32,7 @@ describe "migrators: " do
       expect(page.status_code).to be(200)
     end
     
-    it "should create, edit, and display a new category" do
+    it "should create, edit, and display a new migrator" do
       within('ul#nav-importer') {click_link('Migrators')}
       click_link('New')
       fill_in('migrator[target_region_list]', :with => '["Adelaide"]') 
@@ -45,7 +45,7 @@ describe "migrators: " do
       expect(page.status_code).to be(200)
     end
     
-    it "should create, delete, and display the Categories page" do
+    it "should create, delete, and display the Migrators page" do
       within('ul#nav-importer') {click_link('Migrators')}
       click_link('New')
       fill_in('migrator[target_region_list]', :with => '["Adelaide"]') 

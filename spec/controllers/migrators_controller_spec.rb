@@ -19,13 +19,13 @@ require 'rails_helper'
 RSpec.describe MigratorsController, type: :controller do
 
   before(:each) do
-    @admin_user = FactoryGirl.create(:valid_admin_user)
+    @admin_user = FactoryBot.create(:valid_admin_user)
     session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
     before :each do
-      @migrator = FactoryGirl.create(:migrator)
+      @migrator = FactoryBot.create(:migrator)
       get :index
     end
       
@@ -45,7 +45,7 @@ RSpec.describe MigratorsController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @migrator = FactoryGirl.create(:migrator)
+      @migrator = FactoryBot.create(:migrator)
       get :show, params:{id: @migrator}
     end
         
@@ -76,30 +76,30 @@ RSpec.describe MigratorsController, type: :controller do
     context "with valid params" do
       it "creates a new Migrator" do
         expect {
-          post :create, params:{migrator: FactoryGirl.attributes_for(:migrator)}
+          post :create, params:{migrator: FactoryBot.attributes_for(:migrator)}
         }.to change(Migrator, :count).by(1)
       end
 
       it "assigns a newly created migrator as @migrator" do
-        post :create, params:{migrator: FactoryGirl.attributes_for(:migrator)}
+        post :create, params:{migrator: FactoryBot.attributes_for(:migrator)}
         expect(assigns(:migrator)).to be_a(Migrator)
         expect(assigns(:migrator)).to be_persisted
       end
 
       it "redirects to the created migrator" do
-        post :create, params:{migrator: FactoryGirl.attributes_for(:migrator)}
+        post :create, params:{migrator: FactoryBot.attributes_for(:migrator)}
         expect(response).to redirect_to(Migrator.last)
       end
     end
 
   #  context "with invalid params" do
   #    it "assigns a newly created but unsaved migrator as @migrator" do
-  #      post :create, migrator: FactoryGirl.attributes_for(:invalid_migrator)
+  #      post :create, migrator: FactoryBot.attributes_for(:invalid_migrator)
   #      expect(assigns(:migrator)).to be_a_new(Migrator)
   #    end
   #
   #    it "re-renders the 'new' template" do
-  #      post :create, migrator: FactoryGirl.attributes_for(:invalid_migrator)
+  #      post :create, migrator: FactoryBot.attributes_for(:invalid_migrator)
   #      expect(response).to render_template("new")
   #    end
   #  end
@@ -110,14 +110,14 @@ RSpec.describe MigratorsController, type: :controller do
     context "with valid params" do
 
       it "assigns the requested migrator as @migrator" do
-        migrator = FactoryGirl.create(:migrator)
-        put :update, params:{:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:empty_region_migrator)}
+        migrator = FactoryBot.create(:migrator)
+        put :update, params:{:id => migrator.to_param, :migrator => FactoryBot.attributes_for(:empty_region_migrator)}
         expect(assigns(:migrator)).to eq(migrator)
       end
 
       it "redirects to the migrator" do
-        migrator = FactoryGirl.create(:migrator)
-        put :update, params:{:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:empty_region_migrator)}
+        migrator = FactoryBot.create(:migrator)
+        put :update, params:{:id => migrator.to_param, :migrator => FactoryBot.attributes_for(:empty_region_migrator)}
         migrator.reload
         expect(response).to redirect_to(migrator)
       end
@@ -125,14 +125,14 @@ RSpec.describe MigratorsController, type: :controller do
 
   #  context "with invalid params" do
   #    it "assigns the raw_program as @raw_program" do
-  #      migrator = FactoryGirl.create(:migrator)
-  #      put :update, {:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:invalid_migrator)}
+  #      migrator = FactoryBot.create(:migrator)
+  #      put :update, {:id => migrator.to_param, :migrator => FactoryBot.attributes_for(:invalid_migrator)}
   #      expect(assigns(:migrator)).to eq(migrator)
   #    end
   #
   #    it "re-renders the 'edit' template" do
-  #      migrator = FactoryGirl.create(:migrator)
-  #      put :update, {:id => migrator.to_param, :migrator => FactoryGirl.attributes_for(:invalid_migrator)}
+  #      migrator = FactoryBot.create(:migrator)
+  #      put :update, {:id => migrator.to_param, :migrator => FactoryBot.attributes_for(:invalid_migrator)}
   #      expect(response).to render_template("edit")
   #    end
   #  end
@@ -141,14 +141,14 @@ RSpec.describe MigratorsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested migrator" do
-      migrator = FactoryGirl.create(:migrator)
+      migrator = FactoryBot.create(:migrator)
       expect {
         delete :destroy, params:{:id => migrator.to_param}
       }.to change(Migrator, :count).by(-1)
     end
 
     it "redirects to the migrators list" do
-      migrator = FactoryGirl.create(:migrator)
+      migrator = FactoryBot.create(:migrator)
       delete :destroy, params:{:id => migrator.to_param}
       expect(response).to redirect_to(migrators_url)
     end

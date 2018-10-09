@@ -2,7 +2,7 @@
 #
 # Table name: sports
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  name              :string(255)
 #  url_friendly_name :string(255)
 #  black_flag        :boolean

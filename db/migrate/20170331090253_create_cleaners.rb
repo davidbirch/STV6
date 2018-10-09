@@ -1,4 +1,4 @@
-class CreateCleaners < ActiveRecord::Migration[5.0]
+class CreateCleaners < ActiveRecord::Migration[5.2]
   def change
     create_table :cleaners do |t|
       t.string :requested_by

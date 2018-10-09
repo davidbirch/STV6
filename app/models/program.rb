@@ -2,7 +2,7 @@
 #
 # Table name: programs
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  title         :string(255)
 #  episode_title :string(255)
 #  keyword_id    :integer

@@ -1,9 +1,10 @@
 # == Schema Information
 #
-# Table name: raw_programs
+# Table name: raw_channels
 #
 #  id            :integer          not null, primary key
-#  program_hash  :text(65535)
+#  channel_hash  :text(65535)
+#  channel_name  :string(255)
 #  channel_tag   :string(255)
 #  region_lookup :string(255)
 #  region_name   :string(255)

@@ -8,7 +8,7 @@ module OmniauthMacros
       'info' => {
         'name' => 'mockuser',
         'nickname' => 'mockuser',
-        'image' => 'mock_user_thumbnail_url'
+        'image' => 'http://www.example.com/mock_user_thumbnail_url.png'
       },
       'credentials' => {
         'token' => 'mock_token',

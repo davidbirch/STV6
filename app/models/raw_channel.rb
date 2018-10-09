@@ -2,7 +2,7 @@
 #
 # Table name: raw_channels
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  channel_hash  :text(65535)
 #  channel_name  :string(255)
 #  channel_tag   :string(255)

@@ -2,13 +2,17 @@
 #
 # Table name: raw_programs
 #
-#  id            :integer          not null, primary key
-#  program_hash  :text(65535)
-#  channel_tag   :string(255)
-#  region_lookup :string(255)
-#  region_name   :string(255)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                    :integer          not null, primary key
+#  summary_program_hash  :text(65535)
+#  detailed_program_hash :text(65535)
+#  channel_tag           :string(255)
+#  region_lookup         :string(255)
+#  region_name           :string(255)
+#  placeholder           :boolean
+#  title                 :string(255)
+#  event_lookup          :string(255)
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #
 
 require "rails_helper"

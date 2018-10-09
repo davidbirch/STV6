@@ -2,7 +2,7 @@
 #
 # Table name: scrapers
 #
-#  id                 :integer          not null, primary key
+#  id                 :bigint(8)        not null, primary key
 #  target_region_list :text(65535)
 #  days_to_gather     :float(24)
 #  requested_by       :string(255)

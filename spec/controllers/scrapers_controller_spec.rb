@@ -20,13 +20,13 @@ require 'rails_helper'
 RSpec.describe ScrapersController, type: :controller do
   
   before(:each) do
-    @admin_user = FactoryGirl.create(:valid_admin_user)
+    @admin_user = FactoryBot.create(:valid_admin_user)
     session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
     before :each do
-      @scraper = FactoryGirl.create(:scraper)
+      @scraper = FactoryBot.create(:scraper)
       get :index
     end
       
@@ -46,7 +46,7 @@ RSpec.describe ScrapersController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @scraper = FactoryGirl.create(:scraper)
+      @scraper = FactoryBot.create(:scraper)
       get :show, params:{id: @scraper}
     end
         
@@ -77,30 +77,30 @@ RSpec.describe ScrapersController, type: :controller do
     context "with valid params" do
       it "creates a new scraper" do
         expect {
-          post :create, params:{scraper: FactoryGirl.attributes_for(:scraper)}
+          post :create, params:{scraper: FactoryBot.attributes_for(:scraper)}
         }.to change(Scraper, :count).by(1)
       end
 
       it "assigns a newly created scraper as @scraper" do
-        post :create, params:{scraper: FactoryGirl.attributes_for(:scraper)}
+        post :create, params:{scraper: FactoryBot.attributes_for(:scraper)}
         expect(assigns(:scraper)).to be_a(Scraper)
         expect(assigns(:scraper)).to be_persisted
       end
 
       it "redirects to the created scraper" do
-        post :create, params:{scraper: FactoryGirl.attributes_for(:scraper)}
+        post :create, params:{scraper: FactoryBot.attributes_for(:scraper)}
         expect(response).to redirect_to(Scraper.last)
       end
     end
 
    # context "with invalid params" do
    #   it "assigns a newly created but unsaved scraper as @scraper" do
-   #     post :create, scraper: FactoryGirl.attributes_for(:invalid_scraper)
+   #     post :create, scraper: FactoryBot.attributes_for(:invalid_scraper)
    #     expect(assigns(:scraper)).to be_a_new(Scraper)
    #   end
    #
    #   it "re-renders the 'new' template" do
-   #     post :create, scraper: FactoryGirl.attributes_for(:invalid_scraper)
+   #     post :create, scraper: FactoryBot.attributes_for(:invalid_scraper)
    #     expect(response).to render_template("new")
    #   end
    # end
@@ -111,14 +111,14 @@ RSpec.describe ScrapersController, type: :controller do
     context "with valid params" do
 
       it "assigns the requested scraper as @scraper" do
-        scraper = FactoryGirl.create(:scraper)
-        put :update, params: {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:empty_region_scraper)}
+        scraper = FactoryBot.create(:scraper)
+        put :update, params: {:id => scraper.to_param, :scraper => FactoryBot.attributes_for(:empty_region_scraper)}
         expect(assigns(:scraper)).to eq(scraper)
       end
 
       it "redirects to the scraper" do
-        scraper = FactoryGirl.create(:scraper)
-        put :update, params: {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:empty_region_scraper)}
+        scraper = FactoryBot.create(:scraper)
+        put :update, params: {:id => scraper.to_param, :scraper => FactoryBot.attributes_for(:empty_region_scraper)}
         scraper.reload
         expect(response).to redirect_to(scraper)
       end
@@ -126,14 +126,14 @@ RSpec.describe ScrapersController, type: :controller do
 
   #  context "with invalid params" do
   #    it "assigns the raw_program as @raw_program" do
-  #      scraper = FactoryGirl.create(:scraper)
-  #      put :update, {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:invalid_scraper)}
+  #      scraper = FactoryBot.create(:scraper)
+  #      put :update, {:id => scraper.to_param, :scraper => FactoryBot.attributes_for(:invalid_scraper)}
   #      expect(assigns(:scraper)).to eq(scraper)
   #    end
   #
   #    it "re-renders the 'edit' template" do
-  #      scraper = FactoryGirl.create(:scraper)
-  #      put :update, {:id => scraper.to_param, :scraper => FactoryGirl.attributes_for(:invalid_scraper)}
+  #      scraper = FactoryBot.create(:scraper)
+  #      put :update, {:id => scraper.to_param, :scraper => FactoryBot.attributes_for(:invalid_scraper)}
   #      expect(response).to render_template("edit")
   #    end
   #  end
@@ -142,14 +142,14 @@ RSpec.describe ScrapersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested scraper" do
-      scraper = FactoryGirl.create(:scraper)
+      scraper = FactoryBot.create(:scraper)
       expect {
         delete :destroy, params: {:id => scraper.to_param}
       }.to change(Scraper, :count).by(-1)
     end
 
     it "redirects to the scrapers list" do
-      scraper = FactoryGirl.create(:scraper)
+      scraper = FactoryBot.create(:scraper)
       delete :destroy, params: {:id => scraper.to_param}
       expect(response).to redirect_to(scrapers_url)
     end

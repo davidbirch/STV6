@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  provider   :string(255)
 #  uid        :string(255)
 #  name       :string(255)

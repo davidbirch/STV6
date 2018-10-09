@@ -1,4 +1,4 @@
-class CreateRawChannels < ActiveRecord::Migration[5.0]
+class CreateRawChannels < ActiveRecord::Migration[5.2]
   def change
     create_table :raw_channels do |t|
       t.text :channel_hash

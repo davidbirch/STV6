@@ -5,9 +5,12 @@
 #  id                :integer          not null, primary key
 #  name              :string(255)
 #  url_friendly_name :string(255)
+#  region_lookup     :string(255)
+#  black_flag        :boolean
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
+
 
 class RegionsController < ApplicationController
   before_action :authenticate_user!

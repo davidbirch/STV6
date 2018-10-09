@@ -2,7 +2,7 @@
 #
 # Table name: channels
 #
-#  id                      :integer          not null, primary key
+#  id                      :bigint(8)        not null, primary key
 #  channel_hash            :text(65535)
 #  name                    :string(255)
 #  url_friendly_name       :string(255)

@@ -44,16 +44,11 @@ Rails.application.routes.draw do
   end
   
   resources :broadcast_events, :path => '/broadcast-events'
-  
   resources :broadcast_services, :path => '/broadcast-services'
-  resources :broadcast_service_regions, :path => '/broadcast-services-by-region', only: [:index, :show]
   
   resources :users
 
-  # special routes for broadcast_service_provider_regions
-  get 'broadcast-services-by-provider-and-region',                             to: 'broadcast_service_provider_regions#index'
-  get 'broadcast-services-by-provider-and-region/:provider_id/:region_id',     to: 'broadcast_service_provider_regions#show'  
-
+  
   # special routes for sessions 
   get 'auth/:provider/callback',      to: 'sessions#create'
   get 'auth/failure',                 to: 'sessions#failure'

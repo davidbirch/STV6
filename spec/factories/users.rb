@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
+#  id         :bigint(8)        not null, primary key
 #  provider   :string(255)
 #  uid        :string(255)
 #  name       :string(255)
@@ -15,27 +15,27 @@
 #  updated_at :datetime         not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
-    provider "MyString"
-    uid "MyString"
-    name "MyString"
-    email "MyString"
-    admin false
+    provider { "MyString" }
+    uid { "MyString" }
+    name { "MyString" }
+    email { "MyString" }
+    admin { false }
   end
   
   factory :valid_user, parent: :user do |f|
-    f.provider "twitter"
-    f.uid "123545"
-    f.name "mockuser"
-    f.admin false
+    f.provider { "twitter" }
+    f.uid { "123545" }
+    f.name { "mockuser" }
+    f.admin { false }
   end
   
   factory :valid_admin_user, parent: :user do |f|
-    f.provider "twitter"
-    f.uid "123545"
-    f.name "mockuser"
-    f.admin true
+    f.provider { "twitter" }
+    f.uid { "123545" }
+    f.name { "mockuser" }
+    f.admin { true }
   end
 
 end

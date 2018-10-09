@@ -19,13 +19,13 @@ require 'rails_helper'
 RSpec.describe CleanersController, type: :controller do
 
   before(:each) do
-    @admin_user = FactoryGirl.create(:valid_admin_user)
+    @admin_user = FactoryBot.create(:valid_admin_user)
     session[:user_id] = @admin_user.id
   end
 
   describe "GET #index" do
     before :each do
-      @cleaner = FactoryGirl.create(:cleaner)
+      @cleaner = FactoryBot.create(:cleaner)
       get :index
     end
       
@@ -45,7 +45,7 @@ RSpec.describe CleanersController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @cleaner = FactoryGirl.create(:cleaner)
+      @cleaner = FactoryBot.create(:cleaner)
       get :show, params: {id: @cleaner}
     end
         
@@ -76,30 +76,30 @@ RSpec.describe CleanersController, type: :controller do
     context "with valid params" do
       it "creates a new Cleaner" do
         expect {
-          post :create, params: {cleaner: FactoryGirl.attributes_for(:cleaner)}
+          post :create, params: {cleaner: FactoryBot.attributes_for(:cleaner)}
         }.to change(Cleaner, :count).by(1)
       end
 
       it "assigns a newly created cleaner as @cleaner" do
-        post :create, params: {cleaner: FactoryGirl.attributes_for(:cleaner)}
+        post :create, params: {cleaner: FactoryBot.attributes_for(:cleaner)}
         expect(assigns(:cleaner)).to be_a(Cleaner)
         expect(assigns(:cleaner)).to be_persisted
       end
 
       it "redirects to the created cleaner" do
-        post :create, params: {cleaner: FactoryGirl.attributes_for(:cleaner)}
+        post :create, params: {cleaner: FactoryBot.attributes_for(:cleaner)}
         expect(response).to redirect_to(Cleaner.last)
       end
     end
 
   #  context "with invalid params" do
   #    it "assigns a newly created but unsaved cleaner as @cleaner" do
-  #      post :create, cleaner: FactoryGirl.attributes_for(:invalid_cleaner)
+  #      post :create, cleaner: FactoryBot.attributes_for(:invalid_cleaner)
   #      expect(assigns(:cleaner)).to be_a_new(Cleaner)
   #    end
   #
   #    it "re-renders the 'new' template" do
-  #      post :create, cleaner: FactoryGirl.attributes_for(:invalid_cleaner)
+  #      post :create, cleaner: FactoryBot.attributes_for(:invalid_cleaner)
   #      expect(response).to render_template("new")
   #    end
   #  end
@@ -110,14 +110,14 @@ RSpec.describe CleanersController, type: :controller do
     context "with valid params" do
 
       it "assigns the requested cleaner as @cleaner" do
-        cleaner = FactoryGirl.create(:cleaner)
-        put :update, params: {:id => cleaner.to_param, :cleaner => FactoryGirl.attributes_for(:cleaner)}
+        cleaner = FactoryBot.create(:cleaner)
+        put :update, params: {:id => cleaner.to_param, :cleaner => FactoryBot.attributes_for(:cleaner)}
         expect(assigns(:cleaner)).to eq(cleaner)
       end
 
       it "redirects to the cleaner" do
-        cleaner = FactoryGirl.create(:cleaner)
-        put :update, params: {:id => cleaner.to_param, :cleaner => FactoryGirl.attributes_for(:cleaner)}
+        cleaner = FactoryBot.create(:cleaner)
+        put :update, params: {:id => cleaner.to_param, :cleaner => FactoryBot.attributes_for(:cleaner)}
         cleaner.reload
         expect(response).to redirect_to(cleaner)
       end
@@ -125,14 +125,14 @@ RSpec.describe CleanersController, type: :controller do
 
   #  context "with invalid params" do
   #    it "assigns the raw_program as @raw_program" do
-  #      cleaner = FactoryGirl.create(:cleaner)
-  #      put :update, {:id => cleaner.to_param, :cleaner => FactoryGirl.attributes_for(:invalid_cleaner)}
+  #      cleaner = FactoryBot.create(:cleaner)
+  #      put :update, {:id => cleaner.to_param, :cleaner => FactoryBot.attributes_for(:invalid_cleaner)}
   #      expect(assigns(:cleaner)).to eq(cleaner)
   #    end
   #
   #    it "re-renders the 'edit' template" do
-  #      cleaner = FactoryGirl.create(:cleaner)
-  #      put :update, {:id => cleaner.to_param, :cleaner => FactoryGirl.attributes_for(:invalid_cleaner)}
+  #      cleaner = FactoryBot.create(:cleaner)
+  #      put :update, {:id => cleaner.to_param, :cleaner => FactoryBot.attributes_for(:invalid_cleaner)}
   #      expect(response).to render_template("edit")
   #    end
   #  end
@@ -141,14 +141,14 @@ RSpec.describe CleanersController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested cleaner" do
-      cleaner = FactoryGirl.create(:cleaner)
+      cleaner = FactoryBot.create(:cleaner)
       expect {
         delete :destroy, params: {:id => cleaner.to_param}
       }.to change(Cleaner, :count).by(-1)
     end
 
     it "redirects to the cleaners list" do
-      cleaner = FactoryGirl.create(:cleaner)
+      cleaner = FactoryBot.create(:cleaner)
       delete :destroy, params: {:id => cleaner.to_param}
       expect(response).to redirect_to(cleaners_url)
     end

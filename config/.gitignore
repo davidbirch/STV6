@@ -1,4 +1,5 @@
 *.yml
+*.enc
 schedule.rb
 /initializers/omniauth.rb
 /initializers/rollbar.rb

@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe JobsController, type: :controller do
   before(:each) do
-    @admin_user = FactoryGirl.create(:valid_admin_user)
+    @admin_user = FactoryBot.create(:valid_admin_user)
     session[:user_id] = @admin_user.id
   end
  
   describe "GET #index" do
     before :each do
-      @job = FactoryGirl.create(:job)
+      @scraper = FactoryBot.create(:scraper)
+      @job = Job.find(@scraper.job_id)
       get :index
     end
       
@@ -27,7 +28,8 @@ RSpec.describe JobsController, type: :controller do
 
   describe "GET #show" do
     before :each do
-      @job = FactoryGirl.create(:job)
+      @scraper = FactoryBot.create(:scraper)
+      @job = Job.find(@scraper.job_id)
       get :show, params:{id: @job}
     end
         

@@ -1,4 +1,4 @@
-class CreateBroadcastEvents < ActiveRecord::Migration[5.0]
+class CreateBroadcastEvents < ActiveRecord::Migration[5.2]
   def change
     create_table :broadcast_events do |t|
       t.integer :program_id

@@ -2,7 +2,7 @@
 #
 # Table name: regions
 #
-#  id                :integer          not null, primary key
+#  id                :bigint(8)        not null, primary key
 #  name              :string(255)
 #  time_zone_name    :string(255)
 #  url_friendly_name :string(255)
@@ -34,11 +34,11 @@ class Region < ActiveRecord::Base
   before_save :set_url_friendly_name
   
   def earliest_broadcast_event_date
-    self.broadcast_events.chronological.first.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F")
+    self.broadcast_events.chronological.first.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F") unless self.broadcast_events.chronological.first.nil?
   end
 
   def latest_broadcast_event_date
-    self.broadcast_events.chronological.last.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F")
+    self.broadcast_events.chronological.last.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F") unless self.broadcast_events.chronological.first.nil?
   end
 
   protected

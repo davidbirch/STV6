@@ -1,4 +1,4 @@
-class CreateMigrators < ActiveRecord::Migration[5.0]
+class CreateMigrators < ActiveRecord::Migration[5.2]
   def change
     create_table :migrators do |t|
       t.text :target_region_list

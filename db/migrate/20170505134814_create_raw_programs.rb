@@ -1,4 +1,4 @@
-class CreateRawPrograms < ActiveRecord::Migration[5.0]
+class CreateRawPrograms < ActiveRecord::Migration[5.2]
   def change
     create_table :raw_programs do |t|
       t.text :program_hash

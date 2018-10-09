@@ -1,4 +1,4 @@
-class CreateScrapers < ActiveRecord::Migration[5.0]
+class CreateScrapers < ActiveRecord::Migration[5.2]
   def change
     create_table :scrapers do |t|
       t.text :target_region_list

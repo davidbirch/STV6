@@ -2,7 +2,7 @@
 #
 # Table name: raw_programs
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  program_hash  :text(65535)
 #  channel_tag   :string(255)
 #  region_lookup :string(255)
