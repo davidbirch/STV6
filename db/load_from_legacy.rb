@@ -69,7 +69,7 @@ legacy_keywords.each do |legacy_keyword|
     )
 end
 
-legacy_programs = LegacyProgram.all.limit(10)
+legacy_programs = LegacyProgram.all
 puts "Processing #{legacy_programs.count} programs"
 legacy_programs.each do |legacy_program| 
     #puts "Creating new program for #{legacy_program.title} (#{legacy_program.episode_title})"
@@ -89,7 +89,7 @@ puts "Processing #{legacy_broadcast_services.count} broadcast services"
 legacy_broadcast_services.each do |legacy_broadcast_service| 
     #puts "Creating new program for #{legacy_program.title} (#{legacy_program.episode_title})"
     region = Region.where(name: legacy_broadcast_service.legacy_region.name).first
-    channel = Channel.where(name: legacy_broadcast_service.legacy_channel.name).first
+    channel = Channel.where(tag: legacy_broadcast_service.legacy_channel.tag).first
     BroadcastService.create(
         region_id:      region.id,
         channel_id:     channel.id,
@@ -97,26 +97,30 @@ legacy_broadcast_services.each do |legacy_broadcast_service|
     )
 end
 
-legacy_broadcast_events = LegacyBroadcastEvent.all.limit(500)
+legacy_broadcast_events = LegacyBroadcastEvent.all
 puts "Processing #{legacy_broadcast_events.count} broadcast events"
-legacy_broadcast_events.each do |legacy_broadcast_event| 
-    #puts "Creating new program for #{legacy_program.title} (#{legacy_program.episode_title})"
-    legacy_program = legacy_broadcast_event.legacy_program
-    legacy_broadcast_service = legacy_broadcast_event.legacy_broadcast_service
-    legacy_region = legacy_broadcast_service.legacy_region
-    legacy_channel = legacy_broadcast_service.legacy_channel
-    region = Region.where(name: legacy_region.name).first
-    channel = Channel.where(name: legacy_channel.name).first
+legacy_broadcast_events.find_in_batches do |group|
+    puts "Processing #{group.count} broadcast events starting at #{group.first.id}"
+    group.each do |legacy_broadcast_event| 
+        puts "Creating new broadcast event for #{legacy_broadcast_event.id}"
+        legacy_program = legacy_broadcast_event.legacy_program
+        legacy_broadcast_service = legacy_broadcast_event.legacy_broadcast_service
+        legacy_region = legacy_broadcast_service.legacy_region
+        legacy_channel = legacy_broadcast_service.legacy_channel
+        region = Region.where(name: legacy_region.name).first
+        channel = Channel.where(tag: legacy_channel.tag).first
 
-    program = Program.where(title: legacy_program.title, episode_title: legacy_program.episode_title, duration: legacy_program.duration).first
-    broadcast_service = BroadcastService.where(region_id: region.id, channel_id: channel.id).first
-    BroadcastEvent.create(
-        program_id:                 program.id,
-        broadcast_service_id:       broadcast_service.id,
-        epoch_scheduled_date:       legacy_broadcast_event.epoch_scheduled_date,
-        broadcast_event_hash:       legacy_broadcast_event.broadcast_event_hash,
-        created_at:                 legacy_broadcast_event.created_at,
-    )
+        program = Program.where(title: legacy_program.title, episode_title: legacy_program.episode_title, duration: legacy_program.duration).first
+        broadcast_service = BroadcastService.where(region_id: region.id, channel_id: channel.id).first
+        BroadcastEvent.create(
+            program_id:                 program.id,
+            broadcast_service_id:       broadcast_service.id,
+            epoch_scheduled_date:       legacy_broadcast_event.epoch_scheduled_date,
+            broadcast_event_hash:       legacy_broadcast_event.broadcast_event_hash,
+            created_at:                 legacy_broadcast_event.created_at,
+        )
+    end
 end
+
 
 puts "[---- Completed ----]"

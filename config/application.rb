@@ -17,7 +17,7 @@ module App
     # the framework and any gems in your application.
 
     # Force SSL
-    #config.force_ssl = true
+    config.force_ssl = true
   
     # Use Delayed Job
     config.active_job.queue_adapter = :delayed_job
