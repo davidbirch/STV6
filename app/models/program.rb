@@ -23,7 +23,7 @@ class Program < ActiveRecord::Base
   validates_uniqueness_of :title , :scope => [:episode_title, :duration]
   
   def formatted_full_title
-    if episode_title != ""
+    if episode_title != "" && !(title.include? episode_title)
       title + " (" + episode_title + ")"
     else
       title
