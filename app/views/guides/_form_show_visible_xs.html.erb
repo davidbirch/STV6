@@ -1,6 +1,6 @@
 <% displayed_broadcast_event_count = 0 %>
 <% adsense_count = 1 %>
-<% @start_dates = @broadcast_events.unscoped.distinct.pluck(:formatted_local_start_date).sort%>
+<% @start_dates = BroadcastEvent.current.distinct.pluck(:formatted_local_start_date).sort%>
 <% @start_dates.each do |start_date| %>
   <% displayed_broadcast_event_day_count = 0 %>
   <% close_table = false %>

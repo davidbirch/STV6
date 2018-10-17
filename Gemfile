@@ -104,8 +104,14 @@ gem "binding_of_caller"
 
 # Monitoring
 gem 'newrelic_rpm'
-gem 'rollbar'
+#gem 'rollbar'
 
 # Add Rubocop
 gem "rubocop-rails_config"
 gem 'rubocop-rspec'
+
+# Profiling
+gem 'rack-mini-profiler'
+gem 'memory_profiler'
+gem 'flamegraph'
+gem 'stackprof'
