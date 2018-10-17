@@ -43,7 +43,7 @@
                <td>
                  <%= broadcast_event.channel.name %> (<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %> to <%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %>)    
 
-        <% elsif !(broadcast_event.sport.name == last_broadcast_event.sport.name && broadcast_event.channel.short_name == last_broadcast_event.channel.short_name && broadcast_event.formatted_scheduled_date == last_broadcast_event.formatted_scheduled_date && broadcast_event.formatted_end_date == last_broadcast_event.formatted_end_date) %>
+        <% elsif !(broadcast_event.sport.name == last_broadcast_event.sport.name && broadcast_event.channel.short_name == last_broadcast_event.channel.short_name && broadcast_event.program.formatted_full_title == last_broadcast_event.program.formatted_full_title && broadcast_event.formatted_scheduled_date == last_broadcast_event.formatted_scheduled_date && broadcast_event.formatted_end_date == last_broadcast_event.formatted_end_date) %>
           <%# else if the broadcast event is different from the predecessor then add a new row %>
                </td>
           </tr>

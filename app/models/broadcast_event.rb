@@ -40,7 +40,7 @@ class BroadcastEvent < ActiveRecord::Base
   scope :exclude_black_channels, ->{where("channels.black_flag IS NULL OR channels.black_flag = false" )}
   scope :exclude_black_keywords, ->{where("keywords.black_flag IS NULL OR keywords.black_flag = false" )}
   scope :exclude_black_sports, ->{where("sports.black_flag IS NULL OR sports.black_flag = false" )}
-  scope :ordered_for_tv_guide, ->{current.chronological.by_sport_name.by_channel_short_name.by_title.exclude_black_keywords.exclude_black_channels.exclude_black_sports}  
+  scope :ordered_for_tv_guide, ->{current.chronological.by_sport_name.by_title.by_channel_short_name.exclude_black_keywords.exclude_black_channels.exclude_black_sports}  
    
   def current?
     formatted_end_date >= Time.zone.now
