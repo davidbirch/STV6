@@ -1,0 +1,23 @@
+<table class="table", id="form-show">
+  <tbody>
+    <tr>
+      <td>ID</td>
+      <td><%= @linker.id %></td>
+    </tr>
+    <tr>
+      <td>Requested By</td>
+      <td><%= @linker.requested_by %></td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td><%= @linker.created_at %></td>
+    </tr>
+    <tr>
+      <td>Updated At</td>
+      <td><%= @linker.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+<p id="form-actions">
+  <%= render "shared/form_actions", locals: {actions: ["Edit","Delete"], edit_path: edit_linker_path(@linker), delete_path: @linker} %>  
+</p>

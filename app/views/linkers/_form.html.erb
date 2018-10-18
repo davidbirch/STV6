@@ -1,0 +1,30 @@
+<% if @linker.errors.any? %>
+  <div class="bs-callout bs-callout-danger" id="error_explanation">
+  <h4><%= pluralize(@linker.errors.count, "error") %> prohibited this article from being saved:</h4>
+  <ul>
+    <% @linker.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+</div>
+<% end %>
+<%= form_for @linker do |f| %>
+  <table class="table">
+      <tbody>
+        <tr>
+          <td><%= f.label :id %></td>
+          <td><%= f.text_field :id, :disabled=>true %></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= f.label :requested_by %></td>
+          <td><%= f.text_field :requested_by %></td>
+          <td></td>
+        </tr>
+      </tbody>
+  </table>
+  <p>
+    <%= render "shared/form_actions", locals: {actions: ["Submit","Cancel"], cancel_path: linkers_path} %>
+  </p>
+<% end %>
+ 

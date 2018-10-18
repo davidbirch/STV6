@@ -1,0 +1,31 @@
+<% unless defined?(locals[:header]).nil? %>
+<h4><%= locals[:header] %></h4>
+<% end %>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Requested By</th>
+        <th>Created At</th>
+        <th>Updated At</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+  
+    <tbody>
+      <% @linkers.each do |linker| %>
+        <tr id="linker_<%= linker.id %>">
+          <td><%= link_to linker.id, linker %></td>
+          <td><%= linker.requested_by %></td>
+          <td><%= time_ago_in_words(linker.created_at)+" ago" unless linker.created_at.blank? %></td>   
+          <td><%= time_ago_in_words(linker.updated_at)+" ago" unless linker.updated_at.blank? %></td>   
+          <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_linker_path(linker)} %></td>
+          <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: linker} %></td>    
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= will_paginate @linkers, renderer: BootstrapPagination::Rails %>

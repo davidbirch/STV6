@@ -2,7 +2,8 @@ Rails.application.routes.draw do
  
   # regular resource routes
   resources :jobs, only: [:index, :show]
-  resources :cleaners
+  resources :cleaners 
+  resources :linkers
   resources :migrators
   resources :scrapers
 
