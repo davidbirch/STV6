@@ -31,14 +31,17 @@ class Keyword < ActiveRecord::Base
     
     def find_based_on_title(attr_program_title,attr_episode_title)
       
+      # the non-sport keyword
+      non_sport_keyword = Keyword.find_by_value("Non sport")
+
       # if there is a sport keyword match return the Sport
       sport_keyword = check_sport_keyword_match(attr_program_title,attr_episode_title)
-      return sport_keyword unless sport_keyword.nil?
-      
-      # else check for a generic 'sport' keyword match and return 'Other Sport'
-      sport_keyword = check_generic_sport_match(attr_program_title,attr_episode_title)
-      return sport_keyword unless sport_keyword.nil?
-   
+      if sport_keyword.nil?
+        return non_sport_keyword
+      else
+        return sport_keyword
+      end
+         
     end
         
     def check_sport_keyword_match(attr_program_title,attr_episode_title)
@@ -50,13 +53,6 @@ class Keyword < ActiveRecord::Base
         elsif attr_episode_title.downcase.include? sport_keyword
           return Keyword.find_by_value(sport_keyword)
         end  
-      end
-      return nil
-    end
-     
-    def check_generic_sport_match(attr_program_title,attr_episode_title)
-      if attr_program_title.downcase.include?("sport") || attr_episode_title.downcase.include?("sport")
-        return Keyword.find_by_value("Other Sport")
       end
       return nil
     end
