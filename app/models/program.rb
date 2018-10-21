@@ -29,7 +29,19 @@ class Program < ActiveRecord::Base
       title
     end
   end
-    
+  
+  def sport_flag
+    if keyword.sport.black_flag == true 
+      "Non Sport"
+    else
+      "Sport"
+    end
+  end
+
+  def sport_name
+    keyword.sport.name  
+  end
+
   class << self
     
     def create_from_raw_program(raw_program, broadcast_service)
