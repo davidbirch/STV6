@@ -96,12 +96,16 @@ class Migrator < ActiveRecord::Base
               else
                 programs_created += 1
               end
-
-              broadcast_event = BroadcastEvent.create_from_raw_program(raw_program, broadcast_service)
-              if broadcast_event.new_record?
-                broadcast_events_skipped += 1
+              
+              if program.keyword.sport.black_flag
+                # program has a black flag do dont create the broadcast event
               else
-                broadcast_events_created += 1
+                broadcast_event = BroadcastEvent.create_from_raw_program(raw_program, broadcast_service)
+                if broadcast_event.new_record?
+                  broadcast_events_skipped += 1
+                else
+                  broadcast_events_created += 1
+                end
               end
 
             end
