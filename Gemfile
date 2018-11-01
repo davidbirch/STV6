@@ -115,3 +115,7 @@ gem 'rack-mini-profiler', :require => false
 gem 'memory_profiler'
 gem 'flamegraph'
 gem 'stackprof'
+
+# http
+gem 'http'
+gem 'aws-sdk'
