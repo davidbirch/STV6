@@ -2,11 +2,11 @@
 #
 # Table name: linkers
 #
-#  id                              :bigint(8)        not null, primary key
-#  requested_by                    :string(255)
-#  job_id                          :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
+#  id           :bigint(8)        not null, primary key
+#  requested_by :string(255)
+#  job_id       :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 FactoryBot.define do

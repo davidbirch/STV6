@@ -41,6 +41,11 @@
           <td><%= f.collection_select(:keyword_id, Keyword.all, :id, :value, {include_blank: true}) %></td>
           <td></td>
         </tr>
+        <tr>
+          <td><%= f.label :sport_prediction %></td>
+          <td><%= f.text_field :sport_prediction, :placeholder=>"Sport Prediction ..." %></td>
+          <td></td>
+        </tr>
       </tbody>
   </table>
   <p>

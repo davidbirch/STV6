@@ -1,19 +1,12 @@
 # == Schema Information
 #
-# Table name: cleaners
+# Table name: linkers
 #
-#  id                              :bigint(8)        not null, primary key
-#  requested_by                    :string(255)
-#  clean_raw_programs              :boolean
-#  clean_raw_channels              :boolean
-#  clean_broadcast_events          :boolean
-#  clean_historic_broadcast_events :boolean
-#  clean_programs                  :boolean
-#  clean_broadcast_services        :boolean
-#  clean_channels                  :boolean
-#  job_id                          :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
+#  id           :bigint(8)        not null, primary key
+#  requested_by :string(255)
+#  job_id       :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Linker < ActiveRecord::Base
@@ -31,14 +24,21 @@ class Linker < ActiveRecord::Base
     @log = Logger.new(File.expand_path("#{Rails.root}/log/linker_job.log", __FILE__))
     @log.info("#{self.class} started (id:#{self.id})") 
   
-    # re-link all programs to keywords
-    programs = Program.all
+    # *** to throttle for now
+    #programs = Program.all
+    programs = Program.where(sport_prediction: nil).limit(5000)
+    # ***
+
     job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Relinking #{programs.count} programs to keywords.")
     job.save  
+
+    lambda = Aws::Lambda::Client.new(region: 'ap-southeast-2')
 
     programs_skipped = 0
     programs_modified = 0
     programs.each do |program|
+      
+      # for each program update the keyword
       current_keyword = program.keyword
       new_keyword = Keyword.find_based_on_title(program.title,program.episode_title)
       if new_keyword != current_keyword
@@ -47,6 +47,21 @@ class Linker < ActiveRecord::Base
         programs_modified += 1
       else
         programs_skipped += 1
+      end
+
+      # for each program make a prediction
+      if (program.sport_prediction == nil or program.sport_prediction == "")
+        program.sport_prediction_started_at = Time.now
+        lambda_json_request = "{\"programTitle\": \"#{program.formatted_full_title}}\"}" # => {"programTitle : "[the program.formatted_full_title]"}
+        response = lambda.invoke(function_name: 'mySportClassificationFunction', payload: lambda_json_request)
+        lambda_json_response = JSON.load(response.payload.string) # => {"statusCode"=>200, "body"=>"[the program.formatted_full_title]", "isSport"=>true}
+        program.sport_prediction_completed_at = Time.now
+        if lambda_json_response["isSport"]
+          program.sport_prediction = "Sport"
+        else
+          program.sport_prediction = "Non Sport"
+        end
+        program.save
       end
     end
         

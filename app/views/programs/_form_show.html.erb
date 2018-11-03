@@ -25,6 +25,18 @@
       <td><%= link_to(@program.keyword.value, @program.keyword) unless @program.keyword.nil? %></td>
     </tr>
     <tr>
+      <td>Sport Prediction</td>
+      <td><%= @program.sport_prediction %></td>
+    </tr>
+    <tr>
+      <td>Sport Prediction Started At</td>
+      <td><%= @program.sport_prediction_started_at %></td>
+    </tr>
+    <tr>
+      <td>Sport Prediction Completed At</td>
+      <td><%= @program.sport_prediction_completed_at %></td>
+    </tr>
+    <tr>
       <td>Created At</td>
       <td><%= @program.created_at %></td>
     </tr>

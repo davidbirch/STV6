@@ -2,14 +2,17 @@
 #
 # Table name: programs
 #
-#  id            :bigint(8)        not null, primary key
-#  title         :string(255)
-#  episode_title :string(255)
-#  keyword_id    :integer
-#  duration      :integer
-#  black_flag    :boolean
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                            :bigint(8)        not null, primary key
+#  title                         :string(255)
+#  episode_title                 :string(255)
+#  keyword_id                    :integer
+#  duration                      :integer
+#  black_flag                    :boolean
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  sport_prediction              :string(255)
+#  sport_prediction_started_at   :datetime
+#  sport_prediction_completed_at :datetime
 #
 
 class Program < ActiveRecord::Base

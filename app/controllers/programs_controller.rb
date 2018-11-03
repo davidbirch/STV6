@@ -2,14 +2,18 @@
 #
 # Table name: programs
 #
-#  id            :integer          not null, primary key
-#  title         :string(255)
-#  episode_title :string(255)
-#  program_hash  :text(65535)
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
+#  id                            :bigint(8)        not null, primary key
+#  title                         :string(255)
+#  episode_title                 :string(255)
+#  keyword_id                    :integer
+#  duration                      :integer
+#  black_flag                    :boolean
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  sport_prediction              :string(255)
+#  sport_prediction_started_at   :datetime
+#  sport_prediction_completed_at :datetime
 #
-
 class ProgramsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_program, only: [:show, :edit, :update, :destroy, :set_black_flag_on, :set_black_flag_off]
@@ -81,6 +85,6 @@ class ProgramsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def program_params
-      params.require(:program).permit(:title, :episode_title, :duration, :black_flag, :keyword_id)
+      params.require(:program).permit(:title, :episode_title, :duration, :black_flag, :keyword_id, :sport_prediction, :sport_prediction_completed_at, :sport_prediction_started_at)
     end
 end

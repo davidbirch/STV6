@@ -11,6 +11,10 @@
         <th>Duration</th>
         <th>Black Flag</th>
         <th>Keyword</th>
+        <th>Keyword Sport Flag</th>
+        <th>Sport Prediction</th>
+        <th>Sport Prediction Variance</th>
+        <th>Sport Prediction Duration</th>
         <th>Broadcast Event Count</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -36,6 +40,16 @@
           <% end %>
           </td>
           <td><%= link_to(program.keyword.value, program.keyword) unless program.keyword.nil? %></td>
+          <td><%= program.sport_flag %></td>
+          <td><%= program.sport_prediction %></td>
+          <td>
+          <% if program.sport_flag != program.sport_prediction && program.sport_prediction != nil  %>
+            <i class="glyphicon glyphicon-random text-danger"></i>
+          <% elsif program.sport_prediction != nil %>
+            <i class="glyphicon glyphicon-resize-horizontal text-success"></i>
+          <% end %>
+          </td>   
+          <td><%= (program.sport_prediction_completed_at - program.sport_prediction_started_at) unless (program.sport_prediction_completed_at.blank? or program.sport_prediction_started_at.blank?) %></td>           
           <td><%= program.broadcast_events.count(:all) %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_program_path(program)} %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Delete"], delete_path: program} %></td> 
