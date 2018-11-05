@@ -3,21 +3,22 @@ class PagesController < ApplicationController
   
   # GET /
   def home
-    @title = "SPORT ON TV | Home"    
+    @title = "Sport on TV | Home"    
   end
   
   # GET /dashboard   
   def dashboard
+    @title = "Sport on TV | Dashboard"
   end
 
   # GET /privacy
   def privacy
-    @title = "SPORT ON TV | Privacy Policy"
+    @title = "Sport on TV | Privacy Policy"
   end
 
 # GET /contact
   def contact
-    @title = "SPORT ON TV | Contact Page"
+    @title = "Sport on TV | Contact Page"
   end
 
 # GET /unavailable
