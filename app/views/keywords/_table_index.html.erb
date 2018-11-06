@@ -10,7 +10,10 @@
         <th>Sport</th>
         <th>Priority</th>
         <th>Black Flag</th>
-        <th>Program Count</th>
+        <th>Matched Programs</th>
+        <th>Mismatched Programs</th>
+        <th>Nil Programs</th>
+        <th>Total Programs</th>
         <th>Broadcast Event Count</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -35,6 +38,15 @@
             <% end %>
           <% end %>
           </td>
+          <% if keyword.sport.name == "Non Sport" %>
+            <td><%= keyword.programs.where(sport_prediction: "Non Sport").count %></td>
+            <td><%= keyword.programs.where(sport_prediction: "Sport").count %></td>
+            <td><%= keyword.programs.where(sport_prediction: nil).count %></td>
+          <% else %>
+            <td><%= keyword.programs.where(sport_prediction: "Sport").count %></td>
+            <td><%= keyword.programs.where(sport_prediction: "Non Sport").count %></td>
+            <td><%= keyword.programs.where(sport_prediction: nil).count %></td>
+          <% end %>
           <td><%= keyword.programs.count %></td>
           <td><%= keyword.broadcast_events.count %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_keyword_path(keyword)} %></td>

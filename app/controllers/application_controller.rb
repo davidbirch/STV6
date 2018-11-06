@@ -6,11 +6,11 @@ class ApplicationController < ActionController::Base
     helper_method :user_signed_in?
     helper_method :correct_user?
     
-    #before_action do
-    #  if current_user && admin_user?
-    #    Rack::MiniProfiler.authorize_request
-    #  end
-    #end
+    before_action do
+      if current_user && admin_user?
+        Rack::MiniProfiler.authorize_request
+      end
+    end
 
     private
         
