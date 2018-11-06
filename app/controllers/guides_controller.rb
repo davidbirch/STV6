@@ -11,16 +11,18 @@ class GuidesController < ApplicationController
   # GET /guides/:region_name/:sport_name
   # GET /guides/:region_name/?search=:search
   def show
-    @search_string = params[:search]     
+    @search_string = params[:search]  
+    @start_dates = BroadcastEvent.current.distinct.pluck(:formatted_local_start_date).sort
+
     if @search_string
       # GET /guides/:region_name/?search=:search
-      @broadcast_events = @region.broadcast_events.joins(:program).where("programs.title like ? or programs.episode_title like ?", "%#{@search_string}%", "%#{@search_string}%").includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
+      @broadcast_events = @region.broadcast_events.joins(:program).where(formatted_local_start_date: @start_dates).where("programs.title like ? or programs.episode_title like ?", "%#{@search_string}%", "%#{@search_string}%").includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
     elsif @sport
       # GET /guides/:region_name/:sport_name   
-      @broadcast_events = @region.broadcast_events.where(sports: {id: @sport.id}).includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
+      @broadcast_events = @region.broadcast_events.where(formatted_local_start_date: @start_dates).where(sports: {id: @sport.id}).includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
     else
       # GET /guides/:region_name
-      @broadcast_events = @region.broadcast_events.includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
+      @broadcast_events = @region.broadcast_events.where(formatted_local_start_date: @start_dates).includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
     end   
   end
 

@@ -1,20 +1,43 @@
 <% displayed_broadcast_event_count = 0 %>
+<% displayed_broadcast_event_day_count = 0 %>
+
 <% adsense_count = 1 %>
-<% @start_dates = BroadcastEvent.current.distinct.pluck(:formatted_local_start_date).sort%>
-<% @start_dates.each do |start_date| %>
-  <% displayed_broadcast_event_day_count = 0 %>
-  <% close_table = false %>
-  <% last_broadcast_event = nil %>
-    <% @broadcast_events.where(formatted_local_start_date: start_date).each do |broadcast_event| %>
-      <% if broadcast_event.current? %>
-        <%# if a current broadcast event then create a table entry for the date and increment the counters %>
-        <% displayed_broadcast_event_count += 1 %>
-        <% displayed_broadcast_event_day_count += 1 %>
-        <% if last_broadcast_event.nil? %>
-          <%# create a new table header etc. if the last broadcast event is nil and then flag that the table needs to be closed %>
-          <% close_table = true %>  
+<% close_table = false %>
+<% last_broadcast_event = nil %>
+
+<% @broadcast_events.each do |broadcast_event| %>
+  <% if broadcast_event.current? %>
+    <% if last_broadcast_event.nil? || broadcast_event.formatted_local_start_date != last_broadcast_event.formatted_local_start_date %>
+      <%# if in flight then check to close the table %>
+      <% if close_table %>
+        <%# close the table only if the flag was set indicating that at least one event is listed for the date %>
+              </td>
+             </tr>
+             <% if current_user && admin_user? %>
+             <tr>
+                <td></td>
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td><strong><%= displayed_broadcast_event_day_count %></strong></td>
+             </tr>
+             <% end %>
+         </tbody>
+       </table>
+     </div>
+   </div>
+
+        <% if (adsense_count < 3) && (displayed_broadcast_event_count > adsense_count * 10)  %>
+          <%# after closing the table check to add adsense block, roughly every 10, 20, 30 broadcast events to space out %>
+          <%= render "shared/adsense_responsive_banner_3" %>
+          <% adsense_count += 1 %>
+        <% end %>
+      <% end %>
+
+      <%# create a new table header etc. if the last broadcast event is nil and then flag that the table needs to be closed %>
+      <% displayed_broadcast_event_day_count = 0 %>
+      <% close_table = true %>  
   <div class="panel panel-primary">
-    <div class="panel-heading stv-panel-primary"><strong><%= start_date.to_time.strftime("%A, %e %b %y")%></strong></div>
+    <div class="panel-heading stv-panel-primary"><strong><%= broadcast_event.formatted_local_start_date.to_time.strftime("%A, %e %b %y")%></strong></div>
       <div class="table-responsive">
         <table class="table table-condensed table-hover">
          <colgroup>
@@ -42,9 +65,8 @@
                <td><%= broadcast_event.sport.name %></td>
                <td>
                  <%= broadcast_event.channel.name %> (<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %> to <%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %>)    
-
-        <% elsif !(broadcast_event.sport.name == last_broadcast_event.sport.name && broadcast_event.channel.short_name == last_broadcast_event.channel.short_name && broadcast_event.program.formatted_full_title == last_broadcast_event.program.formatted_full_title && broadcast_event.formatted_scheduled_date == last_broadcast_event.formatted_scheduled_date && broadcast_event.formatted_end_date == last_broadcast_event.formatted_end_date) %>
-          <%# else if the broadcast event is different from the predecessor then add a new row %>
+    <% elsif !(broadcast_event.sport.name == last_broadcast_event.sport.name && broadcast_event.channel.short_name == last_broadcast_event.channel.short_name && broadcast_event.program.formatted_full_title == last_broadcast_event.program.formatted_full_title && broadcast_event.formatted_scheduled_date == last_broadcast_event.formatted_scheduled_date && broadcast_event.formatted_end_date == last_broadcast_event.formatted_end_date) %>
+      <%# else if the broadcast event is different from the predecessor then add a new row %>
                </td>
           </tr>
           <tr id="broadcast-event-hidden-xs-<%= broadcast_event.id %>">
@@ -58,17 +80,22 @@
                <td>
                  <%= broadcast_event.channel.name %> (<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %> to <%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %>)    
 
-        <% else %>
-          <%# else the broadcast event must be the same as the predecessor so just append the current row %>
+    <% else %>
+      <%# else the broadcast event must be the same as the predecessor so just append the current row %>
                  <br><%= broadcast_event.channel.name %> (<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %> to <%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %>) 
       
-        <% end %>
-        <% last_broadcast_event = broadcast_event %>  
-      <% end %>  
     <% end %>
+    <% displayed_broadcast_event_count += 1 %>
+    <% displayed_broadcast_event_day_count += 1 %>
+    <% last_broadcast_event = broadcast_event %>  
+  <%# end of the broadcast_event.current? statement %>
+  <% end %>
 
-  <% if close_table %>
-  <%# close the table only if the flag was set indicating that at least one event is listed for the date%>
+<%# end of the broadcast_events.each loop %>
+<% end %>
+
+<% if close_table %>
+  <%# for the final code execution, close the table only if the flag was set indicating that at least one event is listed for the date %>
               </td>
              </tr>
              <% if current_user && admin_user? %>
@@ -76,24 +103,22 @@
                 <td></td>
                 <td><strong>Total</strong></td>
                 <td></td>
-                <td><strong><%= displayed_broadcast_event_count %></strong></td>
+                <td><strong><%= displayed_broadcast_event_day_count %></strong></td>
              </tr>
              <% end %>
          </tbody>
        </table>
      </div>
    </div>
-  <% end %>
 
-  <% if (adsense_count < 3) && (displayed_broadcast_event_count > adsense_count * 10)  %>
-  <%# after closing the table check to add adsense block, roughly every 10, 20, 30 broadcast events to space out%>
-      <%= render "shared/adsense_responsive_banner_3" %>
-      <% adsense_count += 1 %>
+   <% if (adsense_count < 3) && (displayed_broadcast_event_count > adsense_count * 10)  %>
+  <%# after closing the table check to add adsense block, roughly every 10, 20, 30 broadcast events to space out %>
+  <%= render "shared/adsense_responsive_banner_3" %>
+  <% adsense_count += 1 %>
   <% end %>
-
-<%# end of the start_dates.each loop %>
 <% end %>
 
+<%# where no results  display a simple message %>
 <% if displayed_broadcast_event_count == 0 %>
 <p>There are currently no results.</p>
 <% end %>
