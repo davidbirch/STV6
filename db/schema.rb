@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_03_084032) do
+ActiveRecord::Schema.define(version: 2018_11_19_100416) do
 
   create_table "broadcast_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "program_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_11_03_084032) do
     t.boolean "black_flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "four_k_flag"
   end
 
   create_table "cleaners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

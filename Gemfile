@@ -111,8 +111,8 @@ gem "rubocop-rails_config"
 gem 'rubocop-rspec'
 
 # Profiling
-#gem 'rack-mini-profiler', :require => false
-gem 'rack-mini-profiler'
+gem 'rack-mini-profiler', :require => false
+#gem 'rack-mini-profiler'
 gem 'memory_profiler'
 gem 'flamegraph'
 gem 'stackprof'
