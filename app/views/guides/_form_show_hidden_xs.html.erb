@@ -57,11 +57,16 @@
          <tbody class="small">
           <tr id="broadcast-event-hidden-xs-<%= broadcast_event.id %>">
                <td><%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %></td>
+               <td>
                <% if current_user && admin_user? %>
-               <td><%= link_to broadcast_event.program.formatted_full_title, broadcast_event %></td> 
+                <%= link_to broadcast_event.program.formatted_full_title, broadcast_event %> 
                <% else %>
-               <td><%= broadcast_event.program.formatted_full_title %></td> 
+                <%= broadcast_event.program.formatted_full_title %> 
                <% end %>
+               <% if broadcast_event.on_now? %>
+                <span class="label label-success">On Now</span>
+               <% end %>
+               </td>
                <td><%= broadcast_event.sport.name %></td>
                <td>
                  <%= broadcast_event.channel.name %> (<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %> to <%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %>)    
@@ -71,11 +76,16 @@
           </tr>
           <tr id="broadcast-event-hidden-xs-<%= broadcast_event.id %>">
                <td><%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %></td>
+               <td>
                <% if current_user && admin_user? %>
-               <td><%= link_to broadcast_event.program.formatted_full_title, broadcast_event %></td> 
+                <%= link_to broadcast_event.program.formatted_full_title, broadcast_event %> 
                <% else %>
-               <td><%= broadcast_event.program.formatted_full_title %></td> 
+                <%= broadcast_event.program.formatted_full_title %> 
                <% end %>
+               <% if broadcast_event.on_now? %>
+                <span class="label label-success">On Now</span>
+               <% end %>
+               </td>
                <td><%= broadcast_event.sport.name %></td>
                <td>
                  <%= broadcast_event.channel.name %> (<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %> to <%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%H:%M") %>)    

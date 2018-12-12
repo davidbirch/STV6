@@ -45,6 +45,10 @@ class BroadcastEvent < ActiveRecord::Base
   def current?
     formatted_end_date >= Time.zone.now
   end
+
+  def on_now?
+    formatted_end_date >= Time.zone.now && formatted_scheduled_date <= Time.zone.now
+  end
   
   def historic?
     formatted_end_date < Time.zone.now
