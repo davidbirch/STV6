@@ -52,12 +52,12 @@ class BroadcastEvent < ActiveRecord::Base
 
   class << self
     
-    def create_from_raw_program(raw_program, broadcast_service)
+    def create_from_raw_program(raw_program, broadcast_service, program)
       
       if raw_program.placeholder?
         # do nothing  
       else
-        if broadcast_service
+        if broadcast_service && program
           attr_program_hash = eval(raw_program.program_hash)
           attr_program_title = attr_program_hash["programTitle"]
           attr_episode_title = attr_program_hash["episodeTitle"]                  
@@ -69,7 +69,7 @@ class BroadcastEvent < ActiveRecord::Base
           attr_duration      ||= 0
               
           # program
-          program = Program.find_by(title: attr_program_title, episode_title: attr_episode_title, duration: attr_duration)
+          # program = Program.find_by(title: attr_program_title, episode_title: attr_episode_title, duration: attr_duration)
               
           attr_epoch_scheduled_date = attr_program_hash["scheduledDate"] / 1000
           # if nil then default to an empty string

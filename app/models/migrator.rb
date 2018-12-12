@@ -61,46 +61,67 @@ class Migrator < ActiveRecord::Base
           else
             broadcast_services_created += 1
           end
-          if (raw_channel_count % 10000) == 0
-            job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Channels Created: #{channels_created}, Skipped: #{channels_skipped}, Total: #{channels_skipped + channels_created}.")
-            job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Broadcast Services Created: #{broadcast_services_created}, Skipped: #{broadcast_services_skipped}, Total: #{broadcast_services_skipped + broadcast_services_created}.")
-            job.save
-          end
         }
         # channel and broadcast service migration completed
-        job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Channels Created: #{channels_created}, Skipped: #{channels_skipped}, Total: #{channels_skipped + channels_created}.")
-        job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Broadcast Services Created: #{broadcast_services_created}, Skipped: #{broadcast_services_skipped}, Total: #{broadcast_services_skipped + broadcast_services_created}.")
-        job.save
-        raw_channels.delete_all
-        
+        if channels_created > 0
+          job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Channels Created: #{channels_created}, Skipped: #{channels_skipped}, Total: #{channels_skipped + channels_created}.")
+          job.save
+        end
+        if broadcast_services_created > 0
+          job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Broadcast Services Created: #{broadcast_services_created}, Skipped: #{broadcast_services_skipped}, Total: #{broadcast_services_skipped + broadcast_services_created}.")
+          job.save
+        end
+        #if raw_channel_count > 0
+          #job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Deleting #{raw_channel_count} raw channels for #{broadcast_service.region.name} / #{broadcast_service.channel.tag}.")
+          #job.save 
+          raw_channels.delete_all  
+        #end  
+                
         # migrate the raw programs and broadcast events
         job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Processing #{RawProgram.where(region_name: region_name).count} raw programs for #{region_name}.")
-        job.save    
-       
-        region.broadcast_services.each do |broadcast_service|
+        job.save 
+        
+        broadcast_services = region.broadcast_services
+        broadcast_services.each do |broadcast_service|
           raw_program_count = 0
           programs_skipped = 0
           programs_created = 0
           program_placeholders = 0
           broadcast_events_skipped = 0
           broadcast_events_created = 0
-  
-          RawProgram.where(region_name: broadcast_service.region.name, channel_tag: broadcast_service.channel.tag).each do |raw_program|
+
+          raw_programs = RawProgram.where(region_name: broadcast_service.region.name, channel_tag: broadcast_service.channel.tag)
+          raw_programs.each do |raw_program|
             raw_program_count += 1
             if raw_program.placeholder?
               program_placeholders += 1
             else
-              program = Program.create_from_raw_program(raw_program, broadcast_service)
-              if program.new_record?
+              attr_program_hash = eval(raw_program.program_hash)
+              attr_program_title = attr_program_hash["programTitle"]
+              attr_episode_title = attr_program_hash["episodeTitle"]                  
+              attr_duration = attr_program_hash["duration"]               
+                  
+              # if nil then default to an empty string
+              attr_program_title ||= ""
+              attr_episode_title ||= ""
+              attr_duration      ||= 0
+
+              program = Program.find_by(title: attr_program_title, episode_title: attr_episode_title, duration: attr_duration)
+              if program
                 programs_skipped += 1
               else
-                programs_created += 1
+                program = Program.create_from_raw_program(raw_program, broadcast_service)
+                if program.new_record?
+                  programs_skipped += 1
+                else
+                  programs_created += 1
+                end
               end
-              
+                                         
               if program.keyword.sport.black_flag
-                # program has a black flag do dont create the broadcast event
+                # program has a black flag so dont create the broadcast event
               else
-                broadcast_event = BroadcastEvent.create_from_raw_program(raw_program, broadcast_service)
+                broadcast_event = BroadcastEvent.create_from_raw_program(raw_program, broadcast_service, program)
                 if broadcast_event.new_record?
                   broadcast_events_skipped += 1
                 else
@@ -123,12 +144,11 @@ class Migrator < ActiveRecord::Base
           #  job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Broadcast Events Created: #{broadcast_events_created}, Skipped: #{broadcast_events_skipped}, Total: #{broadcast_events_created + broadcast_events_skipped}.")
           #  job.save
           #end
-          #if raw_program_count > 0
+          if raw_program_count > 0
           #  job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Deleting #{raw_program_count} raw programs for #{broadcast_service.region.name} / #{broadcast_service.channel.tag}.")
-          #  job.save    
-          #end
-          
-          RawProgram.where(region_name: broadcast_service.region.name, channel_tag: broadcast_service.channel.tag).delete_all
+          #  job.save 
+            raw_programs.delete_all   
+          end  
         end
       else
         # no region
