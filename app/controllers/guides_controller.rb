@@ -17,15 +17,28 @@ class GuidesController < ApplicationController
     @search_string = params[:search]  
     @start_dates = BroadcastEvent.current.distinct.pluck(:formatted_local_start_date).sort
 
-    if @search_string && @search_string != ""
+    if params[:sport_name] && params[:sport_name] != params[:sport_name].downcase
+      # handle  URLs with uppercase sport name
+      new_downcase_path = ("/" + params[:region_name] + "/" + params[:sport_name]).downcase
+      redirect_to new_downcase_path, status: 301
+
+    elsif params[:region_name] && params[:region_name] != params[:region_name].downcase
+      # handle URLs with uppercase region name      
+      new_downcase_path = ("/" + params[:region_name]).downcase
+      redirect_to new_downcase_path, status: 301
+
+    elsif @search_string && @search_string != ""
       # GET /guides/:region_name/?search=:search
       @broadcast_events = @region.broadcast_events.joins(:program).where(formatted_local_start_date: @start_dates).where("programs.title like ? or programs.episode_title like ?", "%#{@search_string}%", "%#{@search_string}%").includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
+    
     elsif @sport
       # GET /guides/:region_name/:sport_name   
       @broadcast_events = @region.broadcast_events.where(formatted_local_start_date: @start_dates).where(sports: {id: @sport.id}).includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
+    
     else
       # GET /guides/:region_name
       @broadcast_events = @region.broadcast_events.where(formatted_local_start_date: @start_dates).includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).ordered_for_tv_guide
+    
     end 
     
     if @free_filter && (@free_filter == "true")
