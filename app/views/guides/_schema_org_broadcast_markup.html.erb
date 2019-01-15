@@ -1,0 +1,125 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@graph":[
+    {
+    "@type" : "WebSite",
+    "name" : "<%= website_plain_english_formatted_name %>",
+    "url" : "<%= root_url %>"
+    },
+    {
+    "@type": "WebPage",
+    "name": "<%= title %>",
+    "description": "<%= meta_description %>",
+     "breadcrumb":{
+        "@type": "BreadcrumbList",
+        "itemListElement":
+        [
+          {
+          "@type": "ListItem",
+          "position": 0,
+          "item":
+            {
+            "@id": "<%= root_url %>",
+            "name": "<%= website_plain_english_formatted_name %>"
+            }
+          }
+    
+    <% if locals[:level_1_name] %>
+          ,
+          {
+          "@type": "ListItem",
+          "position": 1,
+          "item":
+            {
+            "@id": "<%= locals[:level_1_link] %>",
+            "name": "<%= locals[:level_1_name] %>"
+            }
+          }
+    <% end %>
+    <% if locals[:level_2_name] %>
+          ,
+          {
+          "@type": "ListItem",
+          "position": 2,
+          "item":
+            {
+            "@id": "<%= locals[:level_2_link] %>",
+            "name": "<%= locals[:level_2_name] %>"
+            }
+          }
+    <% end %>
+        ]
+      }
+    }
+
+
+<% close_table = false %>
+<% last_broadcast_event = nil %>
+
+<% @broadcast_events.each do |broadcast_event| %>
+  <% if broadcast_event.current? %>
+    <% if last_broadcast_event.nil? || broadcast_event.formatted_local_start_date != last_broadcast_event.formatted_local_start_date %>
+      <%# if in flight then check to close the table %>
+      <% if close_table %>
+        <%# close the table only if the flag was set indicating that at least one event is listed for the date %>
+        ]
+    }     
+      <% end %>
+
+      <%# create a new table header etc. if the last broadcast event is nil and then flag that the table needs to be closed %>
+      <% close_table = true %>  
+        ,
+            {
+            "@type":"BroadcastEvent",
+            "startDate":"<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%FT%R") %>",
+            "endDate":"<%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%FT%R") %>",
+            "name":"<%= broadcast_event.program.formatted_full_title %>",
+            "about":"<%= broadcast_event.sport.name %>",
+            "isAccessibleForFree":"<%= broadcast_event.broadcast_service.provider.accessible_for_free? %>", 
+            "publishedOn":[
+                {
+                "@type":"BroadcastService",
+                "name": "<%= broadcast_event.channel.name %>"
+                }
+
+    <% elsif !(broadcast_event.sport.name == last_broadcast_event.sport.name && broadcast_event.channel.short_name == last_broadcast_event.channel.short_name && broadcast_event.program.formatted_full_title == last_broadcast_event.program.formatted_full_title && broadcast_event.formatted_scheduled_date == last_broadcast_event.formatted_scheduled_date && broadcast_event.formatted_end_date == last_broadcast_event.formatted_end_date) %>
+      <%# else if the broadcast event is different from the predecessor then add a new row %>
+                ]
+            },
+            {
+            "@type":"BroadcastEvent",
+            "startDate":"<%= broadcast_event.formatted_scheduled_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%FT%R") %>",
+            "endDate":"<%= broadcast_event.formatted_end_date.in_time_zone(broadcast_event.region.time_zone_name).strftime("%FT%R") %>",
+            "name":"<%= broadcast_event.program.formatted_full_title %>",
+            "about":"<%= broadcast_event.sport.name %>",
+            "isAccessibleForFree":"<%= broadcast_event.broadcast_service.provider.accessible_for_free? %>", 
+            "publishedOn":[
+                {
+                "@type":"BroadcastService",
+                "name": "<%= broadcast_event.channel.name %>"
+                }
+
+    <% else %>
+      <%# else the broadcast event must be the same as the predecessor so just append the current row %>
+                ,
+                {
+                "@type":"BroadcastService",
+                "name": "<%= broadcast_event.channel.name %>"
+                }
+      
+    <% end %>
+    <% last_broadcast_event = broadcast_event %>  
+  <%# end of the broadcast_event.current? statement %>
+  <% end %>
+<%# end of the broadcast_events.each loop %>
+<% end %>
+
+<% if close_table %>
+<%# for the final code execution, close the table only if the flag was set indicating that at least one event is listed for the date%>
+        ]
+    }     
+<% end %>
+  ]
+}
+</script>

@@ -27,6 +27,10 @@ class Provider < ActiveRecord::Base
 
   before_save :set_url_friendly_name
     
+  def accessible_for_free?
+    service_tier == "Free"
+  end
+
   protected
     def set_url_friendly_name
       self.url_friendly_name = name.parameterize
