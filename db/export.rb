@@ -1,7 +1,9 @@
 require "csv"
 
-broadcast_events = BroadcastEvent.includes(:program, :broadcast_service, :region, :channel, :keyword, :sport)
-export_summary = broadcast_events.pluck(
+puts "#{Time.now.strftime("%F %T %Z")}: Started export"
+
+broadcast_events = BroadcastEvent.includes(:program, :broadcast_service, :region, :channel, :keyword, :sport).order('programs.title', 'programs.episode_title')
+entries = broadcast_events.pluck(
     :'programs.title',
     :'programs.episode_title', 
     :'sports.name', 
@@ -11,31 +13,34 @@ export_summary = broadcast_events.pluck(
     :'keywords.black_flag'
     ).uniq
 
-CSV.open("db/data/broadcast_event_data.csv", "wb") do |csv|
-  csv << ["Program Title", "Episode Title", "Sport Name", "Sport Flag", "Region Flag", "Channel Flag", "Keyword Flag"]
-    export_summary.each do |export_event|
-    csv << [export_event[0], export_event[1], export_event[2], export_event[3], export_event[4], export_event[5], export_event[6]]
-  end
-end
+puts "#{Time.now.strftime("%F %T %Z")}: >> Broadcast events  = #{broadcast_events.count}"
+puts "#{Time.now.strftime("%F %T %Z")}: >> Unique broadcast events  = #{entries.count}"
 
+return_array = Array.new
+for entry in entries do
+    new_entry = Array.new
+    new_entry << entry[0] + " " + entry[1]
+    if (entry[3] == 1 || entry[4] == 1 || entry[5] == 1 || entry[6] == 1)
+      new_entry << "Non Sport"
+    elsif entry[2] == "Non Sport"
+      new_entry << "Non Sport"
+    else
+      new_entry << "Sport"
+    end   
+    new_entry << entry[2]
+    return_array << new_entry
+end
+    
+unique_return_array = return_array.uniq
+puts "#{Time.now.strftime("%F %T %Z")}: >> Unique consolidated events  = #{unique_return_array.count}"
 
 CSV.open("db/data/program_data.csv", "wb") do |csv|
   csv << ["Program Title", "Sport Flag", "Sport"]
-  export_summary.each do |export_event|
-    formatted_full_title = export_event[0] + " " + export_event[1]
-    #puts "The export event = #{export_event}"
-    # if any of the black flags are set then the sport should be set to 'Non Sport'
-    if (export_event[3] == 1 || export_event[4] == 1 || export_event[5] == 1 || export_event[6] == 1)
-      sport_flag = "Non Sport"
-      sport_name = "Non Sport"
-    else
-      sport_name = export_event[2]
-      if sport_name == "Non Sport"
-        sport_flag = "Non Sport"
-      else
-        sport_flag = "Sport"
-      end
-    end
-    csv << [formatted_full_title, sport_flag, sport_name]
-  end
+  for export_summary in unique_return_array do
+    #puts "The export event = #{export_summary}"
+    csv << [export_summary[0], export_summary[1], export_summary[2]]
+  end 
+
 end
+
+puts "#{Time.now.strftime("%F %T %Z")}: Completed export"

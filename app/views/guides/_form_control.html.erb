@@ -1,33 +1,5 @@
 
-<% if true %>
-
-<div class="form-group">
-  <div class="row guide-form-control">
-    <div class="col-xs-6 col-sm-3">
-      <%= label_tag 'Region:', nil, class: 'guide_label' %>
-      <%= select_tag('region', options_for_select(Region.whitelisted.order(:name).map{|r| [r.name, r.url_friendly_name]}, (@region.url_friendly_name if @region)), class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
-    </div>
-    <div class="col-xs-6 col-sm-3">
-      <%= label_tag 'Sport:', nil, class: 'guide_label' %>
-      <%= select_tag('sport', options_for_select([["Select sport...", ""]] + Sport.whitelisted.order(:name).map{|s| [s.name, s.url_friendly_name]}, (@sport.url_friendly_name if @sport)),class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-      <%= form_tag("/#{@region.url_friendly_name}", :method => "get") do %>
-        <%= label_tag 'Search:', nil, class: 'guide_label' %>
-        <div class="input-group">
-          <%= search_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: 'Search for...' %>
-          <span class="input-group-btn">
-            <button class='btn btn-info btn-sm'>
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </span>
-        </div><!-- /input-group -->
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<% else %>
+<% if current_user && admin_user? %>
 
 <div class="form-group">
   <div class="row guide-form-control">
@@ -55,39 +27,53 @@
       </div><!-- /col-xs-6 col-sm-6 -->
 
       <div class="col-xs-6 col-sm-3">
-        <%= label_tag 'Filter Free TV:', nil, class: 'guide_label' %>
-        <div class="input-group">
-          <span class="input-group-addon beautiful">
+        <div class="funkyradio">
+          <div class="funkyradio-default">
+            <%= label_tag 'Filter Free TV:', nil, class: 'guide_label' %>
             <%= check_box_tag('freefilter', 'Filter Free TV', params[:freefilter], {value: true, class: 'input-sm', onchange: 'this.form.submit();'}) %>
-          </span>
-        </div><!-- /input-group -->
+          </div>
+        </div>
       </div><!-- /col-xs-6 col-sm-3 -->
         
       <div class="col-xs-6 col-sm-3">
-      <%= label_tag 'Filter 4K (UHD):', nil, class: 'guide_label' %>
-        <%= check_box_tag('uhdfilter', 'Filter 4K (UHD)', params[:uhdfilter], {value: true, class: 'input-sm', onchange: 'this.form.submit();'}) %>
+        <div class="funkyradio">
+          <div class="funkyradio-default">
+            <%= label_tag 'Filter 4K (UHD):', nil, class: 'guide_label' %>
+            <%= check_box_tag('uhdfilter', 'Filter 4K (UHD)', params[:uhdfilter], {value: true, class: 'input-sm', onchange: 'this.form.submit();'}) %>
+          </div>
+        </div>
       </div><!-- /col-xs-6 col-sm-3 -->
 
     <% end %><!-- /form_tag -->
+  </div><!-- /row -->
+</div>
+            
+<% else %>
+
+<div class="form-group">
+  <div class="row guide-form-control">
+    <div class="col-xs-6 col-sm-3">
+      <%= label_tag 'Region:', nil, class: 'guide_label' %>
+      <%= select_tag('region', options_for_select(Region.whitelisted.order(:name).map{|r| [r.name, r.url_friendly_name]}, (@region.url_friendly_name if @region)), class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
+    </div>
+    <div class="col-xs-6 col-sm-3">
+      <%= label_tag 'Sport:', nil, class: 'guide_label' %>
+      <%= select_tag('sport', options_for_select([["Select sport...", ""]] + Sport.whitelisted.order(:name).map{|s| [s.name, s.url_friendly_name]}, (@sport.url_friendly_name if @sport)),class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+      <%= form_tag("/#{@region.url_friendly_name}", :method => "get") do %>
+        <%= label_tag 'Search:', nil, class: 'guide_label' %>
+        <div class="input-group">
+          <%= search_field_tag :search, params[:search], class: 'form-control input-sm', placeholder: 'Search for...' %>
+          <span class="input-group-btn">
+            <button class='btn btn-info btn-sm'>
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </span>
+        </div><!-- /input-group -->
+      <% end %>
+    </div>
   </div>
 </div>
-
-<div class="col-lg-6">
-                <div class="input-group">
-                    <span class="input-group-addon beautiful">
-                        <input type="checkbox">
-                    </span>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-            
-            <div class="col-lg-6">
-                <div class="input-group">
-                    <span class="input-group-addon beautiful">
-                        <input type="radio">
-                    </span>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
 
 <% end %>
