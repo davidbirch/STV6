@@ -45,6 +45,18 @@ class Program < ActiveRecord::Base
     keyword.sport.name  
   end
 
+  def list_of_words_in_full_title
+    (title + episode_title).split(/\W+/)
+  end
+
+  def count_of_words_in_full_title
+    counts = Hash.new 0
+    list_of_words_in_full_title.each do |word|
+      counts[word] += 1
+    end
+    counts
+  end
+
   class << self
     
     def create_from_raw_program(raw_program, broadcast_service)

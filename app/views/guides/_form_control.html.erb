@@ -4,17 +4,17 @@
 <div class="form-group">
   <div class="row guide-form-control">
 
-    <div class="col-xs-6 col-sm-6">
+    <div class="col-xs-6 col-sm-3">
       <%= label_tag 'Region:', nil, class: 'guide_label' %>
       <%= select_tag('region', options_for_select(Region.whitelisted.order(:name).map{|r| [r.name, r.url_friendly_name]}, (@region.url_friendly_name if @region)), class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
-    </div><!-- /col-xs-6 col-sm-6 -->
-    <div class="col-xs-6 col-sm-6">
+    </div><!-- /col-xs-6 col-sm-3 -->
+    <div class="col-xs-6 col-sm-3">
       <%= label_tag 'Sport:', nil, class: 'guide_label' %>
       <%= select_tag('sport', options_for_select([["Select sport...", ""]] + Sport.whitelisted.order(:name).map{|s| [s.name, s.url_friendly_name]}, (@sport.url_friendly_name if @sport)), class: 'form-control input-sm', :onchange => 'guide_onchange_handler()') %>
-    </div><!-- /col-xs-6 col-sm-6 -->
+    </div><!-- /col-xs-6 col-sm-3 -->
 
     <%= form_tag(nil, :method => "get") do %>
-      <div class="col-xs-6 col-sm-6">
+      <div class="col-xs-12 col-sm-6">
         <%= label_tag 'Search:', nil, class: 'guide_label' %>
         <div class="input-group">
           <%= search_field_tag(:search, params[:search], {class: 'form-control input-sm', placeholder: 'Search for...'}) %>
@@ -24,24 +24,24 @@
             </button>
           </span>
         </div><!-- /input-group -->
-      </div><!-- /col-xs-6 col-sm-6 -->
+      </div><!-- /col-xs-12 col-sm-6 -->
 
       <div class="col-xs-6 col-sm-3">
-        <div class="funkyradio">
-          <div class="funkyradio-default">
-            <%= label_tag 'Filter Free TV:', nil, class: 'guide_label' %>
-            <%= check_box_tag('freefilter', 'Filter Free TV', params[:freefilter], {value: true, class: 'input-sm', onchange: 'this.form.submit();'}) %>
+        <div class="pretty p-default p-thick">
+          <%= check_box_tag(:freefilter, true) %>
+          <div class="state p-info-o">
+            <%= label_tag(:free_filter, "Free TV") %>
           </div>
-        </div>
+        </div><!-- /input-group -->
       </div><!-- /col-xs-6 col-sm-3 -->
-        
+
       <div class="col-xs-6 col-sm-3">
-        <div class="funkyradio">
-          <div class="funkyradio-default">
-            <%= label_tag 'Filter 4K (UHD):', nil, class: 'guide_label' %>
-            <%= check_box_tag('uhdfilter', 'Filter 4K (UHD)', params[:uhdfilter], {value: true, class: 'input-sm', onchange: 'this.form.submit();'}) %>
+        <div class="pretty p-default p-thick">
+          <%= check_box_tag(:uhdfilter, true) %>
+          <div class="state p-info-o">
+            <%= label_tag(:uhd_filter, "Ultra High Def.") %>
           </div>
-        </div>
+        </div><!-- /input-group -->
       </div><!-- /col-xs-6 col-sm-3 -->
 
     <% end %><!-- /form_tag -->

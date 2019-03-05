@@ -1,0 +1,23 @@
+<% unless defined?(locals[:word_cloud_target]).nil? %>
+<script type="text/javascript">
+  var keywords = [
+    <% locals[:word_cloud_target].each_with_index do |word, i| %>
+      {text: "<%= word[0]%>", weight: <%= word[1]%>}<%= ',' if i < (locals[:word_cloud_target].size - 1) %>
+    <% end %>
+  ];
+  $(document).ready(function() {
+    $("#wordcloud").jQCloud(keywords, {autoResize: true});
+  });
+</script>
+<div class="table-responsive small">
+  <table class="table table-condensed table-stretched">
+    <tbody>
+      <tr>
+        <td>
+          <div id="wordcloud" style="height: 200px;"></div>
+        </td>    
+      </tr>      
+    </tbody>  
+  </table>
+</div>
+<% end %>

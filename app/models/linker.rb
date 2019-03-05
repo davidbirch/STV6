@@ -25,7 +25,9 @@ class Linker < ActiveRecord::Base
     @log.info("#{self.class} started (id:#{self.id})") 
     lambda = Aws::Lambda::Client.new(region: 'ap-southeast-2')
 
-    sports = Sport.all
+    #sports = Sport.all
+    sports = Sport.where.not(name: "Non Sport")
+
     sports.each do |sport|
       programs = sport.programs
           
@@ -48,23 +50,24 @@ class Linker < ActiveRecord::Base
         end
 
         # for each program make a prediction
-        if program.sport_prediction == nil
-          program.sport_prediction_started_at = Time.now
-          lambda_json_request = {:programTitle => program.formatted_full_title.tr('"','')}.to_json # => {"programTitle : "[the program.formatted_full_title]"}
+        
+        #if program.sport_prediction == nil
+        #  program.sport_prediction_started_at = Time.now
+        #  lambda_json_request = {:programTitle => program.formatted_full_title.tr('"','')}.to_json # => {"programTitle : "[the program.formatted_full_title]"}
           #job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Lambda JSON Request:  #{lambda_json_request}")
           #job.save
-          response = lambda.invoke(function_name: 'mySportClassificationFunction', payload: lambda_json_request)
-          lambda_json_response = JSON.load(response.payload.string) # => {"statusCode"=>200, "body"=>"[the program.formatted_full_title]", "isSport"=>true}
-          program.sport_prediction_completed_at = Time.now
-          if lambda_json_response["isSport"] == nil
-            program.sport_prediction = nil
-          elsif lambda_json_response["isSport"] == true
-            program.sport_prediction = "Sport"
-          else
-            program.sport_prediction = "Non Sport"
-          end
-          program.save 
-        end
+        #  response = lambda.invoke(function_name: 'mySportClassificationFunction', payload: lambda_json_request)
+        #  lambda_json_response = JSON.load(response.payload.string) # => {"statusCode"=>200, "body"=>"[the program.formatted_full_title]", "isSport"=>true}
+        #  program.sport_prediction_completed_at = Time.now
+        #  if lambda_json_response["isSport"] == nil
+        #    program.sport_prediction = nil
+        #  elsif lambda_json_response["isSport"] == true
+        #    program.sport_prediction = "Sport"
+        #  else
+        #    program.sport_prediction = "Non Sport"
+        #  end
+        #  program.save 
+        #end
       end
       job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Total programs modified:  #{programs_modified}")
       job.log.concat("\n#{Time.now.strftime("%F %T %Z")}: > Total programs skipped:  #{programs_skipped}")      

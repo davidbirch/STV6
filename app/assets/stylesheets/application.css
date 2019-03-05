@@ -14,5 +14,7 @@
  *= require bootstrap_and_overrides
  *= require formtastic-bootstrap
  *= require custom
+ *= require jqcloud
+ *= require pretty-checkbox
  *= require bootstrap_custom_callouts
  */

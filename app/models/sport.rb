@@ -29,6 +29,24 @@ class Sport < ActiveRecord::Base
   
   before_save :set_url_friendly_name
     
+  def count_of_words_in_program_full_titles
+    counts = Hash.new 0
+    entries = programs.pluck(
+      :'title',
+      :'episode_title'
+      )
+    entries.each do |entry|
+      (entry[0] + entry[1]).split(/\W+/).each do |word|
+        counts[word] += 1
+      end
+    end   
+    counts  
+  end
+
+  def truncated_and_sorted_count_of_words_in_program_full_titles
+    count_of_words_in_program_full_titles.delete_if {|word, count| count < 5 or word.length == 1}.sort_by { |word, count| count }.reverse!
+  end
+
   protected
     def set_url_friendly_name
       self.url_friendly_name = name.parameterize

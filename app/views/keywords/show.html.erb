@@ -15,7 +15,8 @@ locals: {
       <%= render "shared/flash" %>
       <%= render "shared/content_header", locals: {header: "Keyword"}  %>
       <%= render "form_show" %>
+      <%= render "shared/word_cloud", locals: {word_cloud_target: @keyword.truncated_and_sorted_count_of_words_in_program_full_titles} %>
       <%= render "programs/table_index", locals: {header: "Listing Programs"} %>
-   </div><!-- /col-lg-12 -->
+    </div><!-- /col-lg-12 -->
   </div><!-- /row -->
 </div> <!-- /container -->

@@ -6,7 +6,8 @@ broadcast_events = BroadcastEvent.includes(:program, :broadcast_service, :region
 entries = broadcast_events.pluck(
     :'programs.title',
     :'programs.episode_title', 
-    :'sports.name', 
+    :'sports.name',
+    :'sports.id', 
     :'sports.black_flag', 
     :'regions.black_flag', 
     :'channels.black_flag', 
@@ -20,7 +21,7 @@ return_array = Array.new
 for entry in entries do
     new_entry = Array.new
     new_entry << entry[0] + " " + entry[1]
-    if (entry[3] == 1 || entry[4] == 1 || entry[5] == 1 || entry[6] == 1)
+    if (entry[4] == 1 || entry[5] == 1 || entry[6] == 1 || entry[7] == 1)
       new_entry << "Non Sport"
     elsif entry[2] == "Non Sport"
       new_entry << "Non Sport"
@@ -28,6 +29,7 @@ for entry in entries do
       new_entry << "Sport"
     end   
     new_entry << entry[2]
+    new_entry << entry[3]
     return_array << new_entry
 end
     
@@ -35,10 +37,10 @@ unique_return_array = return_array.uniq
 puts "#{Time.now.strftime("%F %T %Z")}: >> Unique consolidated events  = #{unique_return_array.count}"
 
 CSV.open("db/data/program_data.csv", "wb") do |csv|
-  csv << ["Program Title", "Sport Flag", "Sport"]
+  csv << ["Program Title", "Sport Flag", "Sport", "Sport ID"]
   for export_summary in unique_return_array do
     #puts "The export event = #{export_summary}"
-    csv << [export_summary[0], export_summary[1], export_summary[2]]
+    csv << [export_summary[0], export_summary[1], export_summary[2], export_summary[3]]
   end 
 
 end
