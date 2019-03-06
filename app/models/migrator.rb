@@ -47,7 +47,7 @@ class Migrator < ActiveRecord::Base
         channels_created = 0
         broadcast_services_skipped = 0
         broadcast_services_created = 0
-        raw_channels.each {|raw_channel|
+        raw_channels.find_each {|raw_channel|
           raw_channel_count += 1
           channel = Channel.create_from_raw_channel(raw_channel)
           if channel.new_record?
