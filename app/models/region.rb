@@ -41,6 +41,20 @@ class Region < ActiveRecord::Base
     self.broadcast_events.chronological.last.formatted_scheduled_date.in_time_zone(self.time_zone_name).strftime("%F") unless self.broadcast_events.chronological.first.nil?
   end
 
+  class << self
+
+      def event_time_series_data_points_by_day_and_region
+        # the data points for the broadcast events by time series chart
+        data_series = Hash.new 0
+        data_series = BroadcastEvent.includes(:region).chronological.group(:'regions.name', :'formatted_local_start_date').references(:region).count
+        data_labels = BroadcastEvent.group(:'formatted_local_start_date').pluck(:'formatted_local_start_date')
+        data_series_names = Region.pluck(:name)
+
+        return data_labels, data_series_names, data_series
+      end
+
+  end
+
   protected
     def set_url_friendly_name
       self.url_friendly_name = name.parameterize

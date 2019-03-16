@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_100416) do
+ActiveRecord::Schema.define(version: 2019_03_16_110407) do
 
   create_table "broadcast_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "program_id"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_11_19_100416) do
     t.datetime "updated_at", null: false
     t.index ["broadcast_service_id"], name: "index_broadcast_events_on_broadcast_service_id"
     t.index ["epoch_scheduled_date"], name: "index_broadcast_events_on_epoch_scheduled_date"
+    t.index ["formatted_local_start_date"], name: "index_broadcast_events_on_formatted_local_start_date"
     t.index ["program_id", "broadcast_service_id", "epoch_scheduled_date"], name: "be custom index", unique: true
     t.index ["program_id"], name: "index_broadcast_events_on_program_id"
   end

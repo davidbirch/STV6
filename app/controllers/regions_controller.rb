@@ -19,6 +19,7 @@ class RegionsController < ApplicationController
   # GET /regions
   def index
     @regions =  Region.includes(:channels)
+    @daily_data_labels, @daily_data_series_names, @daily_data_series = Region.event_time_series_data_points_by_day_and_region
   end
 
   # GET /regions/1

@@ -1,0 +1,93 @@
+<% chart_name = locals[:chart_name] %>
+<% canvas_id = locals[:canvas_id] %>
+<% canvas_width = 200 %>
+<% canvas_height = 100 %>
+<% x_axis_label = "Time" %>
+<% y_axis_label = "Events" %>
+<% series_type = "Region" %>
+<% chart_colors = ['rgb(232, 14, 65)', 'rgb(246, 174, 62)', 'rgb(254, 219, 65)', 'rgb(149, 211, 94)', 'rgb(58, 170, 224)', 'rgb(94, 1, 174)','rgb(23, 49, 109)', 'rgb(48, 91, 157)', 'rgb(244, 210, 164)','rgb(251, 237, 194)', 'rgb(245, 175, 173)', 'rgb(198, 44, 47)'] %>
+<div class="chart-container">
+  <canvas id="<%= canvas_id %>" width="<%= canvas_width %>" height="<%= canvas_height %>"></canvas>
+  <script>
+	var config = {
+			type: 'line',
+			data: {
+				labels: [
+					<% locals[:data_labels].each_with_index do |data_label, i| %>
+						'<%= data_label %>'<%= ',' if i < (locals[:data_labels].size - 1) %>
+					<% end %>
+					],
+				datasets: [
+					<% locals[:data_series_names].each_with_index do |data_series_name, i| %>
+					{
+					label: '<%= data_series_name %>',
+					backgroundColor: '<%= chart_colors[i-1] %>',
+					borderColor: '<%= chart_colors[i-1] %>',
+					fill: false,
+					data: [
+					<% locals[:data_labels].each_with_index do |data_label, j| %>
+						<%= locals[:data_series][[data_series_name, data_label]] %><%= ',' if j < (locals[:data_labels].size - 1) %>
+					<% end %>
+						],
+					}<%= ',' if i < (locals[:data_series_names].size - 1) %>
+					<% end %>
+				]
+			},
+			options: {
+				responsive: true,
+                title: {
+                <% if chart_name == "" %>
+                    display: false
+                <% else %>
+					display: true,
+                    position: 'top',
+					text: '<%= chart_name %>'
+                <% end %>
+				},
+                legend: {
+                    display: false
+                },
+				tooltips: {
+					mode: 'index',
+					intersect: false,
+				},
+				hover: {
+					mode: 'nearest',
+					intersect: true
+				},
+				scales: {
+					xAxes: [{
+                        display: true,
+						scaleLabel: {
+						<% if x_axis_label == "" %>
+							display: false
+						<% else %>
+							display: true,
+							labelString: '<%= x_axis_label %>'
+						<% end %>
+						}
+					}],
+					yAxes: [{
+                        display: true,
+						ticks: {
+                			beginAtZero: true
+            			},
+						scaleLabel: {
+						<% if y_axis_label == "" %>
+							display: false
+						<% else %>
+							display: true,
+							labelString: '<%= y_axis_label %>'
+						<% end %>	
+						}
+					}]
+				}
+			}
+		};
+
+	window.onload = function() {
+		var ctx = document.getElementById('<%= canvas_id %>').getContext('2d');
+		window.myLine = new Chart(ctx, config);
+	};
+  </script>     
+</div>
