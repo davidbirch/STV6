@@ -17,6 +17,7 @@ class SportsController < ApplicationController
   # GET /sports
   def index
     @sports = Sport.includes(:keywords)
+    @daily_data_labels, @daily_data_series_names, @daily_data_series = Sport.event_time_series_data_points_by_day_and_sport
   end
 
   # GET /sports/1

@@ -1,6 +1,10 @@
 <% unless defined?(locals[:header]).nil? %>
 <h4><%= locals[:header] %></h4>
 <% end %>    
+
+<%= render "chart_of_events_over_time_by_sport", locals: {chart_name: "Broadcast Events Over Time By Day And Sport", canvas_id: "broadcast-events-over-time-by-day-and-sport", data_labels: @daily_data_labels, data_series_names: @daily_data_series_names, data_series: @daily_data_series} %>
+
+
 <div class="table-responsive small">
   <table class="table table-condensed table-stretched">
     <thead>
@@ -9,10 +13,7 @@
         <th>Name</th>
         <th>Black Flag</th>
         <th>Keyword Count</th>
-        <th>Matched Programs</th>
-        <th>Mismatched Programs</th>
-        <th>Nil Programs</th>
-        <th>Total Programs</th>
+        <th>Program Count</th>
         <th>Broadcast Event Count</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -36,15 +37,6 @@
           <% end %>
           </td>
           <td><%= sport.keywords.count %></td>
-          <% if sport.name == "Non Sport" %>
-            <td><%= sport.programs.where(sport_prediction: "Non Sport").count %></td>
-            <td><%= sport.programs.where(sport_prediction: "Sport").count %></td>
-            <td><%= sport.programs.where(sport_prediction: nil).count %></td>
-          <% else %>
-            <td><%= sport.programs.where(sport_prediction: "Sport").count %></td>
-            <td><%= sport.programs.where(sport_prediction: "Non Sport").count %></td>
-            <td><%= sport.programs.where(sport_prediction: nil).count %></td>
-          <% end %>
           <td><%= sport.programs.count %></td>
           <td><%= sport.broadcast_events.count %></td>
           <td><%= render "shared/form_actions", locals: {actions: ["Edit"], edit_path: edit_sport_path(sport)} %></td>

@@ -47,6 +47,20 @@ class Sport < ActiveRecord::Base
     count_of_words_in_program_full_titles.delete_if {|word, count| count < 5 or word.length == 1}.sort_by { |word, count| count }.reverse!
   end
 
+  class << self
+
+    def event_time_series_data_points_by_day_and_sport
+      # the data points for the broadcast events by time series chart
+      data_series = Hash.new 0
+      data_series = BroadcastEvent.includes(:sport).chronological.group(:'sports.name', :'formatted_local_start_date').references(:sport).count
+      data_labels = BroadcastEvent.group(:'formatted_local_start_date').pluck(:'formatted_local_start_date')
+      data_series_names = Sport.pluck(:name)
+
+      return data_labels, data_series_names, data_series
+    end
+
+  end
+
   protected
     def set_url_friendly_name
       self.url_friendly_name = name.parameterize
