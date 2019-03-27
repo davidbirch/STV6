@@ -110,6 +110,9 @@ gem 'newrelic_rpm'
 gem "rubocop-rails_config"
 gem 'rubocop-rspec'
 
+# Database
+gem "lol_dba"
+
 # Profiling
 gem 'rack-mini-profiler', :require => false
 #gem 'rack-mini-profiler'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_16_110407) do
+ActiveRecord::Schema.define(version: 2019_03_21_113713) do
 
   create_table "broadcast_events", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "program_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_03_16_110407) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "four_k_flag"
+    t.index ["provider_id"], name: "index_channels_on_provider_id"
   end
 
   create_table "cleaners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_03_16_110407) do
     t.string "detail_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["detail_id", "detail_type"], name: "index_jobs_on_detail_id_and_detail_type"
   end
 
   create_table "keywords", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -104,6 +106,7 @@ ActiveRecord::Schema.define(version: 2019_03_16_110407) do
     t.boolean "black_flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sport_id"], name: "index_keywords_on_sport_id"
   end
 
   create_table "linkers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -132,6 +135,7 @@ ActiveRecord::Schema.define(version: 2019_03_16_110407) do
     t.string "sport_prediction"
     t.datetime "sport_prediction_started_at"
     t.datetime "sport_prediction_completed_at"
+    t.index ["keyword_id"], name: "index_programs_on_keyword_id"
   end
 
   create_table "providers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
